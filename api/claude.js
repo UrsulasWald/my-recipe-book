@@ -1,3 +1,11 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -12,14 +20,20 @@ export default async function handler(req, res) {
   }
 
   try {
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+
+    if (!body || !body.messages) {
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
+        'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify(req.body)
+      body: JSON.stringify(body),
     });
 
     const data = await response.json();
