@@ -1153,7 +1153,7 @@ async function readScreenshot() {
 画像が手書きメモでも、インスタのスクショでも、レシピサイトの画像でも対応してください。
 読み取れない項目は空文字にしてください。`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1268,7 +1268,7 @@ URL: ${url}
 URLがInstagramの場合は、source に URLを設定し、その他フィールドを空のままにしてください。
 `;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
