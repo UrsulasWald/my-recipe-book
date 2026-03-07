@@ -1455,6 +1455,34 @@ document.getElementById('shareModal').addEventListener('click', e => {
   if (e.target === document.getElementById('shareModal')) closeShareModal();
 });
 
+// ===== WINDOW EXPORTS (onclick属性から呼べるように) =====
+window.addCustomTag = addCustomTag;
+window.editCustomTag = editCustomTag;
+window.editRecipeName = editRecipeName;
+window.editRecipeSource = editRecipeSource;
+window.renderList = renderList;
+window.renderTagFilter = renderTagFilter;
+window.setTag = setTag;
+window.openDetail = openDetail;
+window.closeDetailModal = closeDetailModal;
+window.openAddModal = openAddModal;
+window.closeAddModal = closeAddModal;
+window.addIngredient = addIngredient;
+window.handleTagInput = handleTagInput;
+window.removeFormTag = removeFormTag;
+window.handlePhoto = handlePhoto;
+window.handleScreenshot = handleScreenshot;
+window.readScreenshot = readScreenshot;
+window.quickAddPhoto = quickAddPhoto;
+window.extractFromUrl = extractFromUrl;
+window.saveRecipe = saveRecipe;
+window.editRecipe = editRecipe;
+window.deleteRecipe = deleteRecipe;
+window.shareRecipe = shareRecipe;
+window.closeShareModal = closeShareModal;
+window.copyShare = copyShare;
+window.showToast = showToast;
+
 // ===== INIT =====
 // Firebase onAuthStateChanged で初期化するため、ここでは何もしない
 </script>
