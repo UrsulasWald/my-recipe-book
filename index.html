@@ -914,6 +914,7 @@ function openAddModal(prefill = {}) {
   renderFormTags();
 
   document.getElementById('addModal').classList.add('open');
+  document.querySelector('#addModal .modal').scrollTop = 0;
 }
 
 function closeAddModal() {
