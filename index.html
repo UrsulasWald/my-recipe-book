@@ -331,9 +331,13 @@
             <input type="file" accept=".json" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="importData(this)">
           </label>
         </div>
+        <button class="action-btn" style="width:100%;justify-content:center;background:var(--yellow);font-size:12px;" onclick="exportBackupHTML()">
+          📄 バックアップHTML（見るだけ版）を保存
+        </button>
         <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
           エクスポートしたファイルを別のデバイスでインポートすると、レシピを引き継げます。<br>
-          ⚠ インポートすると既存データに追加されます（上書きではない）。
+          ⚠ インポートすると既存データに追加されます（上書きではない）。<br>
+          📄 バックアップHTMLはアプリなしでもブラウザで開けます。
         </div>
         <div class="screenshot-status" id="importStatus" style="margin-top:6px;"></div>
       </div>
@@ -1312,6 +1316,223 @@ function importData(input) {
   };
   reader.readAsText(file);
   input.value = '';
+}
+
+// ===== EXPORT BACKUP HTML =====
+function exportBackupHTML() {
+  const recipes = loadRecipes();
+  const customTags = loadCustomTags();
+  const date = new Date().toISOString().slice(0, 10);
+
+  const colorMap = ['#3dce82','#c8b4f0','#FFFF00','#f08040','#60b0f0'];
+  const tagColors = [
+    {bg:'rgba(61,206,130,0.15)',color:'#1fa85e'},
+    {bg:'rgba(200,180,240,0.4)',color:'#7040c0'},
+    {bg:'rgba(240,226,32,0.3)',color:'#907000'},
+    {bg:'rgba(240,128,64,0.15)',color:'#c05020'},
+    {bg:'rgba(96,176,240,0.2)',color:'#2060a0'}
+  ];
+
+  function escHtml(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  const allTags = ['すべて', ...new Set(recipes.flatMap(r => r.tags || []))];
+
+  const cardsHtml = recipes.map(r => {
+    const accentColor = colorMap[r.color || 0];
+    const tagHtml = (r.tags||[]).slice(0,3).map((t,i) => {
+      const tc = tagColors[i%5];
+      return `<span style="font-size:9px;font-weight:700;padding:2px 7px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:${tc.bg};color:${tc.color};">${escHtml(t)}</span>`;
+    }).join('');
+    const dateStr = new Date(r.createdAt).toLocaleDateString('ja-JP',{month:'short',day:'numeric'});
+    const ingrCount = (r.ingredients||[]).length;
+
+    const ingrRows = (r.ingredients||[]).map(i =>
+      `<tr><td style="padding:8px 0;font-size:14px;font-weight:700;border-bottom:1px solid #e8dcff;">${escHtml(i.name)}</td><td style="padding:8px 0;font-size:12px;color:#666;text-align:right;border-bottom:1px solid #e8dcff;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;">${escHtml(i.amount)}</td></tr>`
+    ).join('');
+
+    const steps = (r.steps||'').split('\n').filter(s=>s.trim());
+    const stepHtml = steps.map((s,i) =>
+      `<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;">
+        <div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">${i+1}</div>
+        <div style="font-size:14px;line-height:1.75;padding-top:3px;">${escHtml(s.replace(/^\d+\.\s*/,''))}</div>
+      </div>`
+    ).join('');
+
+    const detailTagHtml = (r.tags||[]).map((t,i) => {
+      const tc = tagColors[i%5];
+      return `<span style="font-size:13px;font-weight:700;padding:5px 14px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:${tc.bg};color:${tc.color};">${escHtml(t)}</span>`;
+    }).join('');
+
+    const sourceHtml = r.source
+      ? (r.source.startsWith('http')
+          ? `<a href="${escHtml(r.source)}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">${escHtml(r.source)}</a>`
+          : `<span style="color:#1fa85e;">${escHtml(r.source)}</span>`)
+      : '';
+
+    return `
+    <div class="recipe-card" data-tags="${escHtml(JSON.stringify(r.tags||[]))}" data-name="${escHtml(r.name)}" data-source="${escHtml(r.source||'')}" data-memo="${escHtml(r.memo||'')}"
+      style="background:#fff;border:2.5px solid #0f0f0f;cursor:pointer;box-shadow:4px 4px 0 #0f0f0f;margin-bottom:8px;"
+      onclick="openDetail(this)">
+      <div style="height:5px;background:${accentColor};"></div>
+      <div style="padding:10px 12px;display:flex;gap:10px;align-items:flex-start;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:20px;font-weight:400;line-height:1.1;margin-bottom:4px;letter-spacing:0.04em;">${escHtml(r.name)}</div>
+          ${r.source ? `<div style="font-size:10px;color:#666;margin-bottom:6px;display:flex;align-items:center;gap:4px;font-family:'Space Grotesk',sans-serif;font-weight:700;">📌 ${escHtml(r.source)}</div>` : ''}
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">${tagHtml}</div>
+        </div>
+      </div>
+      <div style="padding:6px 12px 8px;display:flex;gap:12px;font-size:10px;color:#666;font-family:'Space Grotesk',sans-serif;font-weight:700;border-top:1px solid #f3eeff;">
+        <span>🥕 ${ingrCount}種類</span>
+        <span>📅 ${dateStr}</span>
+      </div>
+      <!-- DETAIL DATA (hidden) -->
+      <script type="application/json" class="detail-data">${JSON.stringify({
+        name: r.name,
+        source: r.source||'',
+        tags: r.tags||[],
+        ingredients: r.ingredients||[],
+        steps: r.steps||'',
+        memo: r.memo||''
+      })}<\/script>
+    </div>`;
+  }).join('');
+
+  const tagChips = allTags.map(t =>
+    `<div class="tag-chip" data-tag="${escHtml(t)}" onclick="filterTag(this)" style="flex-shrink:0;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;border:2px solid #0f0f0f;background:#fff;color:#0f0f0f;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;">${escHtml(t)}</div>`
+  ).join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MY RECIPE BOOK — ${date}</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Bebas+Neue&family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Zen Kaku Gothic New',sans-serif;background:#e8dcff;color:#0f0f0f;min-height:100vh;max-width:430px;margin:0 auto;}
+.recipe-card:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #0f0f0f !important;}
+.tag-chip.active{background:#0f0f0f !important;color:#FFFF00 !important;}
+.modal-overlay{position:fixed;inset:0;background:rgba(15,15,15,0.6);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#f3eeff;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;animation:slideUp 0.25s ease-out;border:2.5px solid #0f0f0f;border-bottom:none;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<header style="background:#3dce82;border-bottom:3px solid #0f0f0f;position:sticky;top:0;z-index:100;">
+  <div style="display:grid;grid-template-columns:1fr auto;border-bottom:2px solid #0f0f0f;">
+    <div style="padding:12px 16px 10px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(0,0,0,0.5);margin-bottom:2px;">BACKUP — ${date}</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;line-height:0.95;color:#0f0f0f;letter-spacing:0.01em;">MY RECIPE BOOK</div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;padding:0 16px;background:#FFFF00;border-left:2px solid #0f0f0f;">
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#0f0f0f;letter-spacing:0.05em;">${recipes.length} RECIPES</span>
+    </div>
+  </div>
+  <div style="padding:8px 12px;">
+    <input id="searchInput" type="text" placeholder="SEARCH RECIPES..." oninput="filterSearch()"
+      style="width:100%;background:rgba(255,255,255,0.35);border:2px solid #0f0f0f;padding:8px 14px;color:#0f0f0f;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;outline:none;">
+  </div>
+  <div style="overflow-x:auto;padding:8px 12px;display:flex;gap:6px;scrollbar-width:none;background:#c8b4f0;border-bottom:2px solid #0f0f0f;" id="tagFilter">
+    ${tagChips}
+  </div>
+</header>
+
+<div style="padding:8px 14px 2px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#666;" id="recipeCount">${recipes.length} レシピ</div>
+<div style="padding:10px;display:flex;flex-direction:column;" id="recipeList">
+  ${cardsHtml}
+</div>
+<div style="height:40px;"></div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeDetail()">
+  <div class="modal" id="detailContent"></div>
+</div>
+
+<script>
+var activeTag = 'すべて';
+
+function filterTag(el) {
+  activeTag = el.dataset.tag;
+  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+
+function filterSearch() { applyFilters(); }
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.recipe-card');
+  let count = 0;
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const source = card.dataset.source.toLowerCase();
+    const memo = card.dataset.memo.toLowerCase();
+    const tags = JSON.parse(card.dataset.tags);
+    const matchSearch = !q || name.includes(q) || source.includes(q) || memo.includes(q) || tags.some(t=>t.toLowerCase().includes(q));
+    const matchTag = activeTag === 'すべて' || tags.includes(activeTag);
+    card.style.display = (matchSearch && matchTag) ? '' : 'none';
+    if (matchSearch && matchTag) count++;
+  });
+  document.getElementById('recipeCount').textContent = count + ' レシピ';
+}
+
+// 初期タグ
+document.querySelector('.tag-chip[data-tag="すべて"]').classList.add('active');
+
+function openDetail(card) {
+  const data = JSON.parse(card.querySelector('.detail-data').textContent);
+  const tagColors = [
+    {bg:'rgba(61,206,130,0.15)',color:'#1fa85e'},
+    {bg:'rgba(200,180,240,0.4)',color:'#7040c0'},
+    {bg:'rgba(240,226,32,0.3)',color:'#907000'},
+    {bg:'rgba(240,128,64,0.15)',color:'#c05020'},
+    {bg:'rgba(96,176,240,0.2)',color:'#2060a0'}
+  ];
+  const tagHtml = data.tags.map((t,i)=>{const tc=tagColors[i%5];return \`<span style="font-size:13px;font-weight:700;padding:5px 14px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:\${tc.bg};color:\${tc.color};">\${t}</span>\`;}).join('');
+  const ingrHtml = data.ingredients.map(i=>\`<tr><td style="padding:8px 0;font-size:14px;font-weight:700;border-bottom:1px solid #e8dcff;">\${i.name}</td><td style="padding:8px 0;font-size:12px;color:#666;text-align:right;border-bottom:1px solid #e8dcff;">\${i.amount}</td></tr>\`).join('');
+  const steps = data.steps.split('\\n').filter(s=>s.trim());
+  const stepHtml = steps.map((s,i)=>\`<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;"><div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">\${i+1}</div><div style="font-size:14px;line-height:1.75;padding-top:3px;">\${s.replace(/^\\d+\\.\\s*/,'')}</div></div>\`).join('');
+  const sourceHtml = data.source ? (data.source.startsWith('http') ? \`<a href="\${data.source}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">\${data.source}</a>\` : \`<span style="color:#1fa85e;">\${data.source}</span>\`) : '';
+
+  document.getElementById('detailContent').innerHTML = \`
+    <div style="width:36px;height:4px;background:rgba(0,0,0,0.2);margin:12px auto 0;"></div>
+    <div style="padding:12px 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0f0f0f;position:sticky;top:0;background:#f3eeff;z-index:1;">
+      <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:22px;line-height:1.2;max-width:280px;">\${data.name}</div>
+      <button onclick="closeDetail()" style="background:#0f0f0f;border:none;width:32px;height:32px;font-size:14px;cursor:pointer;color:#fff;font-weight:900;">✕</button>
+    </div>
+    <div style="padding:16px;">
+      \${sourceHtml ? \`<div style="font-size:10px;color:#666;margin-bottom:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;">🔗 \${sourceHtml}</div>\` : ''}
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;">\${tagHtml}</div>
+      \${ingrHtml ? \`<div style="margin-bottom:20px;"><div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid #0f0f0f;font-family:'Space Grotesk',sans-serif;opacity:0.5;">材料</div><table style="width:100%;border-collapse:collapse;"><tbody>\${ingrHtml}</tbody></table></div>\` : ''}
+      \${stepHtml ? \`<div style="margin-bottom:20px;"><div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid #0f0f0f;font-family:'Space Grotesk',sans-serif;opacity:0.5;">作り方</div>\${stepHtml}</div>\` : ''}
+      \${data.memo ? \`<div style="margin-bottom:20px;"><div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid #0f0f0f;font-family:'Space Grotesk',sans-serif;opacity:0.5;">メモ・コツ</div><div style="background:#FFFF00;padding:12px 14px;font-size:14px;line-height:1.75;border:2px solid #0f0f0f;">\${data.memo.replace(/\\n/g,'<br>')}</div></div>\` : ''}
+    </div>
+  \`;
+  document.getElementById('detailModal').classList.add('open');
+  document.getElementById('detailContent').scrollTop = 0;
+}
+
+function closeDetail() {
+  document.getElementById('detailModal').classList.remove('open');
+}
+<\/script>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `my-recipe-book-${date}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`バックアップHTMLを保存したよ！`);
 }
 
 // ===== INIT =====
