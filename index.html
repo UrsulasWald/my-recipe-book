@@ -319,6 +319,17 @@
         </div>
       </div>
 
+      <!-- RECIPE TEXT IMPORT -->
+      <div class="settings-section">
+        <div class="settings-section-title">レシピを受け取る</div>
+        <button class="action-btn" style="width:100%;justify-content:center;background:var(--lavender);" onclick="closeSettingsModal();openImportTextModal();">
+          📨 テキストから読み込む
+        </button>
+        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
+          友だちから送られてきたレシピテキストを貼り付けてカードを作れます。
+        </div>
+      </div>
+
       <!-- EXPORT / IMPORT -->
       <div class="settings-section">
         <div class="settings-section-title">データのバックアップ</div>
@@ -336,7 +347,7 @@
         </button>
         <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
           エクスポートしたファイルを別のデバイスでインポートすると、レシピを引き継げます。<br>
-          ⚠ インポートすると既存データに追加されます（上書きではない）。<br>
+          ⚠ インポートすると既存データはすべて上書きされます。<br>
           📄 バックアップHTMLはアプリなしでもブラウザで開けます。
         </div>
         <div class="screenshot-status" id="importStatus" style="margin-top:6px;"></div>
@@ -387,9 +398,30 @@
       <button class="close-btn" onclick="closeShareModal()">✕</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">友だちに送れるテキストを生成しました</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">コピーしてLINEなどで送れます。受け取った人は設定画面の「テキストから読み込む」で取り込めます。</p>
       <div class="share-text" id="shareText"></div>
-      <button class="copy-btn" onclick="copyShare()">📋 コピーする</button>
+      <button class="copy-btn" onclick="copyShare()">📋 テキストをコピー</button>
+      <div style="height:20px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- テキストから読み込みモーダル -->
+<div class="modal-overlay" id="importTextModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">テキストから読み込む</div>
+      <button class="close-btn" onclick="closeImportTextModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.7;">友だちから送られてきたレシピテキストを貼り付けてください。</p>
+      <textarea id="importTextArea" style="width:100%;height:200px;border:2px solid var(--ink);padding:12px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.7;resize:none;outline:none;background:var(--white);" placeholder="🍳 レシピ名&#10;────────&#10;🥕 材料&#10;  ・材料名　量&#10;..."></textarea>
+      <div id="importTextStatus" style="font-size:12px;margin-top:8px;min-height:18px;color:var(--green-dark);font-weight:700;"></div>
+      <div style="display:flex;gap:0;border:2px solid var(--ink);margin-top:12px;">
+        <button onclick="closeImportTextModal()" style="flex:1;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;border:none;background:var(--white);color:var(--ink);cursor:pointer;border-right:2px solid var(--ink);">キャンセル</button>
+        <button onclick="confirmImportText()" style="flex:1;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;border:none;background:var(--green);color:var(--ink);cursor:pointer;">追加する</button>
+      </div>
       <div style="height:20px;"></div>
     </div>
   </div>
@@ -524,57 +556,51 @@ function initSampleData() {
     const samples = [
       {
         id: Date.now() - 3000,
-        name: '麻婆豆腐（ネットで見た本格版）',
-        photo: null,
+        name: '大根の辛子漬け',
         ingredients: [
-          { name: '豆腐（絹）', amount: '1丁' },
-          { name: '豚ひき肉', amount: '150g' },
-          { name: '豆板醤', amount: '大さじ1' },
-          { name: '甜麺醤', amount: '大さじ1' },
-          { name: '花椒', amount: '少々' },
-          { name: 'にんにく', amount: '1かけ' },
-          { name: 'しょうが', amount: '1かけ' },
-          { name: '鶏がらスープ', amount: '200ml' },
-          { name: '片栗粉', amount: '大さじ1' },
+          { name: '大根', amount: '5kg' },
+          { name: '砂糖', amount: '1kg' },
+          { name: '粉がらし', amount: '80g' },
+          { name: '酢', amount: '100ml' },
+          { name: 'みりん', amount: '100ml' },
+          { name: '塩', amount: '50g' },
+          { name: 'ジップロックやビニール袋', amount: '適量' },
         ],
-        steps: '1. 豆腐を2cm角に切り、熱湯で下茹でしておく\n2. フライパンにごま油、にんにく・しょうがを炒める\n3. ひき肉を炒め、豆板醤・甜麺醤を加える\n4. スープを加えて煮立て、豆腐を入れる\n5. 片栗粉でとろみをつける\n6. 花椒をたっぷり！',
-        tags: ['中華', '辛い', 'お気に入り'],
-        source: 'クックパッド',
-        memo: '花椒が決め手。なければ山椒でもOK。豆腐は木綿でもいける。',
+        steps: '1. 大根を洗って、長さを半分、太さを1/4にする（用意した袋に入るくらい）\n2. 大根と他の材料を袋に全部入れて、大根に調味料がつくようにする\n3. 大根と同じくらいの重しをして2〜3日置く\n4. 水が上がってきたら重しを外す\n5. 皮付き太めの大根は20日間後くらいが食べごろ',
+        tags: ['伝承'],
+        source: '上条集落のサト子さんレシピ',
+        memo: '太さによって食べごろはお好み。時期によっては冷蔵庫へ。皮付きの方が食べ応え良い。',
         createdAt: new Date(Date.now() - 3000000).toISOString(),
         color: 0
       },
       {
         id: Date.now() - 2000,
-        name: 'ゆかさんのキャロットラペ',
+        name: '醤油麹',
         ingredients: [
-          { name: 'にんじん', amount: '2本' },
-          { name: 'オリーブオイル', amount: '大さじ3' },
-          { name: '白ワインビネガー', amount: '大さじ2' },
-          { name: '砂糖', amount: '小さじ1' },
-          { name: '塩', amount: '小さじ1/2' },
-          { name: 'クミン', amount: '少々' },
+          { name: '米麹', amount: '200g' },
+          { name: '本醸造醤油', amount: '300ml〜' },
+          { name: '保存容器', amount: '1個' },
         ],
-        steps: '1. にんじんを細切りにする（スライサーが楽）\n2. 塩もみして5分置き、水気を絞る\n3. 調味料を全部混ぜてあえる\n4. 冷蔵庫で1時間以上寝かせる',
-        tags: ['サラダ', '作り置き', 'お弁当'],
-        source: '近所のゆかさん',
-        memo: '塩もみが大事！水気をしっかり絞ること。クミン入れると一気にそれっぽくなる。3日は保存できる。',
+        steps: '1. 米麹を消毒済みの保存容器へ入れる\n2. 醤油を入れて混ぜる\n3. 蓋をして湿気の少ない清潔な場所で常温保存\n4. 仕込んでから1ヶ月開けず混ぜずにそのまま熟成',
+        tags: ['発酵食品'],
+        source: 'SATOMI',
+        memo: '醤油は麹がひたひたになるくらい入れる。翌日麹が醤油を吸ってひたひたになっていなかったら、翌日の1回だけ醤油追加。',
         createdAt: new Date(Date.now() - 2000000).toISOString(),
         color: 1
       },
       {
         id: Date.now() - 1000,
-        name: 'バナナオートミールパンケーキ',
+        name: 'すももサワーシロップ',
         ingredients: [
-          { name: 'バナナ', amount: '1本' },
-          { name: 'オートミール', amount: '50g' },
-          { name: '卵', amount: '1個' },
-          { name: 'ベーキングパウダー', amount: '小さじ1/2' },
+          { name: 'プラム', amount: '400g' },
+          { name: '氷砂糖', amount: '400g' },
+          { name: '酢', amount: '400ml' },
+          { name: '保存瓶', amount: '1個' },
         ],
-        steps: '1. バナナをつぶす\n2. 材料を全部混ぜる\n3. フライパンで両面焼く（弱火でじっくり）',
-        tags: ['朝食', 'ヘルシー', '簡単'],
-        source: 'インスタ @health_recipes',
-        memo: 'これでほんとに小麦粉ゼロ。甘さはバナナだけ。もし甘さが足りなければはちみつを。',
+        steps: '1. プラムはきれいに洗い、ヘタがついていたら取って、竹串で数カ所を刺しておく\n2. アルコール消毒した広口瓶にプラムと氷砂糖を交互に入れる\n3. 最後に酢を加える\n4. 砂糖が溶けるように1日1回程度、瓶を上下にかえして、冷暗所で保存する。1週間ほどで飲み始められる',
+        tags: ['保存食'],
+        source: 'https://hokuohkurashi.com/note/82455',
+        memo: 'シロップの上に出ているフルーツがかびてしまうのを防ぐため、飲みきるまで1日1回、瓶を上下にかえしてください。漬けたフルーツを取り除き、シロップのみ保存容器に移し替えて冷蔵庫で保存することも可能です。シロップのみ冷蔵庫で保存する場合は、上下にかえす必要はありません。',
         createdAt: new Date(Date.now() - 1000000).toISOString(),
         color: 2
       }
@@ -1167,7 +1193,6 @@ function shareRecipe(id) {
   const steps = (recipe.steps || '').trim();
   const memo = recipe.memo ? `\n\n💬 コツ\n${recipe.memo}` : '';
   const source = recipe.source ? `\n\n📌 出典：${recipe.source}` : '';
-
   const text = `🍳 ${recipe.name}\n${'─'.repeat(20)}\n\n🥕 材料\n${ingr}\n\n👩‍🍳 作り方\n${steps}${memo}${source}`;
 
   document.getElementById('shareText').textContent = text;
@@ -1184,6 +1209,88 @@ function copyShare() {
     showToast('コピーしたよ！');
     closeShareModal();
   });
+}
+
+// ===== IMPORT FROM TEXT =====
+function openImportTextModal() {
+  document.getElementById('importTextArea').value = '';
+  document.getElementById('importTextStatus').textContent = '';
+  document.getElementById('importTextModal').classList.add('open');
+}
+
+function closeImportTextModal() {
+  document.getElementById('importTextModal').classList.remove('open');
+}
+
+function parseRecipeText(text) {
+  // レシピ名：🍳 の後ろ
+  const nameMatch = text.match(/🍳\s*(.+)/);
+  const name = nameMatch ? nameMatch[1].trim() : '';
+
+  // 材料ブロック：🥕 材料 〜 次のセクションまで
+  const ingrBlock = text.match(/🥕[^\n]*\n([\s\S]*?)(?=\n👩|🍳|💬|📌|$)/);
+  const ingredients = [];
+  if (ingrBlock) {
+    ingrBlock[1].split('\n').forEach(line => {
+      const m = line.match(/[・\-]\s*(.+?)[\s　]+(.+)/);
+      if (m) {
+        ingredients.push({ name: m[1].trim(), amount: m[2].trim() });
+      } else {
+        const plain = line.replace(/^[・\-\s]+/, '').trim();
+        if (plain) ingredients.push({ name: plain, amount: '' });
+      }
+    });
+  }
+
+  // 作り方ブロック：👩‍🍳 〜 次のセクションまで
+  const stepsBlock = text.match(/👩[^\n]*\n([\s\S]*?)(?=\n💬|\n📌|$)/);
+  const steps = stepsBlock ? stepsBlock[1].trim() : '';
+
+  // コツ
+  const memoMatch = text.match(/💬[^\n]*\n([\s\S]*?)(?=\n📌|$)/);
+  const memo = memoMatch ? memoMatch[1].trim() : '';
+
+  // 出典
+  const sourceMatch = text.match(/📌[^\n]*[:：]\s*(.+)/);
+  const source = sourceMatch ? sourceMatch[1].trim() : '';
+
+  return { name, ingredients, steps, memo, source };
+}
+
+function confirmImportText() {
+  const text = document.getElementById('importTextArea').value.trim();
+  const status = document.getElementById('importTextStatus');
+
+  if (!text) {
+    status.style.color = 'red';
+    status.textContent = 'テキストを貼り付けてください';
+    return;
+  }
+
+  const parsed = parseRecipeText(text);
+
+  if (!parsed.name) {
+    status.style.color = 'red';
+    status.textContent = 'レシピ名が見つかりませんでした。形式を確認してください';
+    return;
+  }
+
+  const recipes = loadRecipes();
+  const newRecipe = {
+    id: Date.now(),
+    name: parsed.name,
+    ingredients: parsed.ingredients,
+    steps: parsed.steps,
+    memo: parsed.memo,
+    source: parsed.source,
+    tags: [],
+    createdAt: new Date().toISOString()
+  };
+  recipes.unshift(newRecipe);
+  saveRecipes(recipes);
+  renderList();
+  closeImportTextModal();
+  showToast(`「${newRecipe.name}」を追加したよ！`);
 }
 
 // ===== TOAST =====
@@ -1207,6 +1314,9 @@ document.getElementById('detailModal').addEventListener('click', e => {
 });
 document.getElementById('shareModal').addEventListener('click', e => {
   if (e.target === document.getElementById('shareModal') && _pointerDownTarget === document.getElementById('shareModal')) closeShareModal();
+});
+document.getElementById('importTextModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('importTextModal') && _pointerDownTarget === document.getElementById('importTextModal')) closeImportTextModal();
 });
 
 // ===== SETTINGS MODAL =====
@@ -1293,22 +1403,17 @@ function importData(input) {
       const incoming = data.recipes || data; // 配列直接にも対応
       if (!Array.isArray(incoming)) throw new Error('形式が違う');
 
-      const existing = loadRecipes();
-      const existingIds = new Set(existing.map(r => r.id));
-      const newRecipes = incoming.filter(r => !existingIds.has(r.id));
-      saveRecipes([...existing, ...newRecipes]);
+      saveRecipes(incoming);
 
       if (data.customTags) {
-        const existingTags = loadCustomTags();
-        const merged = [...new Set([...existingTags, ...data.customTags])];
-        saveCustomTags(merged);
+        saveCustomTags(data.customTags);
       }
 
       renderTagFilter();
       renderList();
-      status.textContent = `✓ ${newRecipes.length}件を追加しました（重複はスキップ）`;
+      status.textContent = `✓ ${incoming.length}件でデータを上書きしました`;
       status.className = 'screenshot-status success';
-      showToast(`${newRecipes.length}件インポート完了！`);
+      showToast(`${incoming.length}件のレシピで上書き完了！`);
     } catch (err) {
       status.textContent = '⚠ ファイルを読み込めなかった。エクスポートしたJSONファイルか確認してね';
       status.className = 'screenshot-status error';
