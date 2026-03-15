@@ -169,7 +169,7 @@
   .nav-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
   .settings-section { border: 2px solid var(--ink); padding: 14px; margin-bottom: 12px; }
   .settings-section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-  .settings-api-status { font-family: 'Caveat', cursive; font-size: 14px; margin-bottom: 10px; padding: 6px 10px; border-left: 3px solid var(--green); background: rgba(61,206,130,0.1); display:none; }
+  .settings-api-status { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 13px; margin-bottom: 10px; padding: 6px 10px; border-left: 3px solid var(--green); background: rgba(61,206,130,0.1); display:none; }
   .settings-api-status.show { display:block; }
 </style>
 </head>
@@ -313,7 +313,7 @@
             <button class="extract-btn" style="flex-shrink:0;" onclick="saveApiKey()">保存</button>
           </div>
         </div>
-        <div style="font-size:11px;color:var(--muted);font-family:'Space Grotesk',sans-serif;line-height:1.6;">
+        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.6;">
           APIキーは <strong>Google AI Studio</strong>（aistudio.google.com）で無料取得できます。<br>
           キーはこのブラウザにのみ保存されます。
         </div>
@@ -331,7 +331,7 @@
             <input type="file" accept=".json" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="importData(this)">
           </label>
         </div>
-        <div style="font-size:11px;color:var(--muted);font-family:'Space Grotesk',sans-serif;margin-top:8px;line-height:1.6;">
+        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
           エクスポートしたファイルを別のデバイスでインポートすると、レシピを引き継げます。<br>
           ⚠ インポートすると既存データに追加されます（上書きではない）。
         </div>
@@ -346,14 +346,14 @@
 <div class="modal-overlay" id="apiSetupModal" style="z-index:500;">
   <div class="modal" style="border-top:5px solid var(--green);">
     <div class="modal-body" style="padding-top:20px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.06em;margin-bottom:4px;">AIを使うには<br>APIキーが必要です</div>
-      <div style="font-size:12px;color:var(--muted);font-family:'Space Grotesk',sans-serif;line-height:1.7;margin-bottom:16px;">
+      <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:28px;letter-spacing:0.04em;line-height:1.15;margin-bottom:8px;">AIを使うには<br>APIキーが必要です</div>
+      <div style="font-size:13px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.7;margin-bottom:16px;">
         このアプリのAI機能（スクショ読み取り・URL解析）は<br>
         <strong>Google Gemini API</strong>を使っています。<br>
         無料で取得できます。
       </div>
 
-      <div style="background:var(--lavender);border:2px solid var(--ink);padding:12px;margin-bottom:14px;font-size:12px;font-family:'Space Grotesk',sans-serif;line-height:1.8;">
+      <div style="background:var(--lavender);border:2px solid var(--ink);padding:12px;margin-bottom:14px;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.8;">
         <strong>取得方法（3分）</strong><br>
         1. <a href="https://aistudio.google.com" target="_blank" style="color:var(--green-dark);font-weight:700;">aistudio.google.com</a> にアクセス<br>
         2. Googleアカウントでログイン<br>
@@ -367,7 +367,7 @@
       </div>
 
       <button class="save-btn" onclick="saveApiKeyFromSetup()">✓ 設定してアプリを使う</button>
-      <button onclick="skipApiSetup()" style="width:100%;background:none;border:none;padding:12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Space Grotesk',sans-serif;">
+      <button onclick="skipApiSetup()" style="width:100%;background:none;border:none;padding:12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;">
         あとで設定する（AI機能は使えません）
       </button>
     </div>
@@ -877,6 +877,8 @@ function openDetail(id) {
   `;
 
   document.getElementById('detailModal').classList.add('open');
+  document.getElementById('detailContent').scrollTop = 0;
+  document.getElementById('detailModal').scrollTop = 0;
 }
 
 function closeDetailModal() {
