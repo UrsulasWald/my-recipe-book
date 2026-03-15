@@ -34,7 +34,7 @@
   .tag-scroll { overflow-x: auto; padding: 8px 12px; display: flex; gap: 6px; scrollbar-width: none; background: var(--lavender); border-bottom: 2px solid var(--ink); align-items: center; }
   .tag-scroll::-webkit-scrollbar { display: none; }
   .tag-add-btn { flex-shrink: 0; width: 28px; height: 28px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
-  .tag-chip { flex-shrink: 0; padding: 4px 12px; border-radius: 0; font-size: 11px; font-weight: 700; cursor: pointer; border: 2px solid var(--ink); background: var(--white); color: var(--ink); transition: all 0.1s; letter-spacing: 0.06em; font-family: 'Space Grotesk', sans-serif; font-weight: 700; text-transform: uppercase; }
+  .tag-chip { flex-shrink: 0; padding: 4px 12px; border-radius: 0; font-size: 11px; font-weight: 700; cursor: pointer; border: 2px solid var(--ink); background: var(--white); color: var(--ink); transition: all 0.1s; letter-spacing: 0.06em; font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; text-transform: uppercase; }
   .tag-chip.active { background: var(--ink); color: var(--yellow); }
   .recipe-list { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
   .drag-handle { position: absolute; top: 0; right: 0; width: 36px; height: 100%; display: flex; align-items: center; justify-content: center; cursor: grab; color: rgba(0,0,0,0.2); font-size: 16px; user-select: none; -webkit-user-select: none; }
@@ -46,12 +46,12 @@
   .recipe-card:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
   .card-accent-bar { height: 5px; }
   .card-body { padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
-  .card-thumb { width: 66px; height: 66px; flex-shrink: 0; background: var(--lavender-light); display: flex; align-items: center; justify-content: center; font-size: 26px; border: 2px solid var(--ink); border-radius: 0; overflow: hidden; }
+
   .card-info { flex: 1; min-width: 0; }
-  .card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; font-weight: 400; line-height: 1.1; margin-bottom: 4px; letter-spacing: 0.04em; color: var(--ink); }
+  .card-name { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 20px; font-weight: 400; line-height: 1.1; margin-bottom: 4px; letter-spacing: 0.04em; color: var(--ink); }
   .card-source { font-size: 10px; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .mini-tag { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 0; letter-spacing: 0.06em; border: 1.5px solid currentColor; font-family: 'Space Grotesk', sans-serif; font-weight: 700; text-transform: uppercase; }
+  .mini-tag { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 0; letter-spacing: 0.06em; border: 1.5px solid currentColor; font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; text-transform: uppercase; }
   .card-meta { padding: 6px 12px 8px; display: flex; gap: 12px; font-size: 10px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-weight: 700; border-top: 1px solid var(--lavender-light); }
   .meta-item { display: flex; align-items: center; gap: 3px; }
   .bottom-nav { display: none; }
@@ -65,7 +65,7 @@
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   .modal-handle { width: 36px; height: 4px; background: rgba(0,0,0,0.2); margin: 12px auto 0; }
   .modal-header { padding: 12px 16px 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--ink); position: sticky; top: 0; background: var(--lavender-pale); z-index: 1; }
-  .modal-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; color: var(--ink); letter-spacing: 0.06em; }
+  .modal-title { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 26px; color: var(--ink); letter-spacing: 0.06em; }
   .close-btn { background: var(--ink); border: none; width: 32px; height: 32px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--white); font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   .modal-body { padding: 16px; }
   .form-group { margin-bottom: 16px; }
@@ -76,7 +76,7 @@
   .url-extractor { background: var(--green); border: 2px solid var(--ink); padding: 12px; margin-bottom: 16px; }
   .url-extractor-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   .url-row { display: flex; gap: 0; }
-  .url-input { flex: 1; border: 2px solid var(--ink); border-right: none; border-radius: 0; padding: 9px 12px; font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; outline: none; background: var(--white); }
+  .url-input { flex: 1; border: 2px solid var(--ink); border-radius: 0; padding: 9px 12px; font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; outline: none; background: var(--white); }
   .url-input:focus { background: var(--lavender-light); }
   .extract-btn { background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); border-radius: 0; padding: 9px 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.05em; }
   .extract-btn:disabled { opacity: 0.5; }
@@ -87,7 +87,7 @@
   .ingredient-row { display: flex; gap: 0; align-items: center; }
   .ingr-name { flex: 1; border: 2px solid var(--ink); border-right: none; border-radius: 0; padding: 8px 10px; font-size: 14px; font-family: 'Zen Kaku Gothic New', sans-serif; outline: none; background: white; }
   .ingr-name:focus { background: var(--lavender-light); }
-  .ingr-amount { width: 90px; border: 2px solid var(--ink); border-radius: 0; padding: 8px 10px; font-size: 13px; font-family: 'Space Mono', monospace; outline: none; background: var(--lavender-light); text-align: right; }
+  .ingr-amount { width: 90px; border: 2px solid var(--ink); border-radius: 0; padding: 8px 10px; font-size: 13px; font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 700; outline: none; background: var(--lavender-light); text-align: right; }
   .ingr-amount:focus { background: var(--lavender); }
   .del-btn { background: none; border: none; font-size: 18px; color: var(--muted); cursor: pointer; padding: 4px 6px; flex-shrink: 0; }
   .add-row-btn { background: none; border: 2px dashed var(--ink); border-radius: 0; padding: 8px; width: 100%; font-size: 11px; color: var(--muted); cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-top: 4px; letter-spacing: 0.05em; transition: background 0.1s; }
@@ -96,19 +96,14 @@
   .tag-badge { display: flex; align-items: center; gap: 4px; background: var(--lavender); color: var(--ink); padding: 3px 8px 3px 10px; border-radius: 0; font-size: 11px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-weight: 700; border: 1.5px solid var(--ink); text-transform: uppercase; letter-spacing: 0.04em; }
   .tag-badge button { background: none; border: none; color: rgba(0,0,0,0.5); cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
   .tag-input-field { border: none; outline: none; font-size: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; min-width: 80px; flex: 1; background: transparent; }
-  .photo-upload { border: 2px dashed var(--ink); padding: 20px; text-align: center; cursor: pointer; transition: background 0.1s; position: relative; background: var(--lavender-light); }
-  .photo-upload:hover { background: var(--lavender); }
-  .photo-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .photo-upload-icon { font-size: 28px; margin-bottom: 6px; }
-  .photo-upload-text { font-size: 11px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
-  .photo-preview { max-width: 100%; margin-top: 10px; display: none; border: 2px solid var(--ink); }
+
   .save-btn { width: 100%; background: var(--green); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 0; padding: 15px; font-size: 18px; font-weight: 400; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.12em; transition: transform 0.08s, box-shadow 0.08s; margin-top: 8px; box-shadow: 4px 4px 0 var(--ink); }
   .save-btn:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
   .detail-modal .modal-body { padding: 0; }
-  .detail-hero { width: 100%; height: 200px; object-fit: cover; display: block; }
-  .detail-hero-placeholder { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; font-size: 60px; background: var(--lavender); border-bottom: 2px solid var(--ink); position: relative; }
+
+
   .detail-content { padding: 16px; }
-  .detail-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.05; margin-bottom: 6px; letter-spacing: 0.04em; }
+  .detail-name { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.05; margin-bottom: 6px; letter-spacing: 0.04em; }
   .detail-source { font-size: 10px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   .detail-source a { color: var(--green-dark); text-decoration: none; }
   .detail-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
@@ -118,24 +113,24 @@
   .ingr-table tr { border-bottom: 1px solid var(--lavender); }
   .ingr-table tr td { padding: 8px 0; font-size: 14px; }
   .ingr-table tr td:first-child { font-weight: 700; }
-  .ingr-table tr td:last-child { color: var(--muted); text-align: right; font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+  .ingr-table tr td:last-child { color: var(--muted); text-align: right; font-size: 12px; font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 700; }
   .step-list { display: flex; flex-direction: column; gap: 10px; }
   .step-item { display: flex; gap: 12px; align-items: flex-start; }
   .step-num { width: 28px; height: 28px; background: var(--green); color: var(--ink); font-size: 14px; font-weight: 400; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; border: 2px solid var(--ink); letter-spacing: 0.02em; }
   .step-text { font-size: 14px; line-height: 1.75; padding-top: 3px; }
-  .detail-memo { background: var(--yellow); padding: 12px 14px; font-family: 'Caveat', cursive; font-size: 18px; line-height: 1.65; color: var(--ink); border: 2px solid var(--ink); }
+  .detail-memo { background: var(--yellow); padding: 12px 14px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; line-height: 1.75; color: var(--ink); border: 2px solid var(--ink); }
   .detail-actions { display: flex; gap: 0; margin-bottom: 28px; border: 2px solid var(--ink); }
   .action-btn { flex: 1; border: none; border-right: 2px solid var(--ink); background: var(--white); padding: 12px 4px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; transition: background 0.1s; letter-spacing: 0.04em; text-transform: uppercase; }
   .action-btn:last-child { border-right: none; }
   .action-btn.danger { color: #c00; background: #fff0f0; }
   .action-btn:active { background: var(--lavender-light); }
-  .share-text { background: white; border: 2px solid var(--ink); padding: 14px; font-family: 'Caveat', cursive; font-size: 16px; line-height: 1.8; white-space: pre-wrap; color: var(--ink); min-height: 200px; }
+  .share-text { background: white; border: 2px solid var(--ink); padding: 14px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; line-height: 1.8; white-space: pre-wrap; color: var(--ink); min-height: 200px; }
   .copy-btn { width: 100%; background: var(--green); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 0; padding: 14px; font-size: 18px; font-weight: 400; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-top: 10px; letter-spacing: 0.1em; box-shadow: 3px 3px 0 var(--ink); transition: transform 0.08s, box-shadow 0.08s; }
   .copy-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
   .empty-state { text-align: center; padding: 60px 30px; }
   .empty-icon { font-size: 56px; margin-bottom: 16px; }
-  .empty-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; margin-bottom: 8px; letter-spacing: 0.06em; }
-  .empty-text { font-size: 12px; color: var(--muted); line-height: 1.9; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+  .empty-title { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 26px; margin-bottom: 8px; letter-spacing: 0.06em; }
+  .empty-text { font-size: 12px; color: var(--muted); line-height: 1.9; font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; }
   .recipe-count { padding: 8px 14px 2px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
   .color-0 { background: var(--green); }
   .color-1 { background: var(--lavender); }
@@ -161,14 +156,21 @@
   .screenshot-status { margin-top: 8px; font-family: 'Caveat', cursive; font-size: 15px; color: rgba(0,0,0,0.55); }
   .screenshot-status.success { color: var(--green-dark); }
   .screenshot-status.error { color: #c00; }
-  .add-photo-btn { width: 100%; border: 2px dashed var(--ink); padding: 14px; background: var(--lavender-light); cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; font-weight: 700; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; transition: background 0.1s; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .add-photo-btn:hover { background: var(--lavender); color: var(--ink); }
-  .add-photo-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
   .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.2); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--ink); color: var(--yellow); padding: 10px 22px; border-radius: 0; font-size: 12px; font-weight: 700; opacity: 0; transition: all 0.25s ease-out; z-index: 999; white-space: nowrap; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--green); }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .section-header { padding: 5px 14px 2px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--ink); border-top: 2.5px solid var(--ink); display: flex; z-index: 200; }
+  .nav-btn { flex: 1; background: none; border: none; padding: 10px 0 14px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; color: rgba(255,255,255,0.5); transition: color 0.1s; }
+  .nav-btn:active { color: var(--yellow); }
+  .nav-icon { font-size: 20px; line-height: 1; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+  .nav-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .settings-section { border: 2px solid var(--ink); padding: 14px; margin-bottom: 12px; }
+  .settings-section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .settings-api-status { font-family: 'Caveat', cursive; font-size: 14px; margin-bottom: 10px; padding: 6px 10px; border-left: 3px solid var(--green); background: rgba(61,206,130,0.1); display:none; }
+  .settings-api-status.show { display:block; }
 </style>
 </head>
 <body>
@@ -199,6 +201,10 @@
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
+  <button class="nav-btn" onclick="openSettingsModal()">
+    <span class="nav-icon">⚙</span>
+    <span class="nav-label">設定</span>
+  </button>
 </nav>
 
 <!-- TOAST -->
@@ -234,17 +240,15 @@
         <div class="screenshot-status" id="screenshotStatus"></div>
       </div>
 
-      <!-- URL EXTRACTOR -->
+      <!-- SOURCE URL -->
       <div class="url-extractor">
         <div class="url-extractor-label">
-          <span>📲</span>
-          インスタ・URLからレシピを取得
+          <span>🔗</span>
+          出典URL
         </div>
         <div class="url-row">
-          <input class="url-input" type="url" id="urlInput" placeholder="URLを貼り付け...">
-          <button class="extract-btn" id="extractBtn" onclick="extractFromUrl()">取得</button>
+          <input class="url-input" type="url" id="recipeSource" placeholder="https://... インスタ、レシピサイトなど">
         </div>
-        <div class="extract-status" id="extractStatus"></div>
       </div>
 
       <!-- FORM -->
@@ -253,15 +257,6 @@
         <input class="form-input" type="text" id="recipeName" placeholder="例：お母さんの肉じゃが">
       </div>
 
-      <div class="form-group">
-        <label class="form-label">🖼 写真</label>
-        <div class="photo-upload" id="photoUploadArea">
-          <input type="file" accept="image/*" onchange="handlePhoto(this)">
-          <div class="photo-upload-icon">📷</div>
-          <div class="photo-upload-text">タップして写真を選ぶ</div>
-          <img class="photo-preview" id="photoPreview">
-        </div>
-      </div>
 
       <div class="form-group">
         <label class="form-label">🥕 材料</label>
@@ -282,11 +277,6 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">🔗 出典・メモ</label>
-        <input class="form-input" type="text" id="recipeSource" placeholder="インスタ@xxx、○○さんに聞いた など">
-      </div>
-
-      <div class="form-group">
         <label class="form-label">💬 コツ・メモ</label>
         <textarea class="form-textarea" id="recipeMemo" placeholder="気づいたこと、アレンジ、失敗したことなど..."></textarea>
       </div>
@@ -300,6 +290,88 @@
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal detail-modal" id="detailContent"></div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">⚙ 設定</div>
+      <button class="close-btn" onclick="closeSettingsModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- API KEY -->
+      <div class="settings-section">
+        <div class="settings-section-title">AI設定</div>
+        <div class="settings-api-status" id="apiKeyStatus"></div>
+        <div class="form-group" style="margin-bottom:8px;">
+          <label class="form-label">Gemini APIキー</label>
+          <div style="display:flex;gap:6px;">
+            <input class="form-input" type="password" id="settingsApiKey" placeholder="AIzaSy...">
+            <button class="extract-btn" style="flex-shrink:0;" onclick="saveApiKey()">保存</button>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);font-family:'Space Grotesk',sans-serif;line-height:1.6;">
+          APIキーは <strong>Google AI Studio</strong>（aistudio.google.com）で無料取得できます。<br>
+          キーはこのブラウザにのみ保存されます。
+        </div>
+      </div>
+
+      <!-- EXPORT / IMPORT -->
+      <div class="settings-section">
+        <div class="settings-section-title">データのバックアップ</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="action-btn" style="width:100%;justify-content:center;" onclick="exportData()">
+            📤 レシピをエクスポート（JSONファイル）
+          </button>
+          <label class="action-btn" style="width:100%;justify-content:center;cursor:pointer;position:relative;">
+            📥 レシピをインポート（JSONファイル）
+            <input type="file" accept=".json" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="importData(this)">
+          </label>
+        </div>
+        <div style="font-size:11px;color:var(--muted);font-family:'Space Grotesk',sans-serif;margin-top:8px;line-height:1.6;">
+          エクスポートしたファイルを別のデバイスでインポートすると、レシピを引き継げます。<br>
+          ⚠ インポートすると既存データに追加されます（上書きではない）。
+        </div>
+        <div class="screenshot-status" id="importStatus" style="margin-top:6px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- API KEY SETUP (初回) -->
+<div class="modal-overlay" id="apiSetupModal" style="z-index:500;">
+  <div class="modal" style="border-top:5px solid var(--green);">
+    <div class="modal-body" style="padding-top:20px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.06em;margin-bottom:4px;">AIを使うには<br>APIキーが必要です</div>
+      <div style="font-size:12px;color:var(--muted);font-family:'Space Grotesk',sans-serif;line-height:1.7;margin-bottom:16px;">
+        このアプリのAI機能（スクショ読み取り・URL解析）は<br>
+        <strong>Google Gemini API</strong>を使っています。<br>
+        無料で取得できます。
+      </div>
+
+      <div style="background:var(--lavender);border:2px solid var(--ink);padding:12px;margin-bottom:14px;font-size:12px;font-family:'Space Grotesk',sans-serif;line-height:1.8;">
+        <strong>取得方法（3分）</strong><br>
+        1. <a href="https://aistudio.google.com" target="_blank" style="color:var(--green-dark);font-weight:700;">aistudio.google.com</a> にアクセス<br>
+        2. Googleアカウントでログイン<br>
+        3. 「Get API key」→「Create API key」<br>
+        4. 表示されたキーをコピーして下に貼る
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Gemini APIキー</label>
+        <input class="form-input" type="text" id="setupApiKey" placeholder="AIzaSy...">
+      </div>
+
+      <button class="save-btn" onclick="saveApiKeyFromSetup()">✓ 設定してアプリを使う</button>
+      <button onclick="skipApiSetup()" style="width:100%;background:none;border:none;padding:12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Space Grotesk',sans-serif;">
+        あとで設定する（AI機能は使えません）
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- SHARE MODAL -->
@@ -323,6 +395,14 @@
 // ===== DATA STORE =====
 const STORAGE_KEY = 'recipe_book_v1';
 const CUSTOM_TAGS_KEY = 'recipe_custom_tags';
+const API_KEY_STORAGE = 'recipe_gemini_api_key';
+
+function getApiKey() {
+  return localStorage.getItem(API_KEY_STORAGE) || '';
+}
+function setApiKey(key) {
+  localStorage.setItem(API_KEY_STORAGE, key.trim());
+}
 
 function loadCustomTags() {
   try { return JSON.parse(localStorage.getItem(CUSTOM_TAGS_KEY) || '[]'); }
@@ -423,58 +503,6 @@ function editRecipeName(id) {
 }
 
 // ===== RECIPE SOURCE INLINE EDIT =====
-function editRecipeSource(id) {
-  const container = document.getElementById(`recipeSourceDisplay-${id}`);
-  const textEl = document.getElementById(`recipeSourceText-${id}`);
-  if (!container) return;
-  const recipes = loadRecipes();
-  const recipe = recipes.find(r => r.id === id);
-  const current = recipe ? (recipe.source || '') : '';
-
-  const input = document.createElement('input');
-  input.value = current;
-  input.placeholder = 'https://... or メモ';
-  input.style.cssText = `
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-    font-size: 11px;
-    background: rgba(255,255,255,0.6);
-    border: none;
-    border-bottom: 2px solid var(--ink);
-    outline: none;
-    width: 100%;
-    padding: 2px 0;
-    color: var(--ink);
-  `;
-  textEl.replaceWith(input);
-  container.style.cursor = 'default';
-  input.focus();
-  input.select();
-
-  function save() {
-    const newSource = input.value.trim();
-    const rs = loadRecipes();
-    const r = rs.find(r => r.id === id);
-    if (r) {
-      r.source = newSource;
-      r.updatedAt = new Date().toISOString();
-      saveRecipes(rs);
-    }
-    const span = document.createElement('span');
-    span.id = `recipeSourceText-${id}`;
-    span.style.color = newSource ? 'var(--green-dark)' : 'var(--muted)';
-    span.textContent = newSource || 'URL・出典を追加...';
-    input.replaceWith(span);
-    container.style.cursor = 'text';
-    renderList();
-    if (newSource) showToast('出典を更新しました');
-  }
-
-  input.addEventListener('blur', save);
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') input.blur();
-    if (e.key === 'Escape') { input.value = current; input.blur(); }
-  });
-}
 
 function loadRecipes() {
   try {
@@ -515,7 +543,6 @@ function initSampleData() {
       {
         id: Date.now() - 2000,
         name: 'ゆかさんのキャロットラペ',
-        photo: null,
         ingredients: [
           { name: 'にんじん', amount: '2本' },
           { name: 'オリーブオイル', amount: '大さじ3' },
@@ -534,7 +561,6 @@ function initSampleData() {
       {
         id: Date.now() - 1000,
         name: 'バナナオートミールパンケーキ',
-        photo: null,
         ingredients: [
           { name: 'バナナ', amount: '1本' },
           { name: 'オートミール', amount: '50g' },
@@ -559,8 +585,6 @@ let currentTags = [];
 let activeTag = 'すべて';
 let editingId = null;
 let formTags = [];
-let formPhoto = null;
-
 // ===== RENDER LIST =====
 function renderList() {
   recipes = loadRecipes();
@@ -593,7 +617,7 @@ function renderList() {
   }
 
   listEl.innerHTML = filtered.map(r => {
-    const emoji = getEmoji(r.tags);
+
     const tagHtml = (r.tags || []).slice(0, 3).map((t, i) => `
       <span class="mini-tag tag-${i % 5}">${t}</span>
     `).join('');
@@ -603,7 +627,7 @@ function renderList() {
       <div class="recipe-card" data-id="${r.id}" draggable="true" onclick="openDetail(${r.id})">
         <div class="card-accent-bar color-${r.color || 0}"></div>
         <div class="card-body">
-          <div class="card-thumb">${r.photo ? `<img src="${r.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;">` : emoji}</div>
+
           <div class="card-info">
             <div class="card-name">${r.name}</div>
             <div class="card-source">
@@ -726,18 +750,6 @@ function initDragSort() {
   }
 }
 
-function getEmoji(tags) {
-  if (!tags) return '🍳';
-  if (tags.some(t => ['中華', '炒め物'].includes(t))) return '🥢';
-  if (tags.some(t => ['スイーツ', 'お菓子', 'パンケーキ'].includes(t))) return '🍰';
-  if (tags.some(t => ['サラダ'].includes(t))) return '🥗';
-  if (tags.some(t => ['スープ', '鍋'].includes(t))) return '🍲';
-  if (tags.some(t => ['朝食', 'パン'].includes(t))) return '🥞';
-  if (tags.some(t => ['魚', '海鮮'].includes(t))) return '🐟';
-  if (tags.some(t => ['お弁当'].includes(t))) return '🍱';
-  return '🍳';
-}
-
 // ===== TAGS FILTER =====
 function renderTagFilter() {
   recipes = loadRecipes();
@@ -817,21 +829,7 @@ function openDetail(id) {
     </div>
   `).join('');
 
-  const heroHtml = recipe.photo
-    ? `<div style="position:relative;">
-        <img class="detail-hero" src="${recipe.photo}">
-        <label style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.55);color:white;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'Zen Kaku Gothic New',sans-serif;">
-          <input type="file" accept="image/*" style="display:none;" onchange="quickAddPhoto(this,${recipe.id})">
-          📷 写真を変える
-        </label>
-       </div>`
-    : `<div class="detail-hero-placeholder" style="background:var(--paper2);position:relative;">
-        ${getEmoji(recipe.tags)}
-        <label style="position:absolute;bottom:10px;right:10px;background:var(--accent);color:white;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Zen Kaku Gothic New',sans-serif;">
-          <input type="file" accept="image/*" style="display:none;" onchange="quickAddPhoto(this,${recipe.id})">
-          📷 写真を追加
-        </label>
-       </div>`;
+
 
   document.getElementById('detailContent').innerHTML = `
     <div class="modal-handle"></div>
@@ -839,12 +837,15 @@ function openDetail(id) {
       <div id="recipeName-${recipe.id}" class="detail-name" onclick="editRecipeName(${recipe.id})" title="タップして編集" style="font-size:22px;max-width:280px;line-height:1.2;cursor:text;border-bottom:1.5px dashed rgba(0,0,0,0.2);">${recipe.name}</div>
       <button class="close-btn" onclick="closeDetailModal()">✕</button>
     </div>
-    ${heroHtml}
     <div class="detail-content">
-      <div class="detail-source" id="recipeSourceDisplay-${recipe.id}" onclick="editRecipeSource(${recipe.id})" style="cursor:text; border-bottom:1.5px dashed rgba(0,0,0,0.2); padding-bottom:4px; margin-bottom:12px;">
-        <span>📌</span>
-        <span id="recipeSourceText-${recipe.id}" style="color:${recipe.source ? 'var(--green-dark)' : 'var(--muted)'};">
-          ${recipe.source ? recipe.source : 'URL・出典を追加...'}
+      <div class="detail-source" id="recipeSourceDisplay-${recipe.id}" style="border-bottom:1.5px dashed rgba(0,0,0,0.2); padding-bottom:4px; margin-bottom:12px;">
+        <span>🔗</span>
+        <span id="recipeSourceText-${recipe.id}">
+          ${recipe.source
+            ? (recipe.source.startsWith('http')
+                ? `<a href="${recipe.source}" target="_blank" rel="noopener" style="color:var(--green-dark);word-break:break-all;">${recipe.source}</a>`
+                : `<span style="color:var(--green-dark);">${recipe.source}</span>`)
+            : `<span style="color:var(--muted);cursor:pointer;" onclick="editRecipe(${recipe.id})">URL・出典を追加...</span>`}
         </span>
       </div>
       <div class="detail-tags">${tagHtml}</div>
@@ -886,29 +887,20 @@ function closeDetailModal() {
 function openAddModal(prefill = {}) {
   editingId = prefill.id || null;
   formTags = prefill.tags ? [...prefill.tags] : [];
-  formPhoto = prefill.photo || null;
 
   document.getElementById('modalTitle').textContent = editingId ? 'レシピを編集' : 'レシピを追加';
   document.getElementById('recipeName').value = prefill.name || '';
   document.getElementById('recipeSteps').value = prefill.steps || '';
   document.getElementById('recipeSource').value = prefill.source || '';
   document.getElementById('recipeMemo').value = prefill.memo || '';
-  document.getElementById('urlInput').value = '';
-  document.getElementById('extractStatus').textContent = '';
   // スクショリセット
   screenshotBase64 = null;
   document.getElementById('screenshotPreviewWrap').style.display = 'none';
   document.getElementById('screenshotStatus').textContent = '';
   document.getElementById('screenshotStatus').className = 'screenshot-status';
-
-  // Photo
-  const preview = document.getElementById('photoPreview');
-  if (formPhoto) {
-    preview.src = formPhoto;
-    preview.style.display = 'block';
-  } else {
-    preview.style.display = 'none';
-  }
+  // file inputをリセット（同じファイルを再選択してもonchangeが発火するように）
+  const fileInput = document.querySelector('#screenshotDrop input[type="file"]');
+  if (fileInput) fileInput.value = '';
 
   // Ingredients
   const ingrContainer = document.getElementById('ingredientList');
@@ -971,20 +963,6 @@ function removeFormTag(tag) {
   renderFormTags();
 }
 
-// ===== PHOTO =====
-function handlePhoto(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    formPhoto = e.target.result;
-    const preview = document.getElementById('photoPreview');
-    preview.src = formPhoto;
-    preview.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-}
-
 // ===== SCREENSHOT READING =====
 let screenshotBase64 = null;
 
@@ -1004,6 +982,12 @@ function handleScreenshot(input) {
 
 async function readScreenshot() {
   if (!screenshotBase64) return;
+
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    showToast('APIキーを設定してね（設定ボタン）');
+    return;
+  }
 
   const btn = document.getElementById('screenshotReadBtn');
   const status = document.getElementById('screenshotStatus');
@@ -1032,18 +1016,29 @@ async function readScreenshot() {
 画像が手書きメモでも、インスタのスクショでも、レシピサイトの画像でも対応してください。
 読み取れない項目は空文字にしてください。`;
 
-    const response = await fetch('/api/gemini', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            { inline_data: { mime_type: mediaType, data: base64Data } },
-            { text: prompt }
-          ]
-        }]
-      })
-    });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { inline_data: { mime_type: mediaType, data: base64Data } },
+              { text: prompt }
+            ]
+          }]
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json();
+      if (response.status === 400 && err.error?.message?.includes('API_KEY')) {
+        throw new Error('APIキーが無効です。設定を確認してね');
+      }
+      throw new Error(`エラー: ${response.status}`);
+    }
 
     const data = await response.json();
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -1067,19 +1062,11 @@ async function readScreenshot() {
       renderFormTags();
     }
 
-    // スクショを料理写真としても使うか確認
-    if (!formPhoto) {
-      formPhoto = screenshotBase64;
-      const photoPreview = document.getElementById('photoPreview');
-      photoPreview.src = formPhoto;
-      photoPreview.style.display = 'block';
-    }
-
     status.textContent = '✓ 読み取り完了！内容を確認・修正してね';
     status.className = 'screenshot-status success';
 
   } catch (err) {
-    status.textContent = '⚠ うまく読み取れなかった。手動で入力してね';
+    status.textContent = `⚠ ${err.message || 'うまく読み取れなかった。手動で入力してね'}`;
     status.className = 'screenshot-status error';
   }
 
@@ -1087,111 +1074,8 @@ async function readScreenshot() {
   btn.innerHTML = '<span>✨</span> AIにレシピを読み取ってもらう';
 }
 
-// ===== QUICK PHOTO ADD (from detail view) =====
-function quickAddPhoto(input, id) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const recipes = loadRecipes();
-    const idx = recipes.findIndex(r => r.id === id);
-    if (idx < 0) return;
-    recipes[idx].photo = e.target.result;
-    saveRecipes(recipes);
-    showToast('写真を追加したよ！');
-    // 詳細画面を再描画
-    openDetail(id);
-  };
-  reader.readAsDataURL(file);
-}
 
-// ===== URL EXTRACTION =====
-async function extractFromUrl() {
-  const url = document.getElementById('urlInput').value.trim();
-  if (!url) return;
 
-  const btn = document.getElementById('extractBtn');
-  const status = document.getElementById('extractStatus');
-
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>';
-  status.textContent = 'AIがレシピを読み取り中...';
-  status.className = 'extract-status';
-
-  try {
-    // Instagram の場合は直接取得できないため、AIに解析させる
-    const prompt = `
-以下のURLからレシピ情報を抽出してください。
-URLがInstagramなど直接取得できない場合でも、URLの構造やテキストから想定できる情報でJSONを返してください。
-実際のページ内容が不明な場合は、フィールドを空にしてください。
-
-URL: ${url}
-
-以下のJSON形式で返してください（JSONのみ、説明不要）：
-{
-  "name": "レシピ名",
-  "ingredients": [{"name": "材料名", "amount": "分量"}],
-  "steps": "手順（番号付き、改行区切り）",
-  "tags": ["タグ1", "タグ2"],
-  "memo": "メモ・コツ",
-  "source": "出典"
-}
-
-URLがInstagramの場合は、source に URLを設定し、その他フィールドを空のままにしてください。
-`;
-
-    const response = await fetch('/api/gemini', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
-    });
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-    // JSONを抽出
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('レシピ情報を取得できませんでした');
-
-    const recipe = JSON.parse(jsonMatch[0]);
-
-    // フォームに反映
-    if (recipe.name) document.getElementById('recipeName').value = recipe.name;
-    if (recipe.steps) document.getElementById('recipeSteps').value = recipe.steps;
-    if (recipe.memo) document.getElementById('recipeMemo').value = recipe.memo;
-    if (recipe.source || url) document.getElementById('recipeSource').value = recipe.source || url;
-
-    if (recipe.ingredients && recipe.ingredients.length > 0) {
-      document.getElementById('ingredientList').innerHTML = '';
-      recipe.ingredients.forEach(i => addIngredient(i.name, i.amount));
-    }
-
-    if (recipe.tags && recipe.tags.length > 0) {
-      formTags = recipe.tags;
-      renderFormTags();
-    }
-
-    const isInstagram = url.includes('instagram.com');
-    if (isInstagram) {
-      status.textContent = '📲 インスタはURLを保存しました。材料・手順はキャプションからコピペしてね';
-      status.className = 'extract-status';
-    } else {
-      status.textContent = '✓ レシピを読み取りました！内容を確認してね';
-      status.className = 'extract-status success';
-    }
-
-  } catch (err) {
-    // フォールバック：URLだけ保存
-    document.getElementById('recipeSource').value = url;
-    status.textContent = '⚠ 自動取得できなかったので、URLを出典に保存したよ。手動で入力してね';
-    status.className = 'extract-status error';
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '取得';
-}
 
 // ===== SAVE =====
 function saveRecipe() {
@@ -1223,7 +1107,6 @@ function saveRecipe() {
         tags: [...formTags],
         source: document.getElementById('recipeSource').value.trim(),
         memo: document.getElementById('recipeMemo').value.trim(),
-        photo: formPhoto,
         updatedAt: new Date().toISOString()
       };
     }
@@ -1236,7 +1119,6 @@ function saveRecipe() {
       tags: [...formTags],
       source: document.getElementById('recipeSource').value.trim(),
       memo: document.getElementById('recipeMemo').value.trim(),
-      photo: formPhoto,
       createdAt: new Date().toISOString(),
       color: Math.floor(Math.random() * 5)
     });
@@ -1306,20 +1188,138 @@ function showToast(msg) {
 }
 
 // ===== CLOSE ON OVERLAY CLICK =====
+// pointerdownでクリック開始位置を記録し、overlay上で始まりoverlay上で終わった場合のみ閉じる
+let _pointerDownTarget = null;
+document.addEventListener('pointerdown', e => { _pointerDownTarget = e.target; });
+
 document.getElementById('addModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('addModal')) closeAddModal();
+  if (e.target === document.getElementById('addModal') && _pointerDownTarget === document.getElementById('addModal')) closeAddModal();
 });
 document.getElementById('detailModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('detailModal')) closeDetailModal();
+  if (e.target === document.getElementById('detailModal') && _pointerDownTarget === document.getElementById('detailModal')) closeDetailModal();
 });
 document.getElementById('shareModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('shareModal')) closeShareModal();
+  if (e.target === document.getElementById('shareModal') && _pointerDownTarget === document.getElementById('shareModal')) closeShareModal();
 });
+
+// ===== SETTINGS MODAL =====
+function openSettingsModal() {
+  const key = getApiKey();
+  const statusEl = document.getElementById('apiKeyStatus');
+  const input = document.getElementById('settingsApiKey');
+  if (key) {
+    statusEl.textContent = `✓ APIキー設定済み（...${key.slice(-6)}）`;
+    statusEl.classList.add('show');
+    input.placeholder = 'キーを変更する場合は入力';
+    input.value = '';
+  } else {
+    statusEl.classList.remove('show');
+    input.value = '';
+    input.placeholder = 'AIzaSy...';
+  }
+  document.getElementById('settingsModal').classList.add('open');
+}
+
+function closeSettingsModal() {
+  document.getElementById('settingsModal').classList.remove('open');
+}
+
+function saveApiKey() {
+  const key = document.getElementById('settingsApiKey').value.trim();
+  if (!key) { showToast('キーを入力してね'); return; }
+  setApiKey(key);
+  showToast('APIキーを保存しました！');
+  closeSettingsModal();
+}
+
+// ===== API KEY SETUP (初回) =====
+function saveApiKeyFromSetup() {
+  const key = document.getElementById('setupApiKey').value.trim();
+  if (!key) { showToast('キーを入力してね'); return; }
+  setApiKey(key);
+  document.getElementById('apiSetupModal').classList.remove('open');
+  showToast('設定完了！AI機能が使えます');
+}
+
+function skipApiSetup() {
+  document.getElementById('apiSetupModal').classList.remove('open');
+}
+
+function checkFirstLaunch() {
+  const key = getApiKey();
+  const dismissed = localStorage.getItem('api_setup_dismissed');
+  if (!key && !dismissed) {
+    document.getElementById('apiSetupModal').classList.add('open');
+    localStorage.setItem('api_setup_dismissed', '1');
+  }
+}
+
+// ===== EXPORT / IMPORT =====
+function exportData() {
+  const recipes = loadRecipes();
+  const customTags = loadCustomTags();
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    recipes,
+    customTags
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const date = new Date().toISOString().slice(0, 10);
+  a.download = `my-recipe-book-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`${recipes.length}件のレシピをエクスポートしたよ！`);
+}
+
+function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('importStatus');
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      const incoming = data.recipes || data; // 配列直接にも対応
+      if (!Array.isArray(incoming)) throw new Error('形式が違う');
+
+      const existing = loadRecipes();
+      const existingIds = new Set(existing.map(r => r.id));
+      const newRecipes = incoming.filter(r => !existingIds.has(r.id));
+      saveRecipes([...existing, ...newRecipes]);
+
+      if (data.customTags) {
+        const existingTags = loadCustomTags();
+        const merged = [...new Set([...existingTags, ...data.customTags])];
+        saveCustomTags(merged);
+      }
+
+      renderTagFilter();
+      renderList();
+      status.textContent = `✓ ${newRecipes.length}件を追加しました（重複はスキップ）`;
+      status.className = 'screenshot-status success';
+      showToast(`${newRecipes.length}件インポート完了！`);
+    } catch (err) {
+      status.textContent = '⚠ ファイルを読み込めなかった。エクスポートしたJSONファイルか確認してね';
+      status.className = 'screenshot-status error';
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
 
 // ===== INIT =====
 initSampleData();
 renderTagFilter();
 renderList();
+checkFirstLaunch();
+
+document.getElementById('settingsModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('settingsModal')) closeSettingsModal();
+});
 </script>
 </body>
 </html>
