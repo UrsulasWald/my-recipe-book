@@ -121,6 +121,9 @@
   .detail-memo { background: var(--yellow); padding: 12px 14px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; line-height: 1.75; color: var(--ink); border: 2px solid var(--ink); }
   .detail-actions { display: flex; gap: 0; margin-bottom: 28px; border: 2px solid var(--ink); }
   .action-btn { flex: 1; border: none; border-right: 2px solid var(--ink); background: var(--white); padding: 12px 4px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; transition: background 0.1s; letter-spacing: 0.04em; text-transform: uppercase; }
+  
+  .drive-icon { font-size: 20px; line-height: 1; font-style: normal; }
+  .drive-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
   .action-btn:last-child { border-right: none; }
   .action-btn.danger { color: #c00; background: #fff0f0; }
   .action-btn:active { background: var(--lavender-light); }
@@ -295,14 +298,14 @@
       <!-- EXPORT / IMPORT -->
       <div class="settings-section">
         <div class="settings-section-title">データのバックアップ</div>
+
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="action-btn" style="width:100%;justify-content:center;" onclick="exportData()">
             📤 レシピをエクスポート（JSONファイル）
           </button>
-          <label class="action-btn" style="width:100%;justify-content:center;cursor:pointer;position:relative;">
+          <button class="action-btn" style="width:100%;justify-content:center;" onclick="importData()">
             📥 レシピをインポート（JSONファイル）
-            <input type="file" accept=".json" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="importData(this)">
-          </label>
+          </button>
         </div>
         <button class="action-btn" style="width:100%;justify-content:center;background:var(--yellow);font-size:12px;" onclick="exportBackupHTML()">
           📄 バックアップHTML（見るだけ版）を保存
@@ -1254,43 +1257,67 @@ function closeSettingsModal() {
 }
 
 // ===== EXPORT / IMPORT =====
-function exportData() {
+async function exportData() {
   const recipes = loadRecipes();
   const customTags = loadCustomTags();
-  const data = {
-    version: 1,
-    exportedAt: new Date().toISOString(),
-    recipes,
-    customTags
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
+  const data = { version: 1, exportedAt: new Date().toISOString(), recipes, customTags };
+  const json = JSON.stringify(data, null, 2);
   const date = new Date().toISOString().slice(0, 10);
-  a.download = `my-recipe-book-${date}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast(`${recipes.length}件のレシピをエクスポートしたよ！`);
+  const filename = `my-recipe-book-${date}.json`;
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: 'JSONファイル', accept: { 'application/json': ['.json'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(json);
+      await writable.close();
+      showToast(`${recipes.length}件のレシピをエクスポートしたよ！`);
+    } catch (e) {
+      if (e.name !== 'AbortError') showToast('保存できなかった');
+    }
+  } else {
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+    showToast(`${recipes.length}件のレシピをエクスポートしたよ！`);
+  }
 }
 
-function importData(input) {
-  const file = input.files[0];
-  if (!file) return;
+async function importData() {
   const status = document.getElementById('importStatus');
+  let file;
+  if (window.showOpenFilePicker) {
+    try {
+      const [handle] = await window.showOpenFilePicker({
+        types: [{ description: 'JSONファイル', accept: { 'application/json': ['.json'] } }]
+      });
+      file = await handle.getFile();
+    } catch (e) {
+      if (e.name === 'AbortError') return;
+      showToast('ファイルを開けなかった');
+      return;
+    }
+  } else {
+    file = await new Promise(resolve => {
+      const input = document.createElement('input');
+      input.type = 'file'; input.accept = '.json';
+      input.onchange = () => resolve(input.files[0]);
+      input.click();
+    });
+    if (!file) return;
+  }
   const reader = new FileReader();
   reader.onload = e => {
     try {
       const data = JSON.parse(e.target.result);
-      const incoming = data.recipes || data; // 配列直接にも対応
+      const incoming = data.recipes || data;
       if (!Array.isArray(incoming)) throw new Error('形式が違う');
-
       saveRecipes(incoming);
-
-      if (data.customTags) {
-        saveCustomTags(data.customTags);
-      }
-
+      if (data.customTags) saveCustomTags(data.customTags);
       renderTagFilter();
       renderList();
       status.textContent = `✓ ${incoming.length}件でデータを上書きしました`;
@@ -1302,11 +1329,10 @@ function importData(input) {
     }
   };
   reader.readAsText(file);
-  input.value = '';
 }
 
 // ===== EXPORT BACKUP HTML =====
-function exportBackupHTML() {
+async function exportBackupHTML() {
   const recipes = loadRecipes();
   const customTags = loadCustomTags();
   const date = new Date().toISOString().slice(0, 10);
@@ -1512,14 +1538,28 @@ function closeDetail() {
 </body>
 </html>`;
 
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `my-recipe-book-${date}.html`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast(`バックアップHTMLを保存したよ！`);
+  const filename = `my-recipe-book-backup-${date}.html`;
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: 'HTMLファイル', accept: { 'text/html': ['.html'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(html);
+      await writable.close();
+      showToast(`バックアップHTMLを保存したよ！`);
+    } catch (e) {
+      if (e.name !== 'AbortError') showToast('保存できなかった');
+    }
+  } else {
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+    showToast(`バックアップHTMLを保存したよ！`);
+  }
 }
 
 // ===== INIT =====
