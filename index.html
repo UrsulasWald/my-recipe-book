@@ -142,7 +142,7 @@
   .tag-2 { background: rgba(240,226,32,0.3); color: #907000; }
   .tag-3 { background: rgba(240,128,64,0.15); color: #c05020; }
   .tag-4 { background: rgba(96,176,240,0.2); color: #2060a0; }
-  .screenshot-extractor { background: var(--lavender); border: 2px solid var(--ink); padding: 12px; margin-bottom: 12px; }
+
   .screenshot-drop { border: 2px dashed var(--ink); padding: 18px 12px; text-align: center; cursor: pointer; position: relative; transition: background 0.1s; background: rgba(255,255,255,0.4); }
   .screenshot-drop:hover { background: rgba(255,255,255,0.7); }
   .screenshot-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -219,27 +219,6 @@
       <button class="close-btn" onclick="closeAddModal()">✕</button>
     </div>
     <div class="modal-body">
-      <!-- SCREENSHOT EXTRACTOR -->
-      <div class="screenshot-extractor">
-        <div class="url-extractor-label" style="color:var(--accent2);">
-          <span>🖼</span>
-          スクショ・画像からレシピを読み取る
-        </div>
-        <div class="screenshot-drop" id="screenshotDrop">
-          <input type="file" accept="image/*" onchange="handleScreenshot(this)">
-          <div class="screenshot-drop-icon">📸</div>
-          <div class="screenshot-drop-text">スクショをここに貼る</div>
-          <div class="screenshot-drop-sub">インスタのスクショ、メモの写真など何でもOK</div>
-        </div>
-        <div class="screenshot-preview-wrap" id="screenshotPreviewWrap">
-          <img id="screenshotPreview" src="">
-          <button class="screenshot-read-btn" id="screenshotReadBtn" onclick="readScreenshot()">
-            <span>✨</span> AIにレシピを読み取ってもらう
-          </button>
-        </div>
-        <div class="screenshot-status" id="screenshotStatus"></div>
-      </div>
-
       <!-- SOURCE URL -->
       <div class="url-extractor">
         <div class="url-extractor-label">
@@ -302,23 +281,6 @@
     </div>
     <div class="modal-body">
 
-      <!-- API KEY -->
-      <div class="settings-section">
-        <div class="settings-section-title">AI設定</div>
-        <div class="settings-api-status" id="apiKeyStatus"></div>
-        <div class="form-group" style="margin-bottom:8px;">
-          <label class="form-label">Gemini APIキー</label>
-          <div style="display:flex;gap:6px;">
-            <input class="form-input" type="password" id="settingsApiKey" placeholder="AIzaSy...">
-            <button class="extract-btn" style="flex-shrink:0;" onclick="saveApiKey()">保存</button>
-          </div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.6;">
-          APIキーは <strong>Google AI Studio</strong>（aistudio.google.com）で無料取得できます。<br>
-          キーはこのブラウザにのみ保存されます。
-        </div>
-      </div>
-
       <!-- RECIPE TEXT IMPORT -->
       <div class="settings-section">
         <div class="settings-section-title">レシピを受け取る</div>
@@ -353,38 +315,6 @@
         <div class="screenshot-status" id="importStatus" style="margin-top:6px;"></div>
       </div>
 
-    </div>
-  </div>
-</div>
-
-<!-- API KEY SETUP (初回) -->
-<div class="modal-overlay" id="apiSetupModal" style="z-index:500;">
-  <div class="modal" style="border-top:5px solid var(--green);">
-    <div class="modal-body" style="padding-top:20px;">
-      <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:28px;letter-spacing:0.04em;line-height:1.15;margin-bottom:8px;">AIを使うには<br>APIキーが必要です</div>
-      <div style="font-size:13px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.7;margin-bottom:16px;">
-        このアプリのAI機能（スクショ読み取り・URL解析）は<br>
-        <strong>Google Gemini API</strong>を使っています。<br>
-        無料で取得できます。
-      </div>
-
-      <div style="background:var(--lavender);border:2px solid var(--ink);padding:12px;margin-bottom:14px;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.8;">
-        <strong>取得方法（3分）</strong><br>
-        1. <a href="https://aistudio.google.com" target="_blank" style="color:var(--green-dark);font-weight:700;">aistudio.google.com</a> にアクセス<br>
-        2. Googleアカウントでログイン<br>
-        3. 「Get API key」→「Create API key」<br>
-        4. 表示されたキーをコピーして下に貼る
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Gemini APIキー</label>
-        <input class="form-input" type="text" id="setupApiKey" placeholder="AIzaSy...">
-      </div>
-
-      <button class="save-btn" onclick="saveApiKeyFromSetup()">✓ 設定してアプリを使う</button>
-      <button onclick="skipApiSetup()" style="width:100%;background:none;border:none;padding:12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;">
-        あとで設定する（AI機能は使えません）
-      </button>
     </div>
   </div>
 </div>
@@ -1223,11 +1153,9 @@ function closeImportTextModal() {
 }
 
 function parseRecipeText(text) {
-  // レシピ名：🍳 の後ろ
   const nameMatch = text.match(/🍳\s*(.+)/);
   const name = nameMatch ? nameMatch[1].trim() : '';
 
-  // 材料ブロック：🥕 材料 〜 次のセクションまで
   const ingrBlock = text.match(/🥕[^\n]*\n([\s\S]*?)(?=\n👩|🍳|💬|📌|$)/);
   const ingredients = [];
   if (ingrBlock) {
@@ -1242,15 +1170,12 @@ function parseRecipeText(text) {
     });
   }
 
-  // 作り方ブロック：👩‍🍳 〜 次のセクションまで
   const stepsBlock = text.match(/👩[^\n]*\n([\s\S]*?)(?=\n💬|\n📌|$)/);
   const steps = stepsBlock ? stepsBlock[1].trim() : '';
 
-  // コツ
   const memoMatch = text.match(/💬[^\n]*\n([\s\S]*?)(?=\n📌|$)/);
   const memo = memoMatch ? memoMatch[1].trim() : '';
 
-  // 出典
   const sourceMatch = text.match(/📌[^\n]*[:：]\s*(.+)/);
   const source = sourceMatch ? sourceMatch[1].trim() : '';
 
@@ -1321,54 +1246,11 @@ document.getElementById('importTextModal').addEventListener('click', e => {
 
 // ===== SETTINGS MODAL =====
 function openSettingsModal() {
-  const key = getApiKey();
-  const statusEl = document.getElementById('apiKeyStatus');
-  const input = document.getElementById('settingsApiKey');
-  if (key) {
-    statusEl.textContent = `✓ APIキー設定済み（...${key.slice(-6)}）`;
-    statusEl.classList.add('show');
-    input.placeholder = 'キーを変更する場合は入力';
-    input.value = '';
-  } else {
-    statusEl.classList.remove('show');
-    input.value = '';
-    input.placeholder = 'AIzaSy...';
-  }
   document.getElementById('settingsModal').classList.add('open');
 }
 
 function closeSettingsModal() {
   document.getElementById('settingsModal').classList.remove('open');
-}
-
-function saveApiKey() {
-  const key = document.getElementById('settingsApiKey').value.trim();
-  if (!key) { showToast('キーを入力してね'); return; }
-  setApiKey(key);
-  showToast('APIキーを保存しました！');
-  closeSettingsModal();
-}
-
-// ===== API KEY SETUP (初回) =====
-function saveApiKeyFromSetup() {
-  const key = document.getElementById('setupApiKey').value.trim();
-  if (!key) { showToast('キーを入力してね'); return; }
-  setApiKey(key);
-  document.getElementById('apiSetupModal').classList.remove('open');
-  showToast('設定完了！AI機能が使えます');
-}
-
-function skipApiSetup() {
-  document.getElementById('apiSetupModal').classList.remove('open');
-}
-
-function checkFirstLaunch() {
-  const key = getApiKey();
-  const dismissed = localStorage.getItem('api_setup_dismissed');
-  if (!key && !dismissed) {
-    document.getElementById('apiSetupModal').classList.add('open');
-    localStorage.setItem('api_setup_dismissed', '1');
-  }
 }
 
 // ===== EXPORT / IMPORT =====
@@ -1644,7 +1526,6 @@ function closeDetail() {
 initSampleData();
 renderTagFilter();
 renderList();
-checkFirstLaunch();
 
 document.getElementById('settingsModal').addEventListener('click', e => {
   if (e.target === document.getElementById('settingsModal')) closeSettingsModal();
