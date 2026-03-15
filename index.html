@@ -858,14 +858,7 @@ function openAddModal(prefill = {}) {
   document.getElementById('recipeSteps').value = prefill.steps || '';
   document.getElementById('recipeSource').value = prefill.source || '';
   document.getElementById('recipeMemo').value = prefill.memo || '';
-  // スクショリセット
-  screenshotBase64 = null;
-  document.getElementById('screenshotPreviewWrap').style.display = 'none';
-  document.getElementById('screenshotStatus').textContent = '';
-  document.getElementById('screenshotStatus').className = 'screenshot-status';
-  // file inputをリセット（同じファイルを再選択してもonchangeが発火するように）
-  const fileInput = document.querySelector('#screenshotDrop input[type="file"]');
-  if (fileInput) fileInput.value = '';
+
 
   // Ingredients
   const ingrContainer = document.getElementById('ingredientList');
