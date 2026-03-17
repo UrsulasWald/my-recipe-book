@@ -844,10 +844,16 @@ function openAddModal(prefill = {}) {
   renderFormTags();
 
   document.getElementById('addModal').classList.add('open');
-  document.querySelector('#addModal .modal').scrollTop = 0;
+  setTimeout(() => {
+    document.querySelector('#addModal .modal').scrollTop = 0;
+    document.getElementById('addModal').scrollTop = 0;
+  }, 50);
 }
 
 function closeAddModal() {
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
   document.getElementById('addModal').classList.remove('open');
   editingId = null;
 }
@@ -946,10 +952,11 @@ function saveRecipe() {
   }
 
   saveRecipes(recipes);
+  const wasEditing = !!editingId;
   closeAddModal();
   renderTagFilter();
   renderList();
-  showToast(editingId ? '更新したよ！' : '保存したよ！');
+  showToast(wasEditing ? '更新したよ！' : '保存したよ！');
   closeDetailModal();
 }
 
