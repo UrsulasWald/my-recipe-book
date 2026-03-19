@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SETUP GUIDE — MY RECIPE BOOK with U (AI Edition)</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Bebas+Neue&family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #c8b4f0;
+    --lavender-light: #e8dcff;
+    --lavender-pale: #f3eeff;
+    --green: #3dce82;
+    --green-dark: #1fa85e;
+    --yellow: #FFFF00;
+    --ink: #0f0f0f;
+    --white: #ffffff;
+    --muted: #666;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--lavender-light);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green);
+    border-bottom: 3px solid var(--ink);
+    padding: 32px 24px 28px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 6px;
+  }
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 8vw, 52px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hero-title em {
+    font-style: normal;
+    background: var(--yellow);
+    padding: 0 4px;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', 'Caveat', cursive;
+    font-size: 17px;
+    color: rgba(0,0,0,0.6);
+    margin-top: 10px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--yellow);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--white);
+    border: 2.5px solid var(--ink);
+    border-top: none;
+    padding: 16px 20px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 3px solid var(--ink);
+  }
+  .toc-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+  .toc-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid var(--ink);
+    padding: 4px 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--lavender-pale);
+    transition: background 0.1s;
+  }
+  .toc-item:hover { background: var(--lavender); }
+  .toc-num {
+    font-size: 9px;
+    opacity: 0.4;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content {
+    padding: 0 24px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-top: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 2.5px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--lavender);
+    -webkit-text-stroke: 2px var(--ink);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+  }
+  .section-title small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .body-text + .body-text {
+    margin-top: -8px;
+  }
+
+  /* ── STEP BLOCKS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+  }
+  .step {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 44px;
+    min-height: 100%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    flex-shrink: 0;
+    border-right: 2px solid var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .step-body {
+    padding: 14px 16px;
+    flex: 1;
+  }
+  .step-action {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .step-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .step-detail a {
+    color: var(--green-dark);
+    font-weight: 700;
+  }
+
+  /* ── URL PILL ── */
+  .url-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 2px solid var(--ink);
+    background: var(--lavender-pale);
+    padding: 6px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    margin: 8px 0;
+    word-break: break-all;
+  }
+  .url-pill-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── NOTE / TIP ── */
+  .note {
+    border: 2px solid var(--ink);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    position: relative;
+    background: var(--lavender-pale);
+  }
+  .note-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .note-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .tip {
+    border-left: 4px solid var(--green);
+    background: rgba(61,206,130,0.08);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .tip-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    color: var(--green-dark);
+  }
+
+  .warn {
+    border-left: 4px solid var(--lavender);
+    background: rgba(200,180,240,0.15);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .warn-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ── SCREENSHOT PLACEHOLDER ── */
+  .screenshot-placeholder {
+    border: 2.5px dashed var(--ink);
+    background: rgba(255,255,255,0.5);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    padding: 20px;
+  }
+  .screenshot-placeholder-icon {
+    font-size: 32px;
+    opacity: 0.3;
+  }
+  .screenshot-placeholder-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.35;
+  }
+  .screenshot-caption {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* ── PRICE TABLE ── */
+  .price-table {
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .price-table-head {
+    background: var(--ink);
+    color: var(--yellow);
+    padding: 10px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .price-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1.5px solid var(--lavender-light);
+    padding: 10px 16px;
+    gap: 12px;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-label {
+    flex: 1;
+    font-size: 13px;
+  }
+  .price-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .price-note-inline {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  /* ── FEATURE LIST ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 2.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+  }
+  @media (max-width: 420px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+  .feature-item {
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 14px 14px;
+    background: var(--white);
+  }
+  .feature-item:nth-child(2n) { border-right: none; }
+  .feature-item:nth-last-child(-n+2) { border-bottom: none; }
+  .feature-icon { font-size: 22px; margin-bottom: 6px; }
+  .feature-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+  }
+  .feature-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 3px;
+    background: var(--ink);
+    margin: 40px 0 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: var(--white);
+    padding: 24px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .footer-main {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+  }
+  .footer-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+  }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    background: var(--lavender-light);
+    border: 1.5px solid var(--lavender);
+    padding: 1px 6px;
+  }
+
+  /* ── ANCHOR OFFSET ── */
+  [id] { scroll-margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">AI Edition</div>
+    <div class="hero-eyebrow">MY RECIPE BOOK with U</div>
+    <div class="hero-title">SETUP<br>GUIDE</div>
+    <div class="hero-sub">APIキーの取得から最初のレシピ読み込みまで</div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <span class="toc-label">CONTENTS</span>
+    <a class="toc-item" href="#what"><span class="toc-num">01</span>AI版でできること</a>
+    <a class="toc-item" href="#getkey"><span class="toc-num">02</span>APIキー取得</a>
+    <a class="toc-item" href="#setup"><span class="toc-num">03</span>アプリに設定</a>
+    <a class="toc-item" href="#use"><span class="toc-num">04</span>使い方</a>
+    <a class="toc-item" href="#cost"><span class="toc-num">05</span>料金について</a>
+    <a class="toc-item" href="#faq"><span class="toc-num">06</span>FAQ</a>
+  </nav>
+
+  <div class="content">
+
+    <!-- SECTION 01 -->
+    <div class="section" id="what">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-title">
+          <small>WHAT YOU CAN DO</small>
+          AI版でできること
+        </div>
+      </div>
+
+      <p class="body-text">AI版は、スタンダード版に<strong>スクリーンショット読み込み機能</strong>を追加したエディションです。レシピのスクショをそのまま貼るだけで、材料・手順・タイトルを自動入力してくれます。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">📸</div>
+          <div class="feature-title">スクショから読み込み</div>
+          <div class="feature-desc">インスタ、クックパッド、メモ帳の写真など画像なら何でもOK</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✏️</div>
+          <div class="feature-title">手入力もそのまま使える</div>
+          <div class="feature-desc">AIを使わず普通に手入力することも引き続き可能</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔑</div>
+          <div class="feature-title">自分のAPIキーを使用</div>
+          <div class="feature-desc">Googleの無料枠でほぼ無料。キーはデバイスのみに保存</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">完全ローカル動作</div>
+          <div class="feature-desc">データはすべて自分のブラウザのみ。サーバー送信なし</div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text">AIによる読み込みには <strong>Gemini APIキー</strong>（Google製）が必要です。取得は無料で、通常の使い方ではほぼ無料枠内に収まります。次のセクションで手順を説明します。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 02 -->
+    <div class="section" id="getkey">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title">
+          <small>GET YOUR API KEY</small>
+          APIキーを取得する
+        </div>
+      </div>
+
+      <p class="body-text">Google AI StudioでGemini APIキーを発行します。Googleアカウントがあれば今すぐ無料で取得できます。</p>
+
+      <div class="url-pill">
+        <span class="url-pill-icon">🔗</span>
+        aistudio.google.com
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">Google AI Studio を開く</div>
+            <div class="step-detail"><a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> にアクセスし、Googleアカウントでログインします</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「Get API key」をクリック</div>
+            <div class="step-detail">左メニューまたはトップページの「Get API key」ボタンから進みます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">「Create API key」で新しいキーを発行</div>
+            <div class="step-detail">プロジェクトを選択（または新規作成）して「Create API key in new project」をクリック</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">キーをコピーして保管</div>
+            <div class="step-detail"><code>AIzaSy...</code> から始まる文字列がAPIキーです。コピーして次のステップに進みます</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-placeholder">
+        <div class="screenshot-placeholder-icon">🖼</div>
+        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
+      </div>
+      <div class="screenshot-caption">↑ Google AI Studio の画面（Canvaで差し替えてください）</div>
+
+      <div class="tip">
+        <div class="tip-text">取得したキーはGoogle AI Studioの「Get API key」ページでいつでも再確認できます</div>
+      </div>
+    </div>
+
+    <!-- SECTION 03 -->
+    <div class="section" id="setup">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-title">
+          <small>APP SETUP</small>
+          アプリにAPIキーを設定する
+        </div>
+      </div>
+
+      <p class="body-text">取得したキーをアプリに登録します。キーはあなたのブラウザのみに保存され、外部に送信されることはありません。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">アプリを開く</div>
+            <div class="step-detail">ダウンロードした <code>my-recipe-book-with-u-ai.html</code> をブラウザで開きます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">初回起動時のポップアップ</div>
+            <div class="step-detail">「AIを使うにはAPIキーが必要です」というダイアログが表示されます。そこにキーを貼り付けて「保存」</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">あとから変更するには「設定」から</div>
+            <div class="step-detail">画面下の「設定」タブ → 「Gemini APIキー」欄からいつでも変更できます</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-placeholder">
+        <div class="screenshot-placeholder-icon">🖼</div>
+        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
+      </div>
+      <div class="screenshot-caption">↑ 初回起動時のAPIキー入力ダイアログ</div>
+
+      <div class="note">
+        <div class="note-label">NOTE</div>
+        <div class="note-text">設定済みの場合、設定タブに「✓ APIキー設定済み（...XXXXXX）」と表示されます。末尾6文字のみ表示されるので、別のデバイスで登録したかどうかの確認に使えます。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 04 -->
+    <div class="section" id="use">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-title">
+          <small>HOW TO USE</small>
+          スクショからレシピを読み込む
+        </div>
+      </div>
+
+      <p class="body-text">APIキーが設定できたら、さっそく使ってみましょう。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">「＋」ボタンでレシピ追加画面を開く</div>
+            <div class="step-detail">画面右上の「＋」または下部ナビゲーションから「ADD」をタップ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">スクショを貼り付けるエリアに画像をドロップ</div>
+            <div class="step-detail">「📸 スクショをここに貼る」エリアをタップして画像を選択。インスタのスクショ、レシピサイトの写真などOK</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">「READ WITH AI」ボタンをタップ</div>
+            <div class="step-detail">数秒待つと、タイトル・材料・手順が自動で入力されます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">内容を確認して「SAVE」</div>
+            <div class="step-detail">AIの読み取りは完璧ではないので、内容を確認・修正してから保存しましょう</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-placeholder">
+        <div class="screenshot-placeholder-icon">🖼</div>
+        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
+      </div>
+      <div class="screenshot-caption">↑ スクショ読み込みエリアの使い方</div>
+
+      <div class="tip">
+        <div class="tip-text">読み取り精度は画像のテキストが鮮明なほど上がります。手書きメモよりレシピサイトのスクショが得意です</div>
+      </div>
+    </div>
+
+    <!-- SECTION 05 -->
+    <div class="section" id="cost">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-title">
+          <small>PRICING</small>
+          料金について
+        </div>
+      </div>
+
+      <p class="body-text">Gemini APIには無料枠があり、個人の料理レシピ管理用途では通常この無料枠に収まります。</p>
+
+      <div class="price-table">
+        <div class="price-table-head">Gemini 2.5 Flash — 無料枠（2025年時点）</div>
+        <div class="price-row">
+          <span class="price-label">1日あたりのリクエスト上限</span>
+          <div>
+            <div class="price-val">1,500回/日</div>
+            <div class="price-note-inline">無料</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <span class="price-label">1分あたりのリクエスト上限</span>
+          <div>
+            <div class="price-val">15回/分</div>
+            <div class="price-note-inline">無料</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <span class="price-label">有料になるのは</span>
+          <div>
+            <div class="price-val">無料枠超過時のみ</div>
+            <div class="price-note-inline">通常は発生しない</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">NOTE</div>
+        <div class="note-text">料金・無料枠の詳細はGoogleの公式ページで最新情報をご確認ください。予告なく変更される場合があります。<br>→ <strong>ai.google.dev/pricing</strong></div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text">APIキーが外部に漏れると第三者に使われ、予期せぬ課金が発生する可能性があります。キーは他の人に見せないようにしましょう。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 06 -->
+    <div class="section" id="faq">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-title">
+          <small>FAQ</small>
+          よくある質問
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">APIキーはどこに保存されますか？</div>
+            <div class="step-detail">あなたのブラウザのlocalStorageにのみ保存されます。外部サーバーには一切送信しません。ただし、AI読み込み時は画像データがGemini APIに送信されます（Googleのプライバシーポリシーに準拠）。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">スマートフォンでも使えますか？</div>
+            <div class="step-detail">はい。Safari / Chrome いずれでも動作します。カメラロールの写真をそのままスクショとして使えます。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">読み取りがうまくいきません</div>
+            <div class="step-detail">①APIキーが正しく設定されているか確認 / ②画像のテキストが鮮明か確認 / ③ネット接続が繋がっているか確認。それでも解決しない場合は設定タブのAPIキーを一度削除して再入力してみてください。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">AIを使わずに手入力だけしたい</div>
+            <div class="step-detail">もちろんOKです。スクショエリアを無視して、タイトル・材料・手順を直接入力してSAVEすれば普通に使えます。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">ブラウザのキャッシュを消すとどうなりますか？</div>
+            <div class="step-detail">レシピデータとAPIキーが消えます。大切なレシピは定期的にエクスポート（設定タブ → バックアップ）しておくことをおすすめします。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-title">MY RECIPE BOOK with U — AI Edition</div>
+    <div class="footer-main">SETUP GUIDE</div>
+
+  </div>
+
+</div><!-- /page-wrapper -->
+
+</body>
+</html>
