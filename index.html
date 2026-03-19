@@ -23,8 +23,10 @@
     --muted: #666;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Zen Kaku Gothic New', sans-serif; background: var(--lavender-light); color: var(--ink); min-height: 100vh; max-width: 430px; margin: 0 auto; }
-  .app-header { background: var(--green); border-bottom: 3px solid var(--ink); position: sticky; top: 0; z-index: 100; overflow: hidden; }
+  html, body { height: 100%; }
+  body { font-family: 'Zen Kaku Gothic New', sans-serif; background: var(--lavender-light); color: var(--ink); margin: 0; -webkit-overflow-scrolling: touch; }
+  #app-wrapper { max-width: 430px; margin: 0 auto; min-height: 100vh; position: relative; }
+  .app-header { background: var(--green); border-bottom: 3px solid var(--ink); position: sticky; top: 0; z-index: 100; overflow: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
   .header-grid { display: grid; grid-template-columns: 1fr auto; border-bottom: 2px solid var(--ink); }
   .header-title-block { padding: 12px 16px 10px; }
   .app-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 2px; }
@@ -159,6 +161,7 @@
 </style>
 </head>
 <body>
+<div id="app-wrapper">
 
 <!-- HEADER -->
 <header class="app-header">
@@ -1438,5 +1441,6 @@ document.getElementById('settingsModal').addEventListener('click', e => {
   if (e.target === document.getElementById('settingsModal')) closeSettingsModal();
 });
 </script>
+</div><!-- /#app-wrapper -->
 </body>
 </html>
