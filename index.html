@@ -53,7 +53,6 @@
   .recipe-card:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
   .card-accent-bar { height: 5px; }
   .card-body { padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
-
   .card-info { flex: 1; min-width: 0; }
   .card-name { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 20px; font-weight: 400; line-height: 1.1; margin-bottom: 4px; letter-spacing: 0.04em; color: var(--ink); }
   .card-source { font-size: 10px; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
@@ -98,12 +97,9 @@
   .tag-badge { display: flex; align-items: center; gap: 4px; background: var(--lavender); color: var(--ink); padding: 3px 8px 3px 10px; border-radius: 0; font-size: 11px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-weight: 700; border: 1.5px solid var(--ink); text-transform: uppercase; letter-spacing: 0.04em; }
   .tag-badge button { background: none; border: none; color: rgba(0,0,0,0.5); cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
   .tag-input-field { border: none; outline: none; font-size: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; min-width: 80px; flex: 1; background: transparent; }
-
   .save-btn { width: 100%; background: var(--green); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 0; padding: 15px; font-size: 18px; font-weight: 400; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.12em; transition: transform 0.08s, box-shadow 0.08s; margin-top: 8px; box-shadow: 4px 4px 0 var(--ink); }
   .save-btn:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
   .detail-modal .modal-body { padding: 0; }
-
-
   .detail-content { padding: 16px; }
   .detail-name { font-family: 'Space Grotesk', 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.05; margin-bottom: 6px; letter-spacing: 0.04em; }
   .detail-source { font-size: 10px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
@@ -123,7 +119,6 @@
   .detail-memo { background: var(--yellow); padding: 12px 14px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; line-height: 1.75; color: var(--ink); border: 2px solid var(--ink); }
   .detail-actions { display: flex; gap: 0; margin-bottom: 28px; border: 2px solid var(--ink); }
   .action-btn { flex: 1; border: none; border-right: 2px solid var(--ink); background: var(--white); padding: 12px 4px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; transition: background 0.1s; letter-spacing: 0.04em; text-transform: uppercase; }
-  
   .action-btn:last-child { border-right: none; }
   .action-btn.danger { color: #c00; background: #fff0f0; }
   .action-btn:active { background: var(--lavender-light); }
@@ -145,6 +140,12 @@
   .tag-2 { background: rgba(240,226,32,0.3); color: #907000; }
   .tag-3 { background: rgba(240,128,64,0.15); color: #c05020; }
   .tag-4 { background: rgba(96,176,240,0.2); color: #2060a0; }
+
+  /* テキスト読み込みセクション */
+  .import-text-section { background: var(--lavender); border: 2px solid var(--ink); padding: 12px; margin-bottom: 12px; }
+  .import-text-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; }
+  .import-text-btn { width: 100%; background: var(--ink); color: var(--yellow); border: none; padding: 11px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .import-text-btn:active { opacity: 0.8; }
 
   .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.2); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -207,6 +208,18 @@
       <button class="close-btn" onclick="closeAddModal()">✕</button>
     </div>
     <div class="modal-body">
+
+      <!-- テキストから読み込む -->
+      <div class="import-text-section" id="importTextSection">
+        <div class="import-text-label">
+          <span>📨</span>
+          テキストから読み込む
+        </div>
+        <textarea id="addImportTextArea" style="width:100%;height:120px;border:2px solid var(--ink);padding:10px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.7;resize:none;outline:none;background:var(--white);margin-bottom:8px;" placeholder="🍳 レシピ名&#10;────────&#10;🥕 材料&#10;  ・材料名　量&#10;..."></textarea>
+        <button class="import-text-btn" onclick="applyImportText()">📥 フォームに読み込む</button>
+        <div id="addImportTextStatus" style="font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,0.55);margin-top:6px;min-height:16px;"></div>
+      </div>
+
       <!-- SOURCE URL -->
       <div class="url-extractor">
         <div class="url-extractor-label">
@@ -223,7 +236,6 @@
         <label class="form-label">📝 レシピ名 *</label>
         <input class="form-input" type="text" id="recipeName" placeholder="例：お母さんの肉じゃが">
       </div>
-
 
       <div class="form-group">
         <label class="form-label">🥕 材料</label>
@@ -269,21 +281,9 @@
     </div>
     <div class="modal-body">
 
-      <!-- RECIPE TEXT IMPORT -->
-      <div class="settings-section">
-        <div class="settings-section-title">レシピを受け取る</div>
-        <button class="action-btn" style="width:100%;justify-content:center;background:var(--lavender);" onclick="closeSettingsModal();openImportTextModal();">
-          📨 テキストから読み込む
-        </button>
-        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
-          友だちから送られてきたレシピテキストを貼り付けてカードを作れます。
-        </div>
-      </div>
-
       <!-- EXPORT / IMPORT -->
       <div class="settings-section">
         <div class="settings-section-title">データのバックアップ</div>
-
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="action-btn" style="width:100%;justify-content:center;" onclick="exportData()">
             📤 レシピをエクスポート（JSONファイル）
@@ -316,7 +316,7 @@
       <button class="close-btn" onclick="closeShareModal()">✕</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">コピーしてLINEなどで送れます。受け取った人は設定画面の「テキストから読み込む」で取り込めます。</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">コピーしてLINEなどで送れます。受け取った人は＋ADDの最初の欄に貼り付けて取り込めます。</p>
       <div class="share-text" id="shareText"></div>
       <button class="copy-btn" onclick="copyShare()">📋 テキストをコピー</button>
       <div style="height:20px;"></div>
@@ -324,7 +324,7 @@
   </div>
 </div>
 
-<!-- テキストから読み込みモーダル -->
+<!-- テキストから読み込みモーダル（互換性維持） -->
 <div class="modal-overlay" id="importTextModal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -371,21 +371,18 @@ function addCustomTag() {
 
 function editCustomTag(tag) {
   const newName = prompt(`「${tag}」を編集`, tag);
-  if (newName === null) return; // キャンセル
+  if (newName === null) return;
   const trimmed = newName.trim();
   const tags = loadCustomTags();
   if (!trimmed) {
-    // 空なら削除確認
     if (!confirm(`「${tag}」を削除しますか？`)) return;
     saveCustomTags(tags.filter(t => t !== tag));
-    // レシピのタグも更新
     const recipes = loadRecipes();
     recipes.forEach(r => { r.tags = (r.tags || []).filter(t => t !== tag); });
     saveRecipes(recipes);
     if (activeTag === tag) activeTag = 'すべて';
   } else {
     saveCustomTags(tags.map(t => t === tag ? trimmed : t));
-    // レシピのタグも更新
     const recipes = loadRecipes();
     recipes.forEach(r => { r.tags = (r.tags || []).map(t => t === tag ? trimmed : t); });
     saveRecipes(recipes);
@@ -405,16 +402,10 @@ function editRecipeName(id) {
   input.value = current;
   input.style.cssText = `
     font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-    font-size: 26px;
-    line-height: 1.05;
-    letter-spacing: 0.04em;
-    background: rgba(255,255,255,0.5);
-    border: none;
-    border-bottom: 2.5px solid var(--ink);
-    outline: none;
-    width: 100%;
-    padding: 2px 0;
-    color: var(--ink);
+    font-size: 26px; line-height: 1.05; letter-spacing: 0.04em;
+    background: rgba(255,255,255,0.5); border: none;
+    border-bottom: 2.5px solid var(--ink); outline: none;
+    width: 100%; padding: 2px 0; color: var(--ink);
   `;
   el.replaceWith(input);
   input.focus();
@@ -448,12 +439,9 @@ function editRecipeName(id) {
   });
 }
 
-// ===== RECIPE SOURCE INLINE EDIT =====
-
 function loadRecipes() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
 }
 
 function saveRecipes(recipes) {
@@ -525,6 +513,7 @@ let currentTags = [];
 let activeTag = 'すべて';
 let editingId = null;
 let formTags = [];
+
 // ===== RENDER LIST =====
 function renderList() {
   recipes = loadRecipes();
@@ -557,7 +546,6 @@ function renderList() {
   }
 
   listEl.innerHTML = filtered.map(r => {
-
     const tagHtml = (r.tags || []).slice(0, 3).map((t, i) => `
       <span class="mini-tag tag-${i % 5}">${t}</span>
     `).join('');
@@ -567,7 +555,6 @@ function renderList() {
       <div class="recipe-card" data-id="${r.id}" draggable="true" onclick="openDetail(${r.id})">
         <div class="card-accent-bar color-${r.color || 0}"></div>
         <div class="card-body">
-
           <div class="card-info">
             <div class="card-name">${r.name}</div>
             <div class="card-source">
@@ -596,21 +583,18 @@ function initDragSort() {
   let touchCard = null;
   let placeholder = null;
 
-  // --- Mouse drag ---
   list.querySelectorAll('.recipe-card').forEach(card => {
     card.addEventListener('dragstart', e => {
       dragging = card;
       setTimeout(() => card.classList.add('dragging'), 0);
       e.dataTransfer.effectAllowed = 'move';
     });
-
     card.addEventListener('dragend', () => {
       card.classList.remove('dragging');
       list.querySelectorAll('.recipe-card').forEach(c => c.classList.remove('drag-over'));
       dragging = null;
       saveOrder();
     });
-
     card.addEventListener('dragover', e => {
       e.preventDefault();
       if (!dragging || dragging === card) return;
@@ -618,17 +602,12 @@ function initDragSort() {
       card.classList.add('drag-over');
       const rect = card.getBoundingClientRect();
       const mid = rect.top + rect.height / 2;
-      if (e.clientY < mid) {
-        list.insertBefore(dragging, card);
-      } else {
-        list.insertBefore(dragging, card.nextSibling);
-      }
+      if (e.clientY < mid) list.insertBefore(dragging, card);
+      else list.insertBefore(dragging, card.nextSibling);
     });
-
     card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
     card.addEventListener('drop', e => { e.preventDefault(); card.classList.remove('drag-over'); });
 
-    // --- Touch drag ---
     const handle = card.querySelector('.drag-handle');
     if (!handle) return;
 
@@ -637,7 +616,6 @@ function initDragSort() {
       touchCard = card;
       touchStartY = e.touches[0].clientY;
       card.classList.add('dragging');
-      // placeholderを作成
       placeholder = document.createElement('div');
       placeholder.style.cssText = `height:${card.offsetHeight}px;border:2px dashed var(--green);margin:0;box-sizing:border-box;`;
       card.parentNode.insertBefore(placeholder, card.nextSibling);
@@ -683,7 +661,6 @@ function initDragSort() {
     const ids = [...list.querySelectorAll('.recipe-card')].map(c => Number(c.dataset.id));
     const all = loadRecipes();
     const reordered = ids.map(id => all.find(r => r.id === id)).filter(Boolean);
-    // リストにないもの（フィルター中）は末尾に
     const rest = all.filter(r => !ids.includes(r.id));
     saveRecipes([...reordered, ...rest]);
     renderTagFilter();
@@ -693,21 +670,17 @@ function initDragSort() {
 // ===== TAGS FILTER =====
 function renderTagFilter() {
   recipes = loadRecipes();
-  // レシピについてるタグ
   const recipeTags = [];
   recipes.forEach(r => (r.tags || []).forEach(t => { if (!recipeTags.includes(t)) recipeTags.push(t); }));
-  // カスタム追加タグ（レシピにないものも表示）
   const customTags = loadCustomTags();
   const allTags = ['すべて', ...new Set([...recipeTags, ...customTags])];
   currentTags = allTags;
 
   const el = document.getElementById('tagFilter');
-
   const chipsHtml = allTags.map(t => {
     const editable = t !== 'すべて';
     return `<div class="tag-chip ${t === activeTag ? 'active' : ''}" data-tag="${t}" data-editable="${editable}">${t}</div>`;
   }).join('');
-
   el.innerHTML = chipsHtml + `<button class="tag-add-btn" onclick="addCustomTag()" title="カテゴリを追加">＋</button>`;
 
   el.querySelectorAll('.tag-chip').forEach(chip => {
@@ -715,26 +688,14 @@ function renderTagFilter() {
     const editable = chip.dataset.editable === 'true';
     let clickTimer;
     let touchTimer;
-
-    // タッチ長押し → 編集
     if (editable) {
-      chip.addEventListener('touchstart', () => {
-        touchTimer = setTimeout(() => editCustomTag(tag), 600);
-      }, { passive: true });
+      chip.addEventListener('touchstart', () => { touchTimer = setTimeout(() => editCustomTag(tag), 600); }, { passive: true });
       chip.addEventListener('touchend', () => clearTimeout(touchTimer));
       chip.addEventListener('touchmove', () => clearTimeout(touchTimer));
     }
-
-    // PC: シングルクリック → 選択、ダブルクリック → 編集
-    chip.addEventListener('click', () => {
-      clearTimeout(clickTimer);
-      clickTimer = setTimeout(() => setTag(tag), 200);
-    });
+    chip.addEventListener('click', () => { clearTimeout(clickTimer); clickTimer = setTimeout(() => setTag(tag), 200); });
     if (editable) {
-      chip.addEventListener('dblclick', () => {
-        clearTimeout(clickTimer);
-        editCustomTag(tag);
-      });
+      chip.addEventListener('dblclick', () => { clearTimeout(clickTimer); editCustomTag(tag); });
     }
   });
 }
@@ -755,10 +716,7 @@ function openDetail(id) {
   `).join('');
 
   const ingrHtml = (recipe.ingredients || []).map(i => `
-    <tr>
-      <td>${i.name}</td>
-      <td>${i.amount}</td>
-    </tr>
+    <tr><td>${i.name}</td><td>${i.amount}</td></tr>
   `).join('');
 
   const steps = (recipe.steps || '').split('\n').filter(s => s.trim());
@@ -768,8 +726,6 @@ function openDetail(id) {
       <div class="step-text">${s.replace(/^\d+\.\s*/, '')}</div>
     </div>
   `).join('');
-
-
 
   document.getElementById('detailContent').innerHTML = `
     <div class="modal-handle"></div>
@@ -789,25 +745,21 @@ function openDetail(id) {
         </span>
       </div>
       <div class="detail-tags">${tagHtml}</div>
-
       ${ingrHtml ? `
       <div class="detail-section">
         <div class="detail-section-title">材料</div>
         <table class="ingr-table"><tbody>${ingrHtml}</tbody></table>
       </div>` : ''}
-
       ${stepHtml ? `
       <div class="detail-section">
         <div class="detail-section-title">作り方</div>
         <div class="step-list">${stepHtml}</div>
       </div>` : ''}
-
       ${recipe.memo ? `
       <div class="detail-section">
         <div class="detail-section-title">メモ・コツ</div>
         <div class="detail-memo">${recipe.memo.replace(/\n/g, '<br>')}</div>
       </div>` : ''}
-
       <div class="detail-actions">
         <button class="action-btn" onclick="editRecipe(${recipe.id})">✏️ 編集</button>
         <button class="action-btn" onclick="shareRecipe(${recipe.id})">📤 シェア</button>
@@ -836,6 +788,13 @@ function openAddModal(prefill = {}) {
   document.getElementById('recipeSource').value = prefill.source || '';
   document.getElementById('recipeMemo').value = prefill.memo || '';
 
+  // テキスト読み込みエリアリセット
+  document.getElementById('addImportTextArea').value = '';
+  document.getElementById('addImportTextStatus').textContent = '';
+
+  // 編集時はテキスト読み込みエリアを非表示
+  const importSection = document.getElementById('importTextSection');
+  importSection.style.display = editingId ? 'none' : '';
 
   // Ingredients
   const ingrContainer = document.getElementById('ingredientList');
@@ -843,7 +802,6 @@ function openAddModal(prefill = {}) {
   const ingrs = prefill.ingredients || [{ name: '', amount: '' }];
   ingrs.forEach(i => addIngredient(i.name, i.amount));
 
-  // Tags
   renderFormTags();
 
   document.getElementById('addModal').classList.add('open');
@@ -859,6 +817,40 @@ function closeAddModal() {
   }
   document.getElementById('addModal').classList.remove('open');
   editingId = null;
+}
+
+// ===== ADD画面内テキスト読み込み =====
+function applyImportText() {
+  const text = document.getElementById('addImportTextArea').value.trim();
+  const status = document.getElementById('addImportTextStatus');
+
+  if (!text) {
+    status.style.color = 'red';
+    status.textContent = 'テキストを貼り付けてください';
+    return;
+  }
+
+  const parsed = parseRecipeText(text);
+
+  if (!parsed.name) {
+    status.style.color = '#c00';
+    status.textContent = 'レシピ名が見つかりませんでした';
+    return;
+  }
+
+  if (parsed.name) document.getElementById('recipeName').value = parsed.name;
+  if (parsed.steps) document.getElementById('recipeSteps').value = parsed.steps;
+  if (parsed.memo) document.getElementById('recipeMemo').value = parsed.memo;
+  if (parsed.source) document.getElementById('recipeSource').value = parsed.source;
+
+  if (parsed.ingredients && parsed.ingredients.length > 0) {
+    document.getElementById('ingredientList').innerHTML = '';
+    parsed.ingredients.forEach(i => addIngredient(i.name, i.amount));
+  }
+
+  status.style.color = 'var(--green-dark)';
+  status.textContent = '✓ 読み込んだよ！内容を確認・修正してね';
+  document.getElementById('addImportTextArea').value = '';
 }
 
 // ===== INGREDIENTS =====
@@ -904,8 +896,6 @@ function removeFormTag(tag) {
   formTags = formTags.filter(t => t !== tag);
   renderFormTags();
 }
-
-
 
 // ===== SAVE =====
 function saveRecipe() {
@@ -1009,17 +999,7 @@ function copyShare() {
   });
 }
 
-// ===== IMPORT FROM TEXT =====
-function openImportTextModal() {
-  document.getElementById('importTextArea').value = '';
-  document.getElementById('importTextStatus').textContent = '';
-  document.getElementById('importTextModal').classList.add('open');
-}
-
-function closeImportTextModal() {
-  document.getElementById('importTextModal').classList.remove('open');
-}
-
+// ===== PARSE RECIPE TEXT =====
 function parseRecipeText(text) {
   const nameMatch = text.match(/🍳\s*(.+)/);
   const name = nameMatch ? nameMatch[1].trim() : '';
@@ -1050,24 +1030,23 @@ function parseRecipeText(text) {
   return { name, ingredients, steps, memo, source };
 }
 
+// ===== IMPORT TEXT MODAL (互換性維持) =====
+function openImportTextModal() {
+  document.getElementById('importTextArea').value = '';
+  document.getElementById('importTextStatus').textContent = '';
+  document.getElementById('importTextModal').classList.add('open');
+}
+
+function closeImportTextModal() {
+  document.getElementById('importTextModal').classList.remove('open');
+}
+
 function confirmImportText() {
   const text = document.getElementById('importTextArea').value.trim();
   const status = document.getElementById('importTextStatus');
-
-  if (!text) {
-    status.style.color = 'red';
-    status.textContent = 'テキストを貼り付けてください';
-    return;
-  }
-
+  if (!text) { status.style.color = 'red'; status.textContent = 'テキストを貼り付けてください'; return; }
   const parsed = parseRecipeText(text);
-
-  if (!parsed.name) {
-    status.style.color = 'red';
-    status.textContent = 'レシピ名が見つかりませんでした。形式を確認してください';
-    return;
-  }
-
+  if (!parsed.name) { status.style.color = 'red'; status.textContent = 'レシピ名が見つかりませんでした。形式を確認してください'; return; }
   const recipes = loadRecipes();
   const newRecipe = {
     id: Date.now(),
@@ -1095,7 +1074,6 @@ function showToast(msg) {
 }
 
 // ===== CLOSE ON OVERLAY CLICK =====
-// pointerdownでクリック開始位置を記録し、overlay上で始まりoverlay上で終わった場合のみ閉じる
 let _pointerDownTarget = null;
 document.addEventListener('pointerdown', e => { _pointerDownTarget = e.target; });
 
@@ -1226,29 +1204,6 @@ async function exportBackupHTML() {
     const dateStr = new Date(r.createdAt).toLocaleDateString('ja-JP',{month:'short',day:'numeric'});
     const ingrCount = (r.ingredients||[]).length;
 
-    const ingrRows = (r.ingredients||[]).map(i =>
-      `<tr><td style="padding:8px 0;font-size:14px;font-weight:700;border-bottom:1px solid #e8dcff;">${escHtml(i.name)}</td><td style="padding:8px 0;font-size:12px;color:#666;text-align:right;border-bottom:1px solid #e8dcff;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;">${escHtml(i.amount)}</td></tr>`
-    ).join('');
-
-    const steps = (r.steps||'').split('\n').filter(s=>s.trim());
-    const stepHtml = steps.map((s,i) =>
-      `<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;">
-        <div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">${i+1}</div>
-        <div style="font-size:14px;line-height:1.75;padding-top:3px;">${escHtml(s.replace(/^\d+\.\s*/,''))}</div>
-      </div>`
-    ).join('');
-
-    const detailTagHtml = (r.tags||[]).map((t,i) => {
-      const tc = tagColors[i%5];
-      return `<span style="font-size:13px;font-weight:700;padding:5px 14px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:${tc.bg};color:${tc.color};">${escHtml(t)}</span>`;
-    }).join('');
-
-    const sourceHtml = r.source
-      ? (r.source.startsWith('http')
-          ? `<a href="${escHtml(r.source)}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">${escHtml(r.source)}</a>`
-          : `<span style="color:#1fa85e;">${escHtml(r.source)}</span>`)
-      : '';
-
     return `
     <div class="recipe-card" data-tags="${escHtml(JSON.stringify(r.tags||[]))}" data-name="${escHtml(r.name)}" data-source="${escHtml(r.source||'')}" data-memo="${escHtml(r.memo||'')}"
       style="background:#fff;border:2.5px solid #0f0f0f;cursor:pointer;box-shadow:4px 4px 0 #0f0f0f;margin-bottom:8px;"
@@ -1256,8 +1211,8 @@ async function exportBackupHTML() {
       <div style="height:5px;background:${accentColor};"></div>
       <div style="padding:10px 12px;display:flex;gap:10px;align-items:flex-start;">
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:20px;font-weight:400;line-height:1.1;margin-bottom:4px;letter-spacing:0.04em;">${escHtml(r.name)}</div>
-          ${r.source ? `<div style="font-size:10px;color:#666;margin-bottom:6px;display:flex;align-items:center;gap:4px;font-family:'Space Grotesk',sans-serif;font-weight:700;">📌 ${escHtml(r.source)}</div>` : ''}
+          <div style="font-family:'Space Grotesk','Zen Kaku Gothic New',sans-serif;font-size:20px;font-weight:400;line-height:1.1;margin-bottom:4px;letter-spacing:0.04em;">${escHtml(r.name)}</div>
+          ${r.source ? `<div style="font-size:10px;color:#666;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;font-weight:700;">📌 ${escHtml(r.source)}</div>` : ''}
           <div style="display:flex;flex-wrap:wrap;gap:4px;">${tagHtml}</div>
         </div>
       </div>
@@ -1265,14 +1220,9 @@ async function exportBackupHTML() {
         <span>🥕 ${ingrCount}種類</span>
         <span>📅 ${dateStr}</span>
       </div>
-      <!-- DETAIL DATA (hidden) -->
       <script type="application/json" class="detail-data">${JSON.stringify({
-        name: r.name,
-        source: r.source||'',
-        tags: r.tags||[],
-        ingredients: r.ingredients||[],
-        steps: r.steps||'',
-        memo: r.memo||''
+        name: r.name, source: r.source||'', tags: r.tags||[],
+        ingredients: r.ingredients||[], steps: r.steps||'', memo: r.memo||''
       })}<\/script>
     </div>`;
   }).join('');
@@ -1287,11 +1237,6 @@ async function exportBackupHTML() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MY RECIPE BOOK with U — ${date}</title>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MY RECIPE BOOK with U">
-<meta name="theme-color" content="#c8b4f0">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Bebas+Neue&family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -1305,15 +1250,14 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:#e8dcff;color:#0f0f
 </style>
 </head>
 <body>
-
 <header style="background:#3dce82;border-bottom:3px solid #0f0f0f;position:sticky;top:0;z-index:100;">
   <div style="display:grid;grid-template-columns:1fr auto;border-bottom:2px solid #0f0f0f;">
     <div style="padding:12px 16px 10px;">
       <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(0,0,0,0.5);margin-bottom:2px;">BACKUP — ${date}</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;line-height:0.95;color:#0f0f0f;letter-spacing:0.01em;">MY RECIPE BOOK with U</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;line-height:0.95;color:#0f0f0f;">MY RECIPE BOOK with U</div>
     </div>
-    <div style="display:flex;align-items:center;justify-content:center;padding:0 16px;background:#FFFF00;border-left:2px solid #0f0f0f;">
-      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#0f0f0f;letter-spacing:0.05em;">${recipes.length} RECIPES</span>
+    <div style="display:flex;align-items:center;padding:0 16px;background:#FFFF00;border-left:2px solid #0f0f0f;">
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#0f0f0f;">${recipes.length} RECIPES</span>
     </div>
   </div>
   <div style="padding:8px 12px;">
@@ -1324,30 +1268,21 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:#e8dcff;color:#0f0f
     ${tagChips}
   </div>
 </header>
-
 <div style="padding:8px 14px 2px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#666;" id="recipeCount">${recipes.length} レシピ</div>
-<div style="padding:10px;display:flex;flex-direction:column;" id="recipeList">
-  ${cardsHtml}
-</div>
+<div style="padding:10px;display:flex;flex-direction:column;" id="recipeList">${cardsHtml}</div>
 <div style="height:40px;"></div>
-
-<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeDetail()">
   <div class="modal" id="detailContent"></div>
 </div>
-
 <script>
 var activeTag = 'すべて';
-
 function filterTag(el) {
   activeTag = el.dataset.tag;
   document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   applyFilters();
 }
-
 function filterSearch() { applyFilters(); }
-
 function applyFilters() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const cards = document.querySelectorAll('.recipe-card');
@@ -1364,25 +1299,15 @@ function applyFilters() {
   });
   document.getElementById('recipeCount').textContent = count + ' レシピ';
 }
-
-// 初期タグ
 document.querySelector('.tag-chip[data-tag="すべて"]').classList.add('active');
-
 function openDetail(card) {
   const data = JSON.parse(card.querySelector('.detail-data').textContent);
-  const tagColors = [
-    {bg:'rgba(61,206,130,0.15)',color:'#1fa85e'},
-    {bg:'rgba(200,180,240,0.4)',color:'#7040c0'},
-    {bg:'rgba(240,226,32,0.3)',color:'#907000'},
-    {bg:'rgba(240,128,64,0.15)',color:'#c05020'},
-    {bg:'rgba(96,176,240,0.2)',color:'#2060a0'}
-  ];
+  const tagColors = [{bg:'rgba(61,206,130,0.15)',color:'#1fa85e'},{bg:'rgba(200,180,240,0.4)',color:'#7040c0'},{bg:'rgba(240,226,32,0.3)',color:'#907000'},{bg:'rgba(240,128,64,0.15)',color:'#c05020'},{bg:'rgba(96,176,240,0.2)',color:'#2060a0'}];
   const tagHtml = data.tags.map((t,i)=>{const tc=tagColors[i%5];return \`<span style="font-size:13px;font-weight:700;padding:5px 14px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:\${tc.bg};color:\${tc.color};">\${t}</span>\`;}).join('');
   const ingrHtml = data.ingredients.map(i=>\`<tr><td style="padding:8px 0;font-size:14px;font-weight:700;border-bottom:1px solid #e8dcff;">\${i.name}</td><td style="padding:8px 0;font-size:12px;color:#666;text-align:right;border-bottom:1px solid #e8dcff;">\${i.amount}</td></tr>\`).join('');
   const steps = data.steps.split('\\n').filter(s=>s.trim());
   const stepHtml = steps.map((s,i)=>\`<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;"><div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">\${i+1}</div><div style="font-size:14px;line-height:1.75;padding-top:3px;">\${s.replace(/^\\d+\\.\\s*/,'')}</div></div>\`).join('');
   const sourceHtml = data.source ? (data.source.startsWith('http') ? \`<a href="\${data.source}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">\${data.source}</a>\` : \`<span style="color:#1fa85e;">\${data.source}</span>\`) : '';
-
   document.getElementById('detailContent').innerHTML = \`
     <div style="width:36px;height:4px;background:rgba(0,0,0,0.2);margin:12px auto 0;"></div>
     <div style="padding:12px 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0f0f0f;position:sticky;top:0;background:#f3eeff;z-index:1;">
@@ -1400,10 +1325,7 @@ function openDetail(card) {
   document.getElementById('detailModal').classList.add('open');
   document.getElementById('detailContent').scrollTop = 0;
 }
-
-function closeDetail() {
-  document.getElementById('detailModal').classList.remove('open');
-}
+function closeDetail() { document.getElementById('detailModal').classList.remove('open'); }
 <\/script>
 </body>
 </html>`;
