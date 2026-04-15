@@ -165,6 +165,12 @@
   .screenshot-status.success { color: var(--green-dark); }
   .screenshot-status.error { color: #c00; }
 
+  /* テキスト読み込みセクション */
+  .import-text-section { background: var(--lavender); border: 2px solid var(--ink); padding: 12px; margin-bottom: 12px; }
+  .import-text-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; }
+  .import-text-btn { width: 100%; background: var(--ink); color: var(--yellow); border: none; padding: 11px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .import-text-btn:active { opacity: 0.8; }
+
   .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.2); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--ink); color: var(--yellow); padding: 10px 22px; border-radius: 0; font-size: 12px; font-weight: 700; opacity: 0; transition: all 0.25s ease-out; z-index: 999; white-space: nowrap; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--green); }
@@ -228,37 +234,31 @@
       <button class="close-btn" onclick="closeAddModal()">✕</button>
     </div>
     <div class="modal-body">
+
+      <!-- テキストから読み込む -->
+      <div class="import-text-section" id="importTextSection">
+        <div class="import-text-label">
+          <span>📨</span>
+          テキストから読み込む
+        </div>
+        <textarea id="addImportTextArea" style="width:100%;height:120px;border:2px solid var(--ink);padding:10px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.7;resize:none;outline:none;background:var(--white);margin-bottom:8px;" placeholder="🍳 レシピ名&#10;────────&#10;🥕 材料&#10;  ・材料名　量&#10;..."></textarea>
+        <button class="import-text-btn" onclick="applyImportText()">📥 フォームに読み込む</button>
+        <div id="addImportTextStatus" style="font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,0.55);margin-top:6px;min-height:16px;"></div>
+      </div>
+
       <!-- SCREENSHOT EXTRACTOR -->
       <div class="screenshot-extractor">
         <div class="url-extractor-label" style="color:var(--accent2);">
           <span>🖼</span>
           スクショ・画像からレシピを読み取る
         </div>
-        <div style="display:flex;gap:8px;margin-bottom:6px;">
-          <div style="flex:1;">
-            <div style="font-size:10px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);opacity:0.6;margin-bottom:4px;">1枚目</div>
-            <div class="screenshot-drop" id="screenshotDrop1">
-              <input type="file" accept="image/*" onchange="handleScreenshot(this,1)">
-              <div class="screenshot-drop-icon">📸</div>
-              <div class="screenshot-drop-text" style="font-size:10px;">ここに貼る</div>
-            </div>
-            <div class="screenshot-preview-wrap" id="screenshotPreviewWrap1">
-              <img id="screenshotPreview1" src="" style="max-height:120px;">
-              <button style="position:absolute;top:4px;right:4px;background:var(--ink);color:#fff;border:none;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;" onclick="clearScreenshot(1)">✕</button>
-            </div>
+        <div style="margin-bottom:6px;">
+          <div class="screenshot-drop" id="screenshotDrop1">
+            <input type="file" accept="image/*" multiple onchange="handleScreenshots(this)">
+            <div class="screenshot-drop-icon">📸</div>
+            <div class="screenshot-drop-text">写真を選ぶ（最大2枚）</div>
           </div>
-          <div style="flex:1;">
-            <div style="font-size:10px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);opacity:0.6;margin-bottom:4px;">2枚目（任意）</div>
-            <div class="screenshot-drop" id="screenshotDrop2">
-              <input type="file" accept="image/*" onchange="handleScreenshot(this,2)">
-              <div class="screenshot-drop-icon" style="font-size:18px;">＋</div>
-              <div class="screenshot-drop-text" style="font-size:10px;">ここに貼る</div>
-            </div>
-            <div class="screenshot-preview-wrap" id="screenshotPreviewWrap2">
-              <img id="screenshotPreview2" src="" style="max-height:120px;">
-              <button style="position:absolute;top:4px;right:4px;background:var(--ink);color:#fff;border:none;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;" onclick="clearScreenshot(2)">✕</button>
-            </div>
-          </div>
+          <div id="screenshotPreviewRow" style="display:none;margin-top:8px;display:none;gap:6px;"></div>
         </div>
         <button class="screenshot-read-btn" id="screenshotReadBtn" onclick="readScreenshot()" style="display:none;">
           <span>✨</span> AIにレシピを読み取ってもらう
@@ -346,17 +346,6 @@
         </div>
       </div>
 
-      <!-- RECIPE TEXT IMPORT -->
-      <div class="settings-section">
-        <div class="settings-section-title">レシピを受け取る</div>
-        <button class="action-btn" style="width:100%;justify-content:center;background:var(--lavender);" onclick="closeSettingsModal();openImportTextModal();">
-          📨 テキストから読み込む
-        </button>
-        <div style="font-size:12px;color:var(--muted);font-family:'Zen Kaku Gothic New',sans-serif;margin-top:8px;line-height:1.6;">
-          友だちから送られてきたレシピテキストを貼り付けてカードを作れます。
-        </div>
-      </div>
-
       <!-- EXPORT / IMPORT -->
       <div class="settings-section">
         <div class="settings-section-title">データのバックアップ</div>
@@ -425,7 +414,7 @@
       <button class="close-btn" onclick="closeShareModal()">✕</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">コピーしてLINEなどで送れます。受け取った人は設定画面の「テキストから読み込む」で取り込めます。</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">コピーしてLINEなどで送れます。受け取った人は＋ADDの最初の欄に貼り付けて取り込めます。</p>
       <div class="share-text" id="shareText"></div>
       <button class="copy-btn" onclick="copyShare()">📋 テキストをコピー</button>
       <div style="height:20px;"></div>
@@ -433,7 +422,7 @@
   </div>
 </div>
 
-<!-- テキストから読み込みモーダル -->
+<!-- テキストから読み込みモーダル（設定からのアクセス用・互換性維持） -->
 <div class="modal-overlay" id="importTextModal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -488,21 +477,18 @@ function addCustomTag() {
 
 function editCustomTag(tag) {
   const newName = prompt(`「${tag}」を編集`, tag);
-  if (newName === null) return; // キャンセル
+  if (newName === null) return;
   const trimmed = newName.trim();
   const tags = loadCustomTags();
   if (!trimmed) {
-    // 空なら削除確認
     if (!confirm(`「${tag}」を削除しますか？`)) return;
     saveCustomTags(tags.filter(t => t !== tag));
-    // レシピのタグも更新
     const recipes = loadRecipes();
     recipes.forEach(r => { r.tags = (r.tags || []).filter(t => t !== tag); });
     saveRecipes(recipes);
     if (activeTag === tag) activeTag = 'すべて';
   } else {
     saveCustomTags(tags.map(t => t === tag ? trimmed : t));
-    // レシピのタグも更新
     const recipes = loadRecipes();
     recipes.forEach(r => { r.tags = (r.tags || []).map(t => t === tag ? trimmed : t); });
     saveRecipes(recipes);
@@ -564,8 +550,6 @@ function editRecipeName(id) {
     if (e.key === 'Escape') { input.value = current; input.blur(); }
   });
 }
-
-// ===== RECIPE SOURCE INLINE EDIT =====
 
 function loadRecipes() {
   try {
@@ -642,6 +626,7 @@ let currentTags = [];
 let activeTag = 'すべて';
 let editingId = null;
 let formTags = [];
+
 // ===== RENDER LIST =====
 function renderList() {
   recipes = loadRecipes();
@@ -674,7 +659,6 @@ function renderList() {
   }
 
   listEl.innerHTML = filtered.map(r => {
-
     const tagHtml = (r.tags || []).slice(0, 3).map((t, i) => `
       <span class="mini-tag tag-${i % 5}">${t}</span>
     `).join('');
@@ -684,7 +668,6 @@ function renderList() {
       <div class="recipe-card" data-id="${r.id}" draggable="true" onclick="openDetail(${r.id})">
         <div class="card-accent-bar color-${r.color || 0}"></div>
         <div class="card-body">
-
           <div class="card-info">
             <div class="card-name">${r.name}</div>
             <div class="card-source">
@@ -713,7 +696,6 @@ function initDragSort() {
   let touchCard = null;
   let placeholder = null;
 
-  // --- Mouse drag ---
   list.querySelectorAll('.recipe-card').forEach(card => {
     card.addEventListener('dragstart', e => {
       dragging = card;
@@ -745,7 +727,6 @@ function initDragSort() {
     card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
     card.addEventListener('drop', e => { e.preventDefault(); card.classList.remove('drag-over'); });
 
-    // --- Touch drag ---
     const handle = card.querySelector('.drag-handle');
     if (!handle) return;
 
@@ -754,7 +735,6 @@ function initDragSort() {
       touchCard = card;
       touchStartY = e.touches[0].clientY;
       card.classList.add('dragging');
-      // placeholderを作成
       placeholder = document.createElement('div');
       placeholder.style.cssText = `height:${card.offsetHeight}px;border:2px dashed var(--green);margin:0;box-sizing:border-box;`;
       card.parentNode.insertBefore(placeholder, card.nextSibling);
@@ -800,7 +780,6 @@ function initDragSort() {
     const ids = [...list.querySelectorAll('.recipe-card')].map(c => Number(c.dataset.id));
     const all = loadRecipes();
     const reordered = ids.map(id => all.find(r => r.id === id)).filter(Boolean);
-    // リストにないもの（フィルター中）は末尾に
     const rest = all.filter(r => !ids.includes(r.id));
     saveRecipes([...reordered, ...rest]);
     renderTagFilter();
@@ -810,10 +789,8 @@ function initDragSort() {
 // ===== TAGS FILTER =====
 function renderTagFilter() {
   recipes = loadRecipes();
-  // レシピについてるタグ
   const recipeTags = [];
   recipes.forEach(r => (r.tags || []).forEach(t => { if (!recipeTags.includes(t)) recipeTags.push(t); }));
-  // カスタム追加タグ（レシピにないものも表示）
   const customTags = loadCustomTags();
   const allTags = ['すべて', ...new Set([...recipeTags, ...customTags])];
   currentTags = allTags;
@@ -833,7 +810,6 @@ function renderTagFilter() {
     let clickTimer;
     let touchTimer;
 
-    // タッチ長押し → 編集
     if (editable) {
       chip.addEventListener('touchstart', () => {
         touchTimer = setTimeout(() => editCustomTag(tag), 600);
@@ -842,7 +818,6 @@ function renderTagFilter() {
       chip.addEventListener('touchmove', () => clearTimeout(touchTimer));
     }
 
-    // PC: シングルクリック → 選択、ダブルクリック → 編集
     chip.addEventListener('click', () => {
       clearTimeout(clickTimer);
       clickTimer = setTimeout(() => setTag(tag), 200);
@@ -885,8 +860,6 @@ function openDetail(id) {
       <div class="step-text">${s.replace(/^\d+\.\s*/, '')}</div>
     </div>
   `).join('');
-
-
 
   document.getElementById('detailContent').innerHTML = `
     <div class="modal-handle"></div>
@@ -952,17 +925,24 @@ function openAddModal(prefill = {}) {
   document.getElementById('recipeSteps').value = prefill.steps || '';
   document.getElementById('recipeSource').value = prefill.source || '';
   document.getElementById('recipeMemo').value = prefill.memo || '';
+
+  // テキスト読み込みエリアリセット
+  document.getElementById('addImportTextArea').value = '';
+  document.getElementById('addImportTextStatus').textContent = '';
+
+  // 編集時はテキスト読み込みエリアを非表示
+  const importSection = document.getElementById('importTextSection');
+  importSection.style.display = editingId ? 'none' : '';
+
   // スクショリセット
   screenshotBase64 = [null, null];
-  document.getElementById('screenshotPreviewWrap1').style.display = 'none';
-  document.getElementById('screenshotPreviewWrap2').style.display = 'none';
+  const previewRow = document.getElementById('screenshotPreviewRow');
+  if (previewRow) { previewRow.innerHTML = ''; previewRow.style.display = 'none'; }
   document.getElementById('screenshotReadBtn').style.display = 'none';
   document.getElementById('screenshotStatus').textContent = '';
   document.getElementById('screenshotStatus').className = 'screenshot-status';
   const fi1 = document.querySelector('#screenshotDrop1 input[type="file"]');
-  const fi2 = document.querySelector('#screenshotDrop2 input[type="file"]');
   if (fi1) fi1.value = '';
-  if (fi2) fi2.value = '';
 
   // Ingredients
   const ingrContainer = document.getElementById('ingredientList');
@@ -974,7 +954,6 @@ function openAddModal(prefill = {}) {
   renderFormTags();
 
   document.getElementById('addModal').classList.add('open');
-  // iOSではsetTimeoutなしだとscrollTopが効かないことがある
   setTimeout(() => {
     document.querySelector('#addModal .modal').scrollTop = 0;
     document.getElementById('addModal').scrollTop = 0;
@@ -982,12 +961,45 @@ function openAddModal(prefill = {}) {
 }
 
 function closeAddModal() {
-  // iOSでキーボードが開いたままモーダルを閉じるとビューポートがずれてボタンが押せなくなるため、フォーカスを外す
   if (document.activeElement && document.activeElement !== document.body) {
     document.activeElement.blur();
   }
   document.getElementById('addModal').classList.remove('open');
   editingId = null;
+}
+
+// ===== ADD画面内テキスト読み込み =====
+function applyImportText() {
+  const text = document.getElementById('addImportTextArea').value.trim();
+  const status = document.getElementById('addImportTextStatus');
+
+  if (!text) {
+    status.style.color = 'red';
+    status.textContent = 'テキストを貼り付けてください';
+    return;
+  }
+
+  const parsed = parseRecipeText(text);
+
+  if (!parsed.name) {
+    status.style.color = '#c00';
+    status.textContent = 'レシピ名が見つかりませんでした';
+    return;
+  }
+
+  if (parsed.name) document.getElementById('recipeName').value = parsed.name;
+  if (parsed.steps) document.getElementById('recipeSteps').value = parsed.steps;
+  if (parsed.memo) document.getElementById('recipeMemo').value = parsed.memo;
+  if (parsed.source) document.getElementById('recipeSource').value = parsed.source;
+
+  if (parsed.ingredients && parsed.ingredients.length > 0) {
+    document.getElementById('ingredientList').innerHTML = '';
+    parsed.ingredients.forEach(i => addIngredient(i.name, i.amount));
+  }
+
+  status.style.color = 'var(--green-dark)';
+  status.textContent = '✓ 読み込んだよ！内容を確認・修正してね';
+  document.getElementById('addImportTextArea').value = '';
 }
 
 // ===== INGREDIENTS =====
@@ -1037,30 +1049,58 @@ function removeFormTag(tag) {
 // ===== SCREENSHOT READING =====
 let screenshotBase64 = [null, null];
 
-function handleScreenshot(input, num) {
-  const file = input.files[0];
-  if (!file) return;
-  const idx = num - 1;
-  const reader = new FileReader();
-  reader.onload = e => {
-    screenshotBase64[idx] = e.target.result;
-    const preview = document.getElementById(`screenshotPreview${num}`);
-    preview.src = screenshotBase64[idx];
-    document.getElementById(`screenshotPreviewWrap${num}`).style.display = 'block';
-    document.getElementById('screenshotStatus').textContent = '';
-    // 1枚以上あれば読み取りボタン表示
-    document.getElementById('screenshotReadBtn').style.display = screenshotBase64.some(v => v) ? 'flex' : 'none';
-  };
-  reader.readAsDataURL(file);
+function handleScreenshots(input) {
+  const files = Array.from(input.files).slice(0, 2);
+  if (files.length === 0) return;
+
+  screenshotBase64 = [null, null];
+  const previewRow = document.getElementById('screenshotPreviewRow');
+  previewRow.innerHTML = '';
+  previewRow.style.display = 'flex';
+  document.getElementById('screenshotStatus').textContent = '';
+
+  let loaded = 0;
+  files.forEach((file, idx) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      screenshotBase64[idx] = e.target.result;
+      loaded++;
+
+      // プレビューサムネイル追加
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'position:relative;flex:1;min-width:0;';
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.cssText = 'width:100%;border:2px solid var(--ink);max-height:120px;object-fit:cover;display:block;';
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕';
+      delBtn.style.cssText = 'position:absolute;top:4px;right:4px;background:var(--ink);color:#fff;border:none;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;';
+      delBtn.onclick = () => {
+        screenshotBase64[idx] = null;
+        wrap.remove();
+        if (screenshotBase64.every(v => !v)) {
+          previewRow.style.display = 'none';
+          document.getElementById('screenshotReadBtn').style.display = 'none';
+        }
+      };
+      wrap.appendChild(img);
+      wrap.appendChild(delBtn);
+      previewRow.appendChild(wrap);
+
+      if (loaded === files.length) {
+        document.getElementById('screenshotReadBtn').style.display = 'flex';
+      }
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
+// 旧関数（互換性維持）
 function clearScreenshot(num) {
-  const idx = num - 1;
-  screenshotBase64[idx] = null;
-  document.getElementById(`screenshotPreviewWrap${num}`).style.display = 'none';
-  const fi = document.querySelector(`#screenshotDrop${num} input[type="file"]`);
-  if (fi) fi.value = '';
-  document.getElementById('screenshotReadBtn').style.display = screenshotBase64.some(v => v) ? 'flex' : 'none';
+  screenshotBase64[num - 1] = null;
+  if (screenshotBase64.every(v => !v)) {
+    document.getElementById('screenshotReadBtn').style.display = 'none';
+  }
 }
 
 async function readScreenshot() {
@@ -1144,9 +1184,6 @@ async function readScreenshot() {
   btn.disabled = false;
   btn.innerHTML = '<span>✨</span> AIにレシピを読み取ってもらう';
 }
-
-
-
 
 // ===== SAVE =====
 function saveRecipe() {
@@ -1250,23 +1287,11 @@ function copyShare() {
   });
 }
 
-// ===== IMPORT FROM TEXT =====
-function openImportTextModal() {
-  document.getElementById('importTextArea').value = '';
-  document.getElementById('importTextStatus').textContent = '';
-  document.getElementById('importTextModal').classList.add('open');
-}
-
-function closeImportTextModal() {
-  document.getElementById('importTextModal').classList.remove('open');
-}
-
+// ===== PARSE RECIPE TEXT =====
 function parseRecipeText(text) {
-  // レシピ名：🍳 の後ろ
   const nameMatch = text.match(/🍳\s*(.+)/);
   const name = nameMatch ? nameMatch[1].trim() : '';
 
-  // 材料ブロック：🥕 材料 〜 次のセクションまで
   const ingrBlock = text.match(/🥕[^\n]*\n([\s\S]*?)(?=\n👩|🍳|💬|📌|$)/);
   const ingredients = [];
   if (ingrBlock) {
@@ -1281,19 +1306,27 @@ function parseRecipeText(text) {
     });
   }
 
-  // 作り方ブロック：👩‍🍳 〜 次のセクションまで
   const stepsBlock = text.match(/👩[^\n]*\n([\s\S]*?)(?=\n💬|\n📌|$)/);
   const steps = stepsBlock ? stepsBlock[1].trim() : '';
 
-  // コツ
   const memoMatch = text.match(/💬[^\n]*\n([\s\S]*?)(?=\n📌|$)/);
   const memo = memoMatch ? memoMatch[1].trim() : '';
 
-  // 出典
   const sourceMatch = text.match(/📌[^\n]*[:：]\s*(.+)/);
   const source = sourceMatch ? sourceMatch[1].trim() : '';
 
   return { name, ingredients, steps, memo, source };
+}
+
+// ===== IMPORT TEXT MODAL (互換性維持) =====
+function openImportTextModal() {
+  document.getElementById('importTextArea').value = '';
+  document.getElementById('importTextStatus').textContent = '';
+  document.getElementById('importTextModal').classList.add('open');
+}
+
+function closeImportTextModal() {
+  document.getElementById('importTextModal').classList.remove('open');
 }
 
 function confirmImportText() {
@@ -1341,7 +1374,6 @@ function showToast(msg) {
 }
 
 // ===== CLOSE ON OVERLAY CLICK =====
-// pointerdownでクリック開始位置を記録し、overlay上で始まりoverlay上で終わった場合のみ閉じる
 let _pointerDownTarget = null;
 document.addEventListener('pointerdown', e => { _pointerDownTarget = e.target; });
 
@@ -1393,7 +1425,6 @@ function clearApiKey() {
   if (!confirm('APIキーを削除しますか？')) return;
   localStorage.removeItem(API_KEY_STORAGE);
   document.getElementById('settingsApiKey').value = '';
-  updateApiKeyStatus();
   showToast('APIキーを削除しました');
 }
 
@@ -1465,7 +1496,6 @@ async function importData() {
       return;
     }
   } else {
-    // フォールバック：非表示input経由
     file = await new Promise(resolve => {
       const input = document.createElement('input');
       input.type = 'file'; input.accept = '.json';
@@ -1525,29 +1555,6 @@ async function exportBackupHTML() {
     const dateStr = new Date(r.createdAt).toLocaleDateString('ja-JP',{month:'short',day:'numeric'});
     const ingrCount = (r.ingredients||[]).length;
 
-    const ingrRows = (r.ingredients||[]).map(i =>
-      `<tr><td style="padding:8px 0;font-size:14px;font-weight:700;border-bottom:1px solid #e8dcff;">${escHtml(i.name)}</td><td style="padding:8px 0;font-size:12px;color:#666;text-align:right;border-bottom:1px solid #e8dcff;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;">${escHtml(i.amount)}</td></tr>`
-    ).join('');
-
-    const steps = (r.steps||'').split('\n').filter(s=>s.trim());
-    const stepHtml = steps.map((s,i) =>
-      `<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;">
-        <div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">${i+1}</div>
-        <div style="font-size:14px;line-height:1.75;padding-top:3px;">${escHtml(s.replace(/^\d+\.\s*/,''))}</div>
-      </div>`
-    ).join('');
-
-    const detailTagHtml = (r.tags||[]).map((t,i) => {
-      const tc = tagColors[i%5];
-      return `<span style="font-size:13px;font-weight:700;padding:5px 14px;border:1.5px solid currentColor;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;background:${tc.bg};color:${tc.color};">${escHtml(t)}</span>`;
-    }).join('');
-
-    const sourceHtml = r.source
-      ? (r.source.startsWith('http')
-          ? `<a href="${escHtml(r.source)}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">${escHtml(r.source)}</a>`
-          : `<span style="color:#1fa85e;">${escHtml(r.source)}</span>`)
-      : '';
-
     return `
     <div class="recipe-card" data-tags="${escHtml(JSON.stringify(r.tags||[]))}" data-name="${escHtml(r.name)}" data-source="${escHtml(r.source||'')}" data-memo="${escHtml(r.memo||'')}"
       style="background:#fff;border:2.5px solid #0f0f0f;cursor:pointer;box-shadow:4px 4px 0 #0f0f0f;margin-bottom:8px;"
@@ -1564,7 +1571,6 @@ async function exportBackupHTML() {
         <span>🥕 ${ingrCount}種類</span>
         <span>📅 ${dateStr}</span>
       </div>
-      <!-- DETAIL DATA (hidden) -->
       <script type="application/json" class="detail-data">${JSON.stringify({
         name: r.name,
         source: r.source||'',
@@ -1586,11 +1592,6 @@ async function exportBackupHTML() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MY RECIPE BOOK with U — ${date}</title>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MY RECIPE BOOK with U">
-<meta name="theme-color" content="#c8b4f0">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Bebas+Neue&family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -1604,7 +1605,6 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:#e8dcff;color:#0f0f
 </style>
 </head>
 <body>
-
 <header style="background:#3dce82;border-bottom:3px solid #0f0f0f;position:sticky;top:0;z-index:100;">
   <div style="display:grid;grid-template-columns:1fr auto;border-bottom:2px solid #0f0f0f;">
     <div style="padding:12px 16px 10px;">
@@ -1623,30 +1623,23 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:#e8dcff;color:#0f0f
     ${tagChips}
   </div>
 </header>
-
 <div style="padding:8px 14px 2px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#666;" id="recipeCount">${recipes.length} レシピ</div>
 <div style="padding:10px;display:flex;flex-direction:column;" id="recipeList">
   ${cardsHtml}
 </div>
 <div style="height:40px;"></div>
-
-<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeDetail()">
   <div class="modal" id="detailContent"></div>
 </div>
-
 <script>
 var activeTag = 'すべて';
-
 function filterTag(el) {
   activeTag = el.dataset.tag;
   document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   applyFilters();
 }
-
 function filterSearch() { applyFilters(); }
-
 function applyFilters() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const cards = document.querySelectorAll('.recipe-card');
@@ -1663,10 +1656,7 @@ function applyFilters() {
   });
   document.getElementById('recipeCount').textContent = count + ' レシピ';
 }
-
-// 初期タグ
 document.querySelector('.tag-chip[data-tag="すべて"]').classList.add('active');
-
 function openDetail(card) {
   const data = JSON.parse(card.querySelector('.detail-data').textContent);
   const tagColors = [
@@ -1681,7 +1671,6 @@ function openDetail(card) {
   const steps = data.steps.split('\\n').filter(s=>s.trim());
   const stepHtml = steps.map((s,i)=>\`<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;"><div style="width:28px;height:28px;background:#3dce82;color:#0f0f0f;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;border:2px solid #0f0f0f;">\${i+1}</div><div style="font-size:14px;line-height:1.75;padding-top:3px;">\${s.replace(/^\\d+\\.\\s*/,'')}</div></div>\`).join('');
   const sourceHtml = data.source ? (data.source.startsWith('http') ? \`<a href="\${data.source}" target="_blank" rel="noopener" style="color:#1fa85e;word-break:break-all;">\${data.source}</a>\` : \`<span style="color:#1fa85e;">\${data.source}</span>\`) : '';
-
   document.getElementById('detailContent').innerHTML = \`
     <div style="width:36px;height:4px;background:rgba(0,0,0,0.2);margin:12px auto 0;"></div>
     <div style="padding:12px 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0f0f0f;position:sticky;top:0;background:#f3eeff;z-index:1;">
@@ -1699,7 +1688,6 @@ function openDetail(card) {
   document.getElementById('detailModal').classList.add('open');
   document.getElementById('detailContent').scrollTop = 0;
 }
-
 function closeDetail() {
   document.getElementById('detailModal').classList.remove('open');
 }
