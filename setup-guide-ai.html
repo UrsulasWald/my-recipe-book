@@ -511,6 +511,11 @@
           <div class="feature-title">完全ローカル動作</div>
           <div class="feature-desc">データはすべて自分のブラウザのみ。サーバー送信なし</div>
         </div>
+        <div class="feature-item">
+          <div class="feature-icon">📨</div>
+          <div class="feature-title">テキストから読み込み</div>
+          <div class="feature-desc">このアプリのシェア機能で書き出したテキストを貼り付けるだけでフォームに自動展開</div>
+        </div>
       </div>
 
       <div class="warn">
@@ -566,11 +571,7 @@
         </div>
       </div>
 
-      <div class="screenshot-placeholder">
-        <div class="screenshot-placeholder-icon">🖼</div>
-        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
-      </div>
-      <div class="screenshot-caption">↑ Google AI Studio の画面（Canvaで差し替えてください）</div>
+
 
       <div class="tip">
         <div class="tip-text">取得したキーはGoogle AI Studioの「Get API key」ページでいつでも再確認できます</div>
@@ -613,11 +614,7 @@
         </div>
       </div>
 
-      <div class="screenshot-placeholder">
-        <div class="screenshot-placeholder-icon">🖼</div>
-        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
-      </div>
-      <div class="screenshot-caption">↑ 初回起動時のAPIキー入力ダイアログ</div>
+
 
       <div class="note">
         <div class="note-label">NOTE</div>
@@ -642,40 +639,63 @@
           <div class="step-num">1</div>
           <div class="step-body">
             <div class="step-action">「＋」ボタンでレシピ追加画面を開く</div>
-            <div class="step-detail">画面右上の「＋」または下部ナビゲーションから「ADD」をタップ</div>
+            <div class="step-detail">画面右上の「＋ ADD」をタップ</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <div class="step-action">スクショを貼り付けるエリアに画像をドロップ</div>
-            <div class="step-detail">「📸 スクショをここに貼る」エリアをタップして画像を選択。インスタのスクショ、レシピサイトの写真などOK</div>
+            <div class="step-action">「📸 写真を選ぶ」エリアをタップして画像を選択</div>
+            <div class="step-detail">インスタのスクショ、レシピサイトの写真などOK。写真一覧から最大2枚まで同時に選択できます</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-body">
-            <div class="step-action">「READ WITH AI」ボタンをタップ</div>
+            <div class="step-action">「✨ AIにレシピを読み取ってもらう」ボタンをタップ</div>
             <div class="step-detail">数秒待つと、タイトル・材料・手順が自動で入力されます</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-body">
-            <div class="step-action">内容を確認して「SAVE」</div>
+            <div class="step-action">内容を確認して「💾 保存する」</div>
             <div class="step-detail">AIの読み取りは完璧ではないので、内容を確認・修正してから保存しましょう</div>
           </div>
         </div>
       </div>
 
-      <div class="screenshot-placeholder">
-        <div class="screenshot-placeholder-icon">🖼</div>
-        <div class="screenshot-placeholder-text">スクリーンショットをここに追加</div>
-      </div>
-      <div class="screenshot-caption">↑ スクショ読み込みエリアの使い方</div>
+
 
       <div class="tip">
         <div class="tip-text">読み取り精度は画像のテキストが鮮明なほど上がります。手書きメモよりレシピサイトのスクショが得意です</div>
+      </div>
+
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:24px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">テキストから読み込む</h3>
+      <p class="body-text">このアプリの「シェア」機能で書き出したレシピテキストを、フォームにそのまま取り込める機能です。AIキー不要で使えます。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">「＋ ADD」画面を開く</div>
+            <div class="step-detail">画面右上の「＋ ADD」をタップ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">画面上部の紫色エリアにテキストを貼り付ける</div>
+            <div class="step-detail">「📨 テキストから読み込む」欄に、このアプリのシェア機能で書き出したレシピテキストをペースト</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">「📥 フォームに読み込む」をタップ</div>
+            <div class="step-detail">タイトル・材料・手順・メモが自動でフォームに展開されます。内容を確認して「💾 保存する」</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -762,7 +782,7 @@
           <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
           <div class="step-body">
             <div class="step-action">AIを使わずに手入力だけしたい</div>
-            <div class="step-detail">もちろんOKです。スクショエリアを無視して、タイトル・材料・手順を直接入力してSAVEすれば普通に使えます。</div>
+            <div class="step-detail">もちろんOKです。スクショエリアを無視して、タイトル・材料・手順を直接入力して「💾 保存する」をタップすれば普通に使えます。</div>
           </div>
         </div>
         <div class="step">
