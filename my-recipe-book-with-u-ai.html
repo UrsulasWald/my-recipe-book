@@ -35,9 +35,13 @@
   .add-btn { background: none; border: none; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; color: var(--ink); cursor: pointer; line-height: 1; letter-spacing: 0.05em; padding: 0; display: flex; align-items: center; gap: 4px; }
   .add-btn:active { opacity: 0.7; }
   .search-block { padding: 8px 12px; display: flex; }
-  .search-input { flex: 1; background: rgba(255,255,255,0.35); border: 2px solid var(--ink); border-radius: 0; padding: 8px 14px; color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; outline: none; font-weight: 700; }
+  .search-wrap { flex: 1; position: relative; display: flex; }
+  .search-input { flex: 1; background: rgba(255,255,255,0.35); border: 2px solid var(--ink); border-radius: 0; padding: 8px 34px 8px 14px; color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; outline: none; font-weight: 700; width: 100%; }
   .search-input::placeholder { color: rgba(0,0,0,0.4); }
   .search-input:focus { background: rgba(255,255,255,0.6); }
+  .search-clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border: 2px solid var(--ink); background: var(--white); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; line-height: 1; cursor: pointer; padding: 0; display: none; align-items: center; justify-content: center; }
+  .search-clear.show { display: flex; }
+  .search-clear:active { background: var(--ink); color: var(--white); }
   .tag-scroll { overflow-x: auto; padding: 8px 12px; display: flex; gap: 6px; scrollbar-width: none; background: var(--lavender); border-bottom: 2px solid var(--ink); align-items: center; }
   .tag-scroll::-webkit-scrollbar { display: none; }
   .tag-add-btn { flex-shrink: 0; width: 28px; height: 28px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
@@ -202,7 +206,10 @@
     </div>
   </div>
   <div class="search-block">
-    <input class="search-input" type="text" placeholder="SEARCH RECIPES..." id="searchInput" oninput="renderList()">
+    <div class="search-wrap">
+      <input class="search-input" type="text" placeholder="SEARCH RECIPES..." id="searchInput" oninput="onSearchInput()">
+      <button type="button" class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="検索クリア">×</button>
+    </div>
   </div>
 </header>
 
@@ -628,6 +635,20 @@ let editingId = null;
 let formTags = [];
 
 // ===== RENDER LIST =====
+function onSearchInput() {
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('searchClear');
+  if (clearBtn) clearBtn.classList.toggle('show', input.value.length > 0);
+  renderList();
+}
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  const clearBtn = document.getElementById('searchClear');
+  if (clearBtn) clearBtn.classList.remove('show');
+  renderList();
+  input.focus();
+}
 function renderList() {
   recipes = loadRecipes();
   const q = document.getElementById('searchInput').value.toLowerCase();
