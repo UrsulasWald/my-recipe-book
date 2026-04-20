@@ -468,20 +468,116 @@
   <!-- TOC -->
   <nav class="toc">
     <span class="toc-label">CONTENTS</span>
-    <a class="toc-item" href="#what"><span class="toc-num">01</span>AI版でできること</a>
-    <a class="toc-item" href="#getkey"><span class="toc-num">02</span>APIキー取得</a>
-    <a class="toc-item" href="#setup"><span class="toc-num">03</span>アプリに設定</a>
-    <a class="toc-item" href="#use"><span class="toc-num">04</span>使い方</a>
-    <a class="toc-item" href="#cost"><span class="toc-num">05</span>料金について</a>
-    <a class="toc-item" href="#faq"><span class="toc-num">06</span>FAQ</a>
+    <a class="toc-item" href="#where"><span class="toc-num">01</span>データはどこに？</a>
+    <a class="toc-item" href="#need"><span class="toc-num">02</span>必要なもの</a>
+    <a class="toc-item" href="#what"><span class="toc-num">03</span>AI版でできること</a>
+    <a class="toc-item" href="#getkey"><span class="toc-num">04</span>APIキー取得</a>
+    <a class="toc-item" href="#setup"><span class="toc-num">05</span>アプリに設定</a>
+    <a class="toc-item" href="#use"><span class="toc-num">06</span>使い方</a>
+    <a class="toc-item" href="#share"><span class="toc-num">07</span>レシピを交換する</a>
+    <a class="toc-item" href="#backup"><span class="toc-num">08</span>バックアップ</a>
+    <a class="toc-item" href="#cost"><span class="toc-num">09</span>料金について</a>
+    <a class="toc-item" href="#faq"><span class="toc-num">10</span>FAQ</a>
   </nav>
 
   <div class="content">
 
-    <!-- SECTION 01 -->
-    <div class="section" id="what">
+    <!-- SECTION 01 — データはどこに？ -->
+    <div class="section" id="where">
       <div class="section-header">
         <div class="section-num">01</div>
+        <div class="section-title">
+          <small>WHERE IS MY DATA</small>
+          データはどこに？
+        </div>
+      </div>
+
+      <p class="body-text">このアプリは「買い切りのHTMLファイル1枚」です。インストールもログインもなし。その代わり、<strong>データの居場所</strong>が普通のアプリと少し違うので、最初にここだけ説明させてください。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div class="feature-title">レシピのデータ</div>
+          <div class="feature-desc">アプリを開いたブラウザの中（localStorage）に保存されます。サーバーには送られません</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔑</div>
+          <div class="feature-title">APIキー</div>
+          <div class="feature-desc">同じくブラウザの中だけ。別デバイスには勝手に同期しません</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">バックアップ先</div>
+          <div class="feature-desc">自分のGoogleドライブ等にJSONで保存。アプリ側はクラウドを持ちません</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔗</div>
+          <div class="feature-title">デバイス間で共有</div>
+          <div class="feature-desc">エクスポート→別デバイスでインポート、という手動方式</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">つまり</div>
+        <div class="note-text">データはぜんぶ<strong>あなたのブラウザの中</strong>にあります。だから、<br>・ ブラウザのキャッシュを消すとレシピも消えます<br>・ 別のブラウザ／別の端末で開くと、そこは空っぽです<br>・ その代わり、サービス終了や課金変更でデータが人質になることはありません</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">大事なレシピは、セクション06の手順で定期的にバックアップを取ってください</div>
+      </div>
+    </div>
+
+    <!-- SECTION 02 — 必要なもの -->
+    <div class="section" id="need">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title">
+          <small>WHAT YOU NEED</small>
+          必要なもの
+        </div>
+      </div>
+
+      <p class="body-text">AI版を使うには、<strong>Googleアカウント</strong>が1つ必要です。</p>
+
+      <p class="body-text">このアプリは、AIの部分にGoogleの「Gemini API」を使っています。APIを使うにはGoogleアカウントでのログインが必須で、そこで発行したAPIキーをアプリに登録する、という仕組みです。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🔑</div>
+          <div class="feature-title">Gemini APIキー</div>
+          <div class="feature-desc">GoogleアカウントでログインしてGoogle AI Studioで無料発行。次のセクション以降で手順を説明します</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">クラウドストレージ</div>
+          <div class="feature-desc">バックアップの保存先。Googleドライブなら15GB無料で、AIと同じアカウントで管理できます</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">ブラウザ</div>
+          <div class="feature-desc">Safari / Chrome / Edge どれでもOK。iPhone・Android・PC 全部で動きます</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📡</div>
+          <div class="feature-title">ネット接続</div>
+          <div class="feature-desc">AI読み込みとバックアップ保存の時のみ。普段の閲覧・手入力はオフラインでも動きます</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">Googleアカウントを持っていない場合</div>
+        <div class="note-text">アカウント作成は無料で、数分で終わります。→ <strong>accounts.google.com/signup</strong><br>作成したアカウントで、そのままAPIキー取得とGoogleドライブの両方が使えます。</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">AI機能を一切使わず手入力だけで使う場合は、APIキーもGoogleアカウントも不要です</div>
+      </div>
+    </div>
+
+    <!-- SECTION 03 -->
+    <div class="section" id="what">
+      <div class="section-header">
+        <div class="section-num">03</div>
         <div class="section-title">
           <small>WHAT YOU CAN DO</small>
           AI版でできること
@@ -507,14 +603,19 @@
           <div class="feature-desc">Googleの無料枠でほぼ無料。キーはデバイスのみに保存</div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🌐</div>
+          <div class="feature-icon">🔒</div>
           <div class="feature-title">完全ローカル動作</div>
-          <div class="feature-desc">データはすべて自分のブラウザのみ。サーバー送信なし</div>
+          <div class="feature-desc">レシピはブラウザ内のみに保存。詳しくはセクション01へ</div>
         </div>
         <div class="feature-item">
           <div class="feature-icon">📨</div>
           <div class="feature-title">テキストから読み込み</div>
           <div class="feature-desc">このアプリのシェア機能で書き出したテキストを貼り付けるだけでフォームに自動展開</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Googleの無料機能で動く</div>
+          <div class="feature-desc">AI読み込み = Gemini API、バックアップ保存先 = Googleドライブ等。どちらも自分のGoogleアカウントで無料運用できます</div>
         </div>
       </div>
 
@@ -523,10 +624,10 @@
       </div>
     </div>
 
-    <!-- SECTION 02 -->
+    <!-- SECTION 04 -->
     <div class="section" id="getkey">
       <div class="section-header">
-        <div class="section-num">02</div>
+        <div class="section-num">04</div>
         <div class="section-title">
           <small>GET YOUR API KEY</small>
           APIキーを取得する
@@ -578,10 +679,10 @@
       </div>
     </div>
 
-    <!-- SECTION 03 -->
+    <!-- SECTION 05 -->
     <div class="section" id="setup">
       <div class="section-header">
-        <div class="section-num">03</div>
+        <div class="section-num">05</div>
         <div class="section-title">
           <small>APP SETUP</small>
           アプリにAPIキーを設定する
@@ -622,10 +723,10 @@
       </div>
     </div>
 
-    <!-- SECTION 04 -->
+    <!-- SECTION 06 -->
     <div class="section" id="use">
       <div class="section-header">
-        <div class="section-num">04</div>
+        <div class="section-num">06</div>
         <div class="section-title">
           <small>HOW TO USE</small>
           スクショからレシピを読み込む
@@ -670,39 +771,293 @@
       <div class="tip">
         <div class="tip-text">読み取り精度は画像のテキストが鮮明なほど上がります。手書きメモよりレシピサイトのスクショが得意です</div>
       </div>
+    </div>
 
-      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:24px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">テキストから読み込む</h3>
-      <p class="body-text">このアプリの「シェア」機能で書き出したレシピテキストを、フォームにそのまま取り込める機能です。AIキー不要で使えます。</p>
+    <!-- SECTION 07 — レシピを交換する -->
+    <div class="section" id="share">
+      <div class="section-header">
+        <div class="section-num">07</div>
+        <div class="section-title">
+          <small>SWAP RECIPES</small>
+          レシピを交換する
+        </div>
+      </div>
+
+      <p class="body-text">このアプリ同士なら、レシピを<strong>そっくりそのまま</strong>やり取りできます。LINEでメッセージを送る感覚で、タイトル・材料・手順・メモ・出典まで、まるごと相手のアプリに届きます。</p>
+
+      <p class="body-text">家族や友人がこのアプリを持っていれば、「うちのカレーのレシピ送るね」が、<strong>手打ちなし・写真撮り直しなし</strong>でできます。</p>
+
+      <div class="note">
+        <div class="note-label">仕組み</div>
+        <div class="note-text">シェアボタンを押すと、レシピが<strong>整形されたテキスト</strong>に変換されます。そのテキストをLINE・メール・メモアプリ等で送り、受け取った人はアプリの追加画面に貼り付けるだけ。サーバーを経由しないので、どこにも履歴が残りません。</div>
+      </div>
+
+      <!-- 送る側 -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--green);padding-left:10px;">📤 送る側</h3>
 
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-body">
-            <div class="step-action">「＋ ADD」画面を開く</div>
-            <div class="step-detail">画面右上の「＋ ADD」をタップ</div>
+            <div class="step-action">送りたいレシピを開く</div>
+            <div class="step-detail">一覧から送りたいレシピをタップ</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <div class="step-action">画面上部の紫色エリアにテキストを貼り付ける</div>
-            <div class="step-detail">「📨 テキストから読み込む」欄に、このアプリのシェア機能で書き出したレシピテキストをペースト</div>
+            <div class="step-action">「📤 シェア」ボタンをタップ</div>
+            <div class="step-detail">整形済みのレシピテキストが表示されます</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-body">
-            <div class="step-action">「📥 フォームに読み込む」をタップ</div>
-            <div class="step-detail">タイトル・材料・手順・メモが自動でフォームに展開されます。内容を確認して「💾 保存する」</div>
+            <div class="step-action">「📋 テキストをコピー」をタップ</div>
+            <div class="step-detail">クリップボードにコピーされます。「コピーしたよ！」と出れば成功</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">LINE・メール・メモアプリ等に貼り付けて送信</div>
+            <div class="step-detail">いつも使っている連絡ツールでそのまま送れます</div>
           </div>
         </div>
       </div>
+
+      <div class="tip">
+        <div class="tip-text">貼り付ける場所はどこでもOK。LINEでもDiscordでもメールでも、テキストが通ればどこでも</div>
+      </div>
+
+      <!-- 受け取る側 -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--green);padding-left:10px;">📥 受け取る側</h3>
+
+      <p class="body-text">アプリを持っていれば、受け取ったテキストをそのまま<strong>自分のレシピ帳に取り込めます</strong>。AIキー不要。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">もらったレシピテキストをコピー</div>
+            <div class="step-detail">LINEやメールの本文を長押しして全選択 → コピー</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">アプリで「＋ ADD」をタップ</div>
+            <div class="step-detail">追加画面の一番上に紫色の「📨 テキストから読み込む」エリアがあります</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">紫色エリアにペースト → 「📥 フォームに読み込む」</div>
+            <div class="step-detail">タイトル・材料・手順・メモ・出典が自動でフォームに展開されます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">内容を確認して「💾 保存する」</div>
+            <div class="step-detail">受け取ったまま保存してもいいし、自分好みに調整してから保存してもOK</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- シェアテキストの見本 -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">シェアテキストの見た目</h3>
+      <p class="body-text">こんな形式でコピーされます。アプリを持っていない人が受け取っても、そのまま読めます。</p>
+
+      <div style="border:2.5px solid var(--ink);background:var(--white);padding:16px;margin-bottom:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.8;white-space:pre-wrap;box-shadow:4px 4px 0 var(--ink);">🍳 大根の辛子漬け
+────────────────────
+
+🥕 材料
+  ・大根　1/2本
+  ・塩　大さじ1
+  ・砂糖　大さじ3
+  ・辛子粉　大さじ1
+
+👩‍🍳 作り方
+1. 大根を拍子木切りにする
+2. 塩をまぶして30分おく
+3. 水気を絞り、砂糖と辛子粉を混ぜる
+4. 保存容器に入れて一晩漬ける
+
+💬 コツ
+辛子の風味は一晩おくとマイルドになります
+
+📌 出典：母のレシピ</div>
+
+      <!-- 楽しみ方 -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">こんな使い方ができます</h3>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👩‍👧</div>
+          <div class="feature-title">母から娘へ</div>
+          <div class="feature-desc">「実家の味」を口頭じゃなくテキストで受け継ぐ。メモも出典も一緒に届く</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">👯</div>
+          <div class="feature-title">友達同士で交換</div>
+          <div class="feature-desc">「この前食べた美味しかったやつ」を、次の日にはお互いのレシピ帳に</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏠</div>
+          <div class="feature-title">家族で共有</div>
+          <div class="feature-desc">夫婦・親子で同じレシピ帳を育てる。誰かが追加したら送り合うだけ</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✍️</div>
+          <div class="feature-title">アレンジして返す</div>
+          <div class="feature-desc">受け取ったレシピを自分好みに調整して「うちはこうしたよ」と送り返せる</div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text">シェアするのは<strong>テキストだけ</strong>です。レシピに設定した写真は送られません。画像が必要な場合は別途LINE等で送ってください。</div>
+      </div>
     </div>
 
-    <!-- SECTION 05 -->
+    <!-- SECTION 08 — バックアップ -->
+    <div class="section" id="backup">
+      <div class="section-header">
+        <div class="section-num">08</div>
+        <div class="section-title">
+          <small>BACKUP / EXPORT / IMPORT</small>
+          バックアップと引っ越し
+        </div>
+      </div>
+
+      <p class="body-text">レシピが増えてきたら、<strong>バックアップ</strong>を取ってください。別のスマホや新しいPCに<strong>引っ越し</strong>する時もこの機能を使います。</p>
+
+      <p class="body-text">このアプリ自体はクラウドを持たないので、保存先はあなた自身のクラウドストレージ（<strong>Googleドライブ・iCloud Drive・Dropbox</strong> など、普段使っているもの）を使います。</p>
+
+      <div class="note">
+        <div class="note-label">保存形式</div>
+        <div class="note-text">・ <strong>JSONファイル</strong> … アプリに読み戻せる引っ越し用データ<br>・ <strong>バックアップHTML</strong> … アプリがなくても開ける閲覧専用のレシピ集</div>
+      </div>
+
+      <!-- エクスポート -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--green);padding-left:10px;">📤 エクスポート（書き出す）</h3>
+      <p class="body-text">今のレシピをファイル1個にまとめて書き出します。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">設定タブを開く</div>
+            <div class="step-detail">画面下の「⚙ 設定」をタップ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「📤 レシピをエクスポート」をタップ</div>
+            <div class="step-detail">「データのバックアップ」欄にあります</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">保存先を選ぶ</div>
+            <div class="step-detail"><code>my-recipe-book-YYYY-MM-DD.json</code> というファイル名で、Googleドライブ等クラウドに保存しておくのがおすすめ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">月1回バックアップ、くらいの気持ちでOK。レシピを大量に追加した日も忘れずに</div>
+      </div>
+
+      <!-- インポート -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--green);padding-left:10px;">📥 インポート（読み戻す）</h3>
+      <p class="body-text">書き出したJSONファイルを読み込んで、アプリを元の状態に戻します。別の端末への引っ越しもこの手順です。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">新しい端末でアプリを開く</div>
+            <div class="step-detail">引っ越し先の端末で <code>my-recipe-book-with-u-ai.html</code> を開いて、設定タブへ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「📥 レシピをインポート」をタップ</div>
+            <div class="step-detail">ファイル選択ダイアログが開きます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">JSONファイルを選ぶ</div>
+            <div class="step-detail">クラウドに保存したJSONを選択。読み込み完了のメッセージが出れば成功</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text"><strong>インポートすると既存データは上書きされます。</strong>元の端末のレシピと新しいファイルのレシピを合体させたい場合は、先に元の端末でエクスポートしてから、JSONファイルをテキストエディタで編集する必要があります（上級者向け）。</div>
+      </div>
+
+      <!-- バックアップHTML -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">📄 バックアップHTML（見るだけ版）</h3>
+      <p class="body-text">レシピを「アプリなしでも開ける1枚のHTML」として書き出す機能です。スマホのブラウザで開けば、編集はできないけど、読むだけなら誰でもできます。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👀</div>
+          <div class="feature-title">閲覧専用</div>
+          <div class="feature-desc">追加・編集はできない。見るだけ</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📲</div>
+          <div class="feature-title">端末を問わない</div>
+          <div class="feature-desc">ブラウザさえあれば開けるので、家族と共有しやすい</div>
+        </div>
+      </div>
+
+      <p class="body-text">設定タブ → 「📄 バックアップHTML（見るだけ版）を保存」から書き出せます。普段使いのバックアップは<strong>JSON</strong>、共有用はHTML、と使い分けるのがおすすめ。</p>
+
+      <!-- どこに保存すべきか -->
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:28px 0 10px;border-left:4px solid var(--lavender);padding-left:10px;">どこに保存する？</h3>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">Googleドライブ</div>
+          <div class="feature-desc">無料15GB。このアプリのAIとも相性がいい</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🍎</div>
+          <div class="feature-title">iCloud Drive</div>
+          <div class="feature-desc">iPhoneユーザーなら無料枠5GBで十分足りる</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div class="feature-title">Dropbox など</div>
+          <div class="feature-desc">普段使っているクラウドで全く問題なし</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💾</div>
+          <div class="feature-title">端末内だけはNG</div>
+          <div class="feature-desc">端末を壊すと一緒に消えるので、必ずクラウドへ</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">どのクラウドを使っても、保存するのはただのJSONファイルです。特別な設定は何もいりません</div>
+      </div>
+    </div>
+
+    <!-- SECTION 09 -->
     <div class="section" id="cost">
       <div class="section-header">
-        <div class="section-num">05</div>
+        <div class="section-num">09</div>
         <div class="section-title">
           <small>PRICING</small>
           料金について
@@ -746,10 +1101,10 @@
       </div>
     </div>
 
-    <!-- SECTION 06 -->
+    <!-- SECTION 10 -->
     <div class="section" id="faq">
       <div class="section-header">
-        <div class="section-num">06</div>
+        <div class="section-num">10</div>
         <div class="section-title">
           <small>FAQ</small>
           よくある質問
@@ -788,8 +1143,43 @@
         <div class="step">
           <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
           <div class="step-body">
+            <div class="step-action">アプリを持ってない人にレシピをシェアできますか？</div>
+            <div class="step-detail">送ることはできます。シェア機能で生成されるのは普通のテキストなので、LINE等で送れば相手もそのまま読めます。ただし相手のアプリに<strong>取り込めるのはアプリを持っている人だけ</strong>です。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">シェアしたテキストは他の人に見られたりする？</div>
+            <div class="step-detail">シェア機能はサーバーを一切経由しません。コピーしたテキストをどこに送るかは完全にあなた次第で、アプリ側に履歴も残りません。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
             <div class="step-action">ブラウザのキャッシュを消すとどうなりますか？</div>
             <div class="step-detail">レシピデータとAPIキーが消えます。大切なレシピは定期的にエクスポート（設定タブ → バックアップ）しておくことをおすすめします。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">機種変更するときはどうすればいい？</div>
+            <div class="step-detail">① 古い端末で「📤 エクスポート」→ JSONをクラウド（Googleドライブ等）に保存 → ② 新しい端末でアプリHTMLを開く → ③ 設定タブから「📥 インポート」でJSONを選ぶ、で引っ越し完了です。APIキーは新しい端末で再登録してください（セキュリティのため一緒には移行されません）。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">JSONとバックアップHTMLの違いは？</div>
+            <div class="step-detail"><strong>JSON</strong> = アプリに読み戻して編集を再開できる引っ越し用データ。<strong>バックアップHTML</strong> = アプリなしでもブラウザで開ける閲覧専用ファイル。普段のバックアップはJSON、家族と共有したい時はHTML、と使い分けてください。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">クラウドを何も使ってないけど大丈夫？</div>
+            <div class="step-detail">Googleアカウントがあれば、Googleドライブが無料で15GB使えます（このアプリのAI機能もGoogleアカウントを使うので、同じアカウントで統一すると管理がラクです）。iPhoneなら初期設定でiCloud Driveが有効になっていることが多いです。</div>
           </div>
         </div>
       </div>
