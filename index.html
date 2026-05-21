@@ -216,28 +216,6 @@
     </div>
     <div class="modal-body">
 
-      <!-- テキストから読み込む -->
-      <div class="import-text-section" id="importTextSection">
-        <div class="import-text-label">
-          <span>📨</span>
-          テキストから読み込む
-        </div>
-        <textarea id="addImportTextArea" style="width:100%;height:120px;border:2px solid var(--ink);padding:10px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.7;resize:none;outline:none;background:var(--white);margin-bottom:8px;" placeholder="🍳 レシピ名&#10;────────&#10;🥕 材料&#10;  ・材料名　量&#10;..."></textarea>
-        <button class="import-text-btn" onclick="applyImportText()">📥 フォームに読み込む</button>
-        <div id="addImportTextStatus" style="font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,0.55);margin-top:6px;min-height:16px;"></div>
-      </div>
-
-      <!-- SOURCE URL -->
-      <div class="url-extractor">
-        <div class="url-extractor-label">
-          <span>🔗</span>
-          出典URL
-        </div>
-        <div class="url-row">
-          <input class="url-input" type="url" id="recipeSource" placeholder="https://... インスタ、レシピサイトなど">
-        </div>
-      </div>
-
       <!-- FORM -->
       <div class="form-group">
         <label class="form-label">📝 レシピ名 *</label>
@@ -265,6 +243,28 @@
       <div class="form-group">
         <label class="form-label">💬 コツ・メモ</label>
         <textarea class="form-textarea" id="recipeMemo" placeholder="気づいたこと、アレンジ、失敗したことなど..."></textarea>
+      </div>
+
+      <!-- SOURCE URL（出典メモ） -->
+      <div class="url-extractor">
+        <div class="url-extractor-label">
+          <span>🔗</span>
+          出典URL
+        </div>
+        <div class="url-row">
+          <input class="url-input" type="url" id="recipeSource" placeholder="https://... インスタ、レシピサイトなど">
+        </div>
+      </div>
+
+      <!-- テキストから読み込む（レシピ交換用） -->
+      <div class="import-text-section" id="importTextSection">
+        <div class="import-text-label">
+          <span>📨</span>
+          テキストから読み込む
+        </div>
+        <textarea id="addImportTextArea" style="width:100%;height:120px;border:2px solid var(--ink);padding:10px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.7;resize:none;outline:none;background:var(--white);margin-bottom:8px;" placeholder="🍳 レシピ名&#10;────────&#10;🥕 材料&#10;  ・材料名　量&#10;..."></textarea>
+        <button class="import-text-btn" onclick="applyImportText()">📥 フォームに読み込む</button>
+        <div id="addImportTextStatus" style="font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,0.55);margin-top:6px;min-height:16px;"></div>
       </div>
 
       <button class="save-btn" onclick="saveRecipe()">💾 保存する</button>
