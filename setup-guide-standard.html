@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SETUP GUIDE — MY RECIPE BOOK with U (Standard Edition)</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Bebas+Neue&family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #c8b4f0;
+    --lavender-light: #e8dcff;
+    --lavender-pale: #f3eeff;
+    --green: #3dce82;
+    --green-dark: #1fa85e;
+    --yellow: #FFFF00;
+    --ink: #0f0f0f;
+    --white: #ffffff;
+    --muted: #666;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--lavender-light);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green);
+    border-bottom: 3px solid var(--ink);
+    padding: 32px 24px 28px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 6px;
+  }
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 8vw, 52px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hero-title em {
+    font-style: normal;
+    background: var(--yellow);
+    padding: 0 4px;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', 'Caveat', cursive;
+    font-size: 17px;
+    color: rgba(0,0,0,0.6);
+    margin-top: 10px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--yellow);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--white);
+    border: 2.5px solid var(--ink);
+    border-top: none;
+    padding: 16px 20px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 3px solid var(--ink);
+  }
+  .toc-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+  .toc-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid var(--ink);
+    padding: 4px 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--lavender-pale);
+    transition: background 0.1s;
+  }
+  .toc-item:hover { background: var(--lavender); }
+  .toc-num {
+    font-size: 9px;
+    opacity: 0.4;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content {
+    padding: 0 24px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-top: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 2.5px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--lavender);
+    -webkit-text-stroke: 2px var(--ink);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+  }
+  .section-title small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .body-text + .body-text {
+    margin-top: -8px;
+  }
+
+  /* ── STEP BLOCKS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+  }
+  .step {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 44px;
+    min-height: 100%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    flex-shrink: 0;
+    border-right: 2px solid var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .step-body {
+    padding: 14px 16px;
+    flex: 1;
+  }
+  .step-action {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .step-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .step-detail a {
+    color: var(--green-dark);
+    font-weight: 700;
+  }
+
+  /* ── URL PILL ── */
+  .url-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 2px solid var(--ink);
+    background: var(--lavender-pale);
+    padding: 6px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    margin: 8px 0;
+    word-break: break-all;
+  }
+  .url-pill-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── NOTE / TIP ── */
+  .note {
+    border: 2px solid var(--ink);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    position: relative;
+    background: var(--lavender-pale);
+  }
+  .note-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .note-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .tip {
+    border-left: 4px solid var(--green);
+    background: rgba(61,206,130,0.08);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .tip-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    color: var(--green-dark);
+  }
+
+  .warn {
+    border-left: 4px solid var(--lavender);
+    background: rgba(200,180,240,0.15);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .warn-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ── PRICE TABLE (※スタンダード版では「無料」表に流用) ── */
+  .price-table {
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .price-table-head {
+    background: var(--ink);
+    color: var(--yellow);
+    padding: 10px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .price-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1.5px solid var(--lavender-light);
+    padding: 10px 16px;
+    gap: 12px;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-label {
+    flex: 1;
+    font-size: 13px;
+  }
+  .price-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .price-note-inline {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  /* ── FEATURE LIST ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 2.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+  }
+  @media (max-width: 420px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+  .feature-item {
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 14px 14px;
+    background: var(--white);
+  }
+  .feature-item:nth-child(2n) { border-right: none; }
+  .feature-item:nth-last-child(-n+2) { border-bottom: none; }
+  .feature-icon { font-size: 22px; margin-bottom: 6px; }
+  .feature-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+  }
+  .feature-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── 入力フォーム見本 ── */
+  .form-mock {
+    border: 2.5px solid var(--ink);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .form-mock-head {
+    background: var(--lavender);
+    border-bottom: 2.5px solid var(--ink);
+    padding: 10px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .form-row {
+    border-bottom: 1.5px solid var(--lavender-light);
+    padding: 12px 16px;
+  }
+  .form-row:last-child { border-bottom: none; }
+  .form-field-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .form-field-eg {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .form-field-eg .ph {
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 3px;
+    background: var(--ink);
+    margin: 40px 0 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: var(--white);
+    padding: 24px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .footer-main {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+  }
+  .footer-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+  }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    background: var(--lavender-light);
+    border: 1.5px solid var(--lavender);
+    padding: 1px 6px;
+  }
+
+  /* ── 小見出し（セクション内） ── */
+  .subhead {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 28px 0 10px;
+    padding-left: 10px;
+  }
+  .subhead.g { border-left: 4px solid var(--green); }
+  .subhead.l { border-left: 4px solid var(--lavender); }
+
+  /* ── ANCHOR OFFSET ── */
+  [id] { scroll-margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Standard Edition</div>
+    <div class="hero-eyebrow">MY RECIPE BOOK with U</div>
+    <div class="hero-title">SETUP<br>GUIDE</div>
+    <div class="hero-sub">手で書いて、自分だけのレシピ帳をつくる</div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <span class="toc-label">CONTENTS</span>
+    <a class="toc-item" href="#where"><span class="toc-num">01</span>データはどこに？</a>
+    <a class="toc-item" href="#what"><span class="toc-num">02</span>できること</a>
+    <a class="toc-item" href="#start"><span class="toc-num">03</span>はじめかた</a>
+    <a class="toc-item" href="#write"><span class="toc-num">04</span>レシピを書く</a>
+    <a class="toc-item" href="#organize"><span class="toc-num">05</span>探す・整理する</a>
+    <a class="toc-item" href="#share"><span class="toc-num">06</span>レシピを交換する</a>
+    <a class="toc-item" href="#backup"><span class="toc-num">07</span>バックアップ</a>
+    <a class="toc-item" href="#faq"><span class="toc-num">08</span>FAQ</a>
+  </nav>
+
+  <div class="content">
+
+    <!-- SECTION 01 — データはどこに？ -->
+    <div class="section" id="where">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-title">
+          <small>WHERE IS MY DATA</small>
+          データはどこに？
+        </div>
+      </div>
+
+      <p class="body-text">このアプリは「買い切りのHTMLファイル1枚」です。インストールもログインもなし。アカウントもいりません。その代わり、<strong>データの居場所</strong>が普通のアプリと少し違うので、最初にここだけ説明させてください。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div class="feature-title">レシピのデータ</div>
+          <div class="feature-desc">アプリを開いたブラウザの中（localStorage）に保存されます。サーバーには送られません</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔌</div>
+          <div class="feature-title">ネット接続</div>
+          <div class="feature-desc">基本いりません。オフラインでも書ける・読める・編集できる</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">バックアップ先</div>
+          <div class="feature-desc">自分のGoogleドライブ等にJSONで保存。アプリ側はクラウドを持ちません</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔗</div>
+          <div class="feature-title">デバイス間で共有</div>
+          <div class="feature-desc">エクスポート→別デバイスでインポート、という手動方式</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">つまり</div>
+        <div class="note-text">データはぜんぶ<strong>あなたのブラウザの中</strong>にあります。だから、<br>・ ブラウザのキャッシュを消すとレシピも消えます<br>・ 別のブラウザ／別の端末で開くと、そこは空っぽです<br>・ その代わり、サービス終了や課金変更でデータが人質になることはありません</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">大事なレシピは、セクション07の手順で定期的にバックアップを取ってください</div>
+      </div>
+    </div>
+
+    <!-- SECTION 02 — できること -->
+    <div class="section" id="what">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title">
+          <small>WHAT YOU CAN DO</small>
+          できること
+        </div>
+      </div>
+
+      <p class="body-text">スタンダード版は、レシピを<strong>自分の手で書いて貯めていく</strong>シンプルなレシピ帳です。よけいな機能はなし。書いて、探して、交換する。それだけにちゃんと効きます。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">✏️</div>
+          <div class="feature-title">手入力で書く</div>
+          <div class="feature-desc">レシピ名・材料・作り方・タグ・メモ・出典を自由に記録</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">検索・タグで探す</div>
+          <div class="feature-desc">増えてきても、キーワードやタグですぐ見つかる</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📨</div>
+          <div class="feature-title">テキストから読み込み</div>
+          <div class="feature-desc">送られてきたレシピテキストを貼るだけでフォームに自動展開</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📤</div>
+          <div class="feature-title">レシピを交換</div>
+          <div class="feature-desc">このアプリ同士なら、まるごとそっくり送り合える</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">完全ローカル動作</div>
+          <div class="feature-desc">レシピはブラウザ内のみに保存。詳しくはセクション01へ</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💸</div>
+          <div class="feature-title">追加費用ゼロ</div>
+          <div class="feature-desc">APIキーもアカウントも不要。買ったあと一切お金はかかりません</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">AI版との違い</div>
+        <div class="note-text">スタンダード版には、レシピのスクショをAIが自動で読み取る機能はありません。レシピは手で入力します。「写真を貼るだけで自動入力」を使いたい場合は<strong>AI版</strong>（別売）をご検討ください。なお、入力以外の機能（検索・タグ・交換・バックアップ）は両版とも同じです。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 03 — はじめかた -->
+    <div class="section" id="start">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-title">
+          <small>GETTING STARTED</small>
+          はじめかた
+        </div>
+      </div>
+
+      <p class="body-text">準備はほぼありません。ダウンロードしたファイルを開けば、それでもう使えます。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">ファイルを開く</div>
+            <div class="step-detail">ダウンロードした <code>my-recipe-book-with-u-standard.html</code> をブラウザで開きます。Safari / Chrome / Edge どれでもOK</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">ホーム画面に追加しておくと便利</div>
+            <div class="step-detail">スマホなら、ブラウザの共有メニューから「ホーム画面に追加」。アプリのように1タップで開けるようになります</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">右上の「＋ ADD」で最初のレシピを追加</div>
+            <div class="step-detail">これだけ。アカウント登録もログインも何もいりません</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text"><strong>開いたブラウザ＝あなたのレシピ帳</strong>です。いつも同じブラウザ（同じアプリのファイル）で開くようにしてください。違うブラウザで開くと、そこは空っぽの別のレシピ帳になります。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 04 — レシピを書く -->
+    <div class="section" id="write">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-title">
+          <small>WRITE A RECIPE</small>
+          レシピを書く
+        </div>
+      </div>
+
+      <p class="body-text">このアプリの主役。1品ぶんを手で書いて保存します。全部の欄を埋める必要はありません。<strong>レシピ名だけでも保存できます</strong>。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">右上の「＋ ADD」をタップ</div>
+            <div class="step-detail">「レシピを追加」画面が開きます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">レシピ名を入力</div>
+            <div class="step-detail">いちばん上の欄に。例：「お母さんの肉じゃが」。ここだけは入れてあげてください</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">材料を足していく</div>
+            <div class="step-detail">「＋ 材料を追加」を押すと、材料名と分量の欄が1行ずつ増えます。必要なぶんだけ追加</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">作り方・タグ・メモ・出典を入力</div>
+            <div class="step-detail">作り方は1行に1ステップ。タグは入力して<strong>Enter</strong>で追加。メモや出典（URLなど）は任意です</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-action">「💾 保存する」をタップ</div>
+            <div class="step-detail">これで一覧に追加されます。あとからいつでも「✏️ 編集」で直せます</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 入力欄の見本 -->
+      <h3 class="subhead l">入力欄の中身</h3>
+      <p class="body-text">追加画面には、こんな欄があります。埋めたいところだけ埋めればOKです。</p>
+
+      <div class="form-mock">
+        <div class="form-mock-head">レシピを追加</div>
+        <div class="form-row">
+          <div class="form-field-label">レシピ名</div>
+          <div class="form-field-eg"><span class="ph">例：お母さんの肉じゃが</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field-label">材料（＋ 材料を追加で増やす）</div>
+          <div class="form-field-eg">じゃがいも　3個<br>玉ねぎ　1個<br>牛こま　200g</div>
+        </div>
+        <div class="form-row">
+          <div class="form-field-label">作り方（1行 = 1手順）</div>
+          <div class="form-field-eg">1. 材料を切る<br>2. 炒める<br>3. だしと調味料を入れて煮る</div>
+        </div>
+        <div class="form-row">
+          <div class="form-field-label">🏷 タグ（Enterで追加）</div>
+          <div class="form-field-eg"><span class="ph">例：和食、お弁当...</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field-label">メモ（任意）</div>
+          <div class="form-field-eg"><span class="ph">気づいたこと、アレンジ、失敗したことなど...</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field-label">URL・出典（任意）</div>
+          <div class="form-field-eg"><span class="ph">https://... インスタ、レシピサイトなど</span></div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">完璧に書こうとしなくて大丈夫。あとから「✏️ 編集」で何度でも育てられます</div>
+      </div>
+
+      <!-- 入力をラクにする抜け道 -->
+      <h3 class="subhead g">📨 手で打たずに入れる方法もある</h3>
+      <p class="body-text">誰かがこのアプリから送ってくれたレシピなら、手打ちは不要です。追加画面のいちばん上に「<strong>テキストから読み込む</strong>」欄があり、もらったテキストを貼って「📥 フォームに読み込む」を押すと、各欄に自動で入ります。</p>
+      <p class="body-text">この使い方はセクション06でくわしく説明します。</p>
+    </div>
+
+    <!-- SECTION 05 — 探す・整理する -->
+    <div class="section" id="organize">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-title">
+          <small>FIND &amp; ORGANIZE</small>
+          探す・整理する
+        </div>
+      </div>
+
+      <p class="body-text">レシピが増えてきたら、探す・整える機能の出番です。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">キーワード検索</div>
+          <div class="feature-desc">画面上の「SEARCH RECIPES...」に入力。レシピ名や材料から絞り込めます。×ボタンで一発クリア</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏷</div>
+          <div class="feature-title">タグで絞り込み</div>
+          <div class="feature-desc">「和食」「お弁当」などのタグをタップすると、そのタグのレシピだけ表示</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">↕️</div>
+          <div class="feature-title">タグの並べ替え</div>
+          <div class="feature-desc">タグはドラッグで並べ替え可能。よく使うタグを手前に</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✏️</div>
+          <div class="feature-title">編集・削除</div>
+          <div class="feature-desc">レシピを開いて「✏️ 編集」で修正、「🗑 削除」で消去</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-label">タグの編集</div>
+        <div class="note-text">タグを<strong>長押し</strong>すると名前を編集できます。あとから「夕飯」を「主菜」に変える、みたいな整理もできます。</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">タグは最初から完璧に決めなくてOK。使いながら「これ便利だな」を足していくのがおすすめ</div>
+      </div>
+    </div>
+
+    <!-- SECTION 06 — レシピを交換する -->
+    <div class="section" id="share">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-title">
+          <small>SWAP RECIPES</small>
+          レシピを交換する
+        </div>
+      </div>
+
+      <p class="body-text">このアプリ同士なら、レシピを<strong>そっくりそのまま</strong>やり取りできます。LINEでメッセージを送る感覚で、レシピ名・材料・作り方・メモ・出典まで、まるごと相手のアプリに届きます。</p>
+
+      <p class="body-text">家族や友人がこのアプリを持っていれば、「うちのカレーのレシピ送るね」が、<strong>手打ちなし・写真撮り直しなし</strong>でできます。AI版とスタンダード版のあいだでも、問題なくやり取りできます。</p>
+
+      <div class="note">
+        <div class="note-label">仕組み</div>
+        <div class="note-text">シェアボタンを押すと、レシピが<strong>整形されたテキスト</strong>に変換されます。そのテキストをLINE・メール・メモアプリ等で送り、受け取った人はアプリの追加画面に貼り付けるだけ。サーバーを経由しないので、どこにも履歴が残りません。</div>
+      </div>
+
+      <!-- 送る側 -->
+      <h3 class="subhead g">📤 送る側</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">送りたいレシピを開く</div>
+            <div class="step-detail">一覧から送りたいレシピをタップ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「📤 シェア」ボタンをタップ</div>
+            <div class="step-detail">整形済みのレシピテキストが表示されます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">「📋 テキストをコピー」をタップ</div>
+            <div class="step-detail">クリップボードにコピーされます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">LINE・メール・メモアプリ等に貼り付けて送信</div>
+            <div class="step-detail">いつも使っている連絡ツールでそのまま送れます</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">貼り付ける場所はどこでもOK。LINEでもDiscordでもメールでも、テキストが通ればどこでも</div>
+      </div>
+
+      <!-- 受け取る側 -->
+      <h3 class="subhead g">📥 受け取る側</h3>
+
+      <p class="body-text">アプリを持っていれば、受け取ったテキストをそのまま<strong>自分のレシピ帳に取り込めます</strong>。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">もらったレシピテキストをコピー</div>
+            <div class="step-detail">LINEやメールの本文を長押しして全選択 → コピー</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">アプリで「＋ ADD」をタップ</div>
+            <div class="step-detail">追加画面の一番上に「📨 テキストから読み込む」欄があります</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">欄にペースト → 「📥 フォームに読み込む」</div>
+            <div class="step-detail">レシピ名・材料・作り方・メモ・出典が自動でフォームに展開されます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-action">内容を確認して「💾 保存する」</div>
+            <div class="step-detail">受け取ったまま保存してもいいし、自分好みに調整してから保存してもOK</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- シェアテキストの見本 -->
+      <h3 class="subhead l">シェアテキストの見た目</h3>
+      <p class="body-text">こんな形式でコピーされます。アプリを持っていない人が受け取っても、そのまま読めます。</p>
+
+      <div style="border:2.5px solid var(--ink);background:var(--white);padding:16px;margin-bottom:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;line-height:1.8;white-space:pre-wrap;box-shadow:4px 4px 0 var(--ink);">🍳 大根の辛子漬け
+────────────────────
+
+🥕 材料
+  ・大根　1/2本
+  ・塩　大さじ1
+  ・砂糖　大さじ3
+  ・辛子粉　大さじ1
+
+👩‍🍳 作り方
+1. 大根を拍子木切りにする
+2. 塩をまぶして30分おく
+3. 水気を絞り、砂糖と辛子粉を混ぜる
+4. 保存容器に入れて一晩漬ける
+
+💬 コツ
+辛子の風味は一晩おくとマイルドになります
+
+📌 出典：母のレシピ</div>
+
+      <!-- 楽しみ方 -->
+      <h3 class="subhead l">こんな使い方ができます</h3>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👩‍👧</div>
+          <div class="feature-title">母から娘へ</div>
+          <div class="feature-desc">「実家の味」を口頭じゃなくテキストで受け継ぐ。メモも出典も一緒に届く</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">👯</div>
+          <div class="feature-title">友達同士で交換</div>
+          <div class="feature-desc">「この前食べた美味しかったやつ」を、次の日にはお互いのレシピ帳に</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏠</div>
+          <div class="feature-title">家族で共有</div>
+          <div class="feature-desc">夫婦・親子で同じレシピ帳を育てる。誰かが追加したら送り合うだけ</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✍️</div>
+          <div class="feature-title">アレンジして返す</div>
+          <div class="feature-desc">受け取ったレシピを自分好みに調整して「うちはこうしたよ」と送り返せる</div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text">シェアするのは<strong>テキストだけ</strong>です。レシピに設定した写真は送られません。画像が必要な場合は別途LINE等で送ってください。</div>
+      </div>
+    </div>
+
+    <!-- SECTION 07 — バックアップ -->
+    <div class="section" id="backup">
+      <div class="section-header">
+        <div class="section-num">07</div>
+        <div class="section-title">
+          <small>BACKUP / EXPORT / IMPORT</small>
+          バックアップと引っ越し
+        </div>
+      </div>
+
+      <p class="body-text">レシピが増えてきたら、<strong>バックアップ</strong>を取ってください。別のスマホや新しいPCに<strong>引っ越し</strong>する時もこの機能を使います。</p>
+
+      <p class="body-text">このアプリ自体はクラウドを持たないので、保存先はあなた自身のクラウドストレージ（<strong>Googleドライブ・iCloud Drive・Dropbox</strong> など、普段使っているもの）を使います。</p>
+
+      <div class="note">
+        <div class="note-label">保存形式</div>
+        <div class="note-text">・ <strong>JSONファイル</strong> … アプリに読み戻せる引っ越し用データ<br>・ <strong>バックアップHTML</strong> … アプリがなくても開ける閲覧専用のレシピ集</div>
+      </div>
+
+      <!-- エクスポート -->
+      <h3 class="subhead g">📤 エクスポート（書き出す）</h3>
+      <p class="body-text">今のレシピをファイル1個にまとめて書き出します。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">設定を開く</div>
+            <div class="step-detail">画面下の「⚙ 設定」をタップ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「📤 レシピをエクスポート（JSONファイル）」をタップ</div>
+            <div class="step-detail">「データのバックアップ」欄にあります</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">保存先を選ぶ</div>
+            <div class="step-detail"><code>my-recipe-book-YYYY-MM-DD.json</code> というファイル名で、Googleドライブ等クラウドに保存しておくのがおすすめ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">月1回バックアップ、くらいの気持ちでOK。レシピを大量に追加した日も忘れずに</div>
+      </div>
+
+      <!-- インポート -->
+      <h3 class="subhead g">📥 インポート（読み戻す）</h3>
+      <p class="body-text">書き出したJSONファイルを読み込んで、アプリを元の状態に戻します。別の端末への引っ越しもこの手順です。</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-action">新しい端末でアプリを開く</div>
+            <div class="step-detail">引っ越し先の端末で <code>my-recipe-book-with-u-standard.html</code> を開いて、設定へ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-action">「📥 レシピをインポート（JSONファイル）」をタップ</div>
+            <div class="step-detail">ファイル選択ダイアログが開きます</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-action">JSONファイルを選ぶ</div>
+            <div class="step-detail">クラウドに保存したJSONを選択。読み込み完了のメッセージが出れば成功</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div class="warn-text"><strong>インポートすると既存データはすべて上書きされます。</strong>元の端末のレシピと新しいファイルのレシピを合体させたい場合は、先に元の端末でエクスポートしてから、JSONファイルをテキストエディタで編集する必要があります（上級者向け）。</div>
+      </div>
+
+      <!-- バックアップHTML -->
+      <h3 class="subhead l">📄 バックアップHTML（見るだけ版）</h3>
+      <p class="body-text">レシピを「アプリなしでも開ける1枚のHTML」として書き出す機能です。スマホのブラウザで開けば、編集はできないけど、読むだけなら誰でもできます。</p>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👀</div>
+          <div class="feature-title">閲覧専用</div>
+          <div class="feature-desc">追加・編集はできない。見るだけ</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📲</div>
+          <div class="feature-title">端末を問わない</div>
+          <div class="feature-desc">ブラウザさえあれば開けるので、家族と共有しやすい</div>
+        </div>
+      </div>
+
+      <p class="body-text">設定 → 「📄 バックアップHTML（見るだけ版）を保存」から書き出せます。普段使いのバックアップは<strong>JSON</strong>、共有用はHTML、と使い分けるのがおすすめ。</p>
+
+      <!-- どこに保存すべきか -->
+      <h3 class="subhead l">どこに保存する？</h3>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">Googleドライブ</div>
+          <div class="feature-desc">無料15GB。Googleアカウントがあればすぐ使えます</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🍎</div>
+          <div class="feature-title">iCloud Drive</div>
+          <div class="feature-desc">iPhoneユーザーなら無料枠5GBで十分足りる</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div class="feature-title">Dropbox など</div>
+          <div class="feature-desc">普段使っているクラウドで全く問題なし</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💾</div>
+          <div class="feature-title">端末内だけはNG</div>
+          <div class="feature-desc">端末を壊すと一緒に消えるので、必ずクラウドへ</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-text">どのクラウドを使っても、保存するのはただのJSONファイルです。特別な設定は何もいりません</div>
+      </div>
+    </div>
+
+    <!-- SECTION 08 — FAQ -->
+    <div class="section" id="faq">
+      <div class="section-header">
+        <div class="section-num">08</div>
+        <div class="section-title">
+          <small>FAQ</small>
+          よくある質問
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">アカウント登録やログインは必要ですか？</div>
+            <div class="step-detail">いりません。ファイルを開けばすぐ使えます。インターネット接続も基本的に不要です。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">買ったあと、お金はかかりますか？</div>
+            <div class="step-detail">かかりません。APIキーもサーバーも使わないので、追加費用はゼロです。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">スマートフォンでも使えますか？</div>
+            <div class="step-detail">はい。Safari / Chrome いずれでも動作します。ホーム画面に追加しておくと、アプリのように開けて便利です。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">写真をAIに読み取ってもらうことはできますか？</div>
+            <div class="step-detail">スタンダード版にはAI読み取り機能はありません。レシピは手で入力します。その機能が必要な場合は<strong>AI版</strong>をご検討ください。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">アプリを持ってない人にレシピをシェアできますか？</div>
+            <div class="step-detail">送ることはできます。シェア機能で生成されるのは普通のテキストなので、LINE等で送れば相手もそのまま読めます。ただし相手のアプリに<strong>取り込めるのはアプリを持っている人だけ</strong>です。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">AI版とレシピをやり取りできますか？</div>
+            <div class="step-detail">できます。シェアのテキスト形式は両版で共通なので、AI版で書いたレシピをスタンダード版で受け取ることも、その逆もできます。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">ブラウザのキャッシュを消すとどうなりますか？</div>
+            <div class="step-detail">レシピデータが消えます。大切なレシピは定期的にエクスポート（設定 → バックアップ）しておくことをおすすめします。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">機種変更するときはどうすればいい？</div>
+            <div class="step-detail">① 古い端末で「📤 エクスポート」→ JSONをクラウド（Googleドライブ等）に保存 → ② 新しい端末でアプリHTMLを開く → ③ 設定から「📥 インポート」でJSONを選ぶ、で引っ越し完了です。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">JSONとバックアップHTMLの違いは？</div>
+            <div class="step-detail"><strong>JSON</strong> = アプリに読み戻して編集を再開できる引っ越し用データ。<strong>バックアップHTML</strong> = アプリなしでもブラウザで開ける閲覧専用ファイル。普段のバックアップはJSON、家族と共有したい時はHTML、と使い分けてください。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--lavender);font-size:20px;">Q</div>
+          <div class="step-body">
+            <div class="step-action">クラウドを何も使ってないけど大丈夫？</div>
+            <div class="step-detail">Googleアカウントがあれば、Googleドライブが無料で15GB使えます。iPhoneなら初期設定でiCloud Driveが有効になっていることが多いです。バックアップの保存先として使ってください。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-title">MY RECIPE BOOK with U — Standard Edition</div>
+    <div class="footer-main">SETUP GUIDE</div>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+</body>
+</html>
